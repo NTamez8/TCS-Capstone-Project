@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 let schema = mongoose.Schema;
 
 let admin = new schema({
-    _id:Number,
     firstName:String,
     lastName:String,
     a_username:String,
