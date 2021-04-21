@@ -7,6 +7,7 @@ const productRoutes = require('./routes/productRoute');
 const requestRoutes = require('./routes/requestRoute');
 const ticketRoutes = require('./routes/ticketRoute');
 const userRoutes = require('./routes/userRoute');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const express = require('express');
 const app = express();
