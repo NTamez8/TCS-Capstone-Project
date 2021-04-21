@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 let schema = mongoose.Schema;
 
 let ticket = new schema({
-    _id:String,
+
     u_username:String,              //user who raised the ticket
     datetime_raised:String,
     datetime_resolved:String,
