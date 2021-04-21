@@ -1,12 +1,21 @@
 const employee = require('../models/employeeModel');
-
+const validationHandler = require('../validators/validationHandler');
 let addEmployee = async (req,res,next) =>
 {
     try{
+        validationHandler(req);
         let newEmp = new employee();
+
+        
+
+       
+
         newEmp.firstName = req.body.firstName;
         newEmp.lastName = req.body.lastName;
         newEmp.email_address = req.body.email_address;
+
+        
+
         newEmp.e_password = '1234';
         newEmp.first_login = true;
        await newEmp.save();
@@ -17,6 +26,26 @@ let addEmployee = async (req,res,next) =>
     }
 }
 
+let deleteEmployee = async (req,res,next)=>{
+
+    try{
+        let id = req.params.id;
+        let emp = await employee.findById(id);
+        if(emp == null)
+        {
+            let error = new Error('Bad request');
+            error.statusCode = 400;
+            throw error;
+        }
+        await emp.delete();
+        res.send({"message":"deleted"});
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
 
 
-module.exports = {addEmployee}
+
+module.exports = {addEmployee,deleteEmployee}

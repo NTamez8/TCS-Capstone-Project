@@ -7,6 +7,7 @@ const productRoutes = require('./routes/productRoute');
 const requestRoutes = require('./routes/requestRoute');
 const ticketRoutes = require('./routes/ticketRoute');
 const userRoutes = require('./routes/userRoute');
+const errorHandler = require('./middleware/errorHandler');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const express = require('express');
@@ -35,7 +36,7 @@ app.use('/ticket',ticketRoutes);
 app.use('/user',userRoutes);
 
 
-
+app.use(errorHandler);
 
 
 app.listen(serverConfig.port,()=>console.log(`listening on port ${serverConfig.port}`));
