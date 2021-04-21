@@ -9,7 +9,7 @@ let addEmployee = async (req,res,next) =>
         newEmp.email_address = req.body.email_address;
         newEmp.e_password = '1234';
         newEmp.first_login = true;
-        await newEmp.save();
+       await newEmp.save();
         res.send({"message":"Success"});
     }
     catch(err){
