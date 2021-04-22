@@ -11,7 +11,10 @@ import { ViewCartComponent } from './Components/user/view-cart/view-cart.compone
 import { ViewOrderStatusComponent } from './Components/user/view-order-status/view-order-status.component';
 import { ProfileComponent } from './Components/user/profile/profile.component';
 import { CheckoutComponent } from './Components/user/checkout/checkout.component';
-
+import { AddEmployeeComponent } from './Components/admin/add-employee/add-employee.component';
+import { FormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import { DeleteEmployeeComponent } from './Components/admin/delete-employee/delete-employee.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,11 +25,15 @@ import { CheckoutComponent } from './Components/user/checkout/checkout.component
     ViewCartComponent,
     ViewOrderStatusComponent,
     ProfileComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    AddEmployeeComponent,
+    DeleteEmployeeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
