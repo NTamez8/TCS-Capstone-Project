@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 let schema = mongoose.Schema;
 
 let employee = new schema({
-    _id:Number,
     firstName:String,
     lastName:String,
     email_address:String,
