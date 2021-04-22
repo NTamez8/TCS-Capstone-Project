@@ -9,7 +9,8 @@ export class User {
         public date_of_birth:String,
         public locked:Boolean,
         public funds:Number,
-        public order_history:String            //stringified JSON of order array (Order[]) 
+        public order_history:String,            //stringified JSON of order array (Order[]) 
+        public _id?:String
         ){}
 
 }

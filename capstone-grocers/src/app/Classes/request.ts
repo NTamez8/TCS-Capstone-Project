@@ -5,7 +5,8 @@ export class Request {
         public new_quantity:Number,
         public datetime_requested:String,
         public datetime_resolved:String,
-        public status:String                   //can be either "in-progress" or "resolved"
+        public status:String,                   //can be either "in-progress" or "resolved"
+        public _id?:String
         ){}
 
 }
