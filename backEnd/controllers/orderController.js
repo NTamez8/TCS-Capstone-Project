@@ -120,27 +120,5 @@ let getOrdersByCust = async (req,res,next) =>
     }
 }
 
-let insertOrderTest = async (req,res,next)=>
-{
-    try
-    {
-        let newOrder = new order();
-        newOrder.u_username = 'testPerson';
-        newOrder.datetime_requested = new Date('4/22/2021');
-        newOrder.datetime_fulfilled = new Date('4/29/2021');
-        newOrder.status = 'done';
-        newOrder.cart = [
-            {quantity:4,
-                product:'6081ec19a6af1e1a94f37690'
-            }
-        ]
-        await newOrder.save();
-        res.send({"message":"success"})
-    }
-    catch(err)
-    {
-        next(err)
-    }
-}
 
-module.exports = {getOrderById,updateOrderByStatus,getOrdersByDay,getOrdersByWeek,getOrdersByMonth,getOrdersByCust,getOrdersByProduct,insertOrderTest}
+module.exports = {getOrderById,updateOrderByStatus,getOrdersByDay,getOrdersByWeek,getOrdersByMonth,getOrdersByCust,getOrdersByProduct}
