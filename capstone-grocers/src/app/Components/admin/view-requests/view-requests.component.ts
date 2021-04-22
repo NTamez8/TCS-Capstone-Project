@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RequestService } from 'src/app/Services/request.service';
 
 @Component({
   selector: 'app-view-requests',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewRequestsComponent implements OnInit {
 
-  constructor() { }
+  private requests = [];
+
+  constructor(private requestService:RequestService) { }
 
   ngOnInit(): void {
+
   }
 
+  viewRequests(){
+    //probably returning an observable for .subscribe
+    
+  }
 }
