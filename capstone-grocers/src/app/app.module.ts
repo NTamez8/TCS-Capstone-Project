@@ -13,7 +13,8 @@ import { ProfileComponent } from './Components/user/profile/profile.component';
 import { CheckoutComponent } from './Components/user/checkout/checkout.component';
 import { AddEmployeeComponent } from './Components/admin/add-employee/add-employee.component';
 import { FormsModule } from '@angular/forms';
-
+import {HttpClientModule} from '@angular/common/http';
+import { DeleteEmployeeComponent } from './Components/admin/delete-employee/delete-employee.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,12 +26,14 @@ import { FormsModule } from '@angular/forms';
     ViewOrderStatusComponent,
     ProfileComponent,
     CheckoutComponent,
-    AddEmployeeComponent
+    AddEmployeeComponent,
+    DeleteEmployeeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

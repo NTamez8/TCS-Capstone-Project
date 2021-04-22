@@ -1,8 +1,8 @@
 <div>
     <form #empRef = "ngForm" (ngSubmit)='formSubmit(empRef.value)'>
-        <label>First Name </label><input type="text" name='firstName'><br>
-        <label>Last Name </label><input type="text" name='lastName'><br>
-        <label>Email </label><input type="text" name='email'><br>
-        <input type="sumbit" value="Add"><input type="reset" value = "Clear">
+        <label>First Name </label><input type="text" name='firstName' ngModel required><br>
+        <label>Last Name </label><input type="text" name='lastName' ngModel required><br>
+        <label>Email </label><input type="text" name='email' ngModel required><br>
+        <input type="submit" value="Add" [disabled] = '!empRef.valid'><input type="reset" value = "Clear">
     </form>
 </div>
