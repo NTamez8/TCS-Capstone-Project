@@ -15,6 +15,12 @@ import { AddEmployeeComponent } from './Components/admin/add-employee/add-employ
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { DeleteEmployeeComponent } from './Components/admin/delete-employee/delete-employee.component';
+import { AddProductsComponent } from './Components/admin/add-products/add-products.component';
+import { DeleteProductsComponent } from './Components/admin/delete-products/delete-products.component';
+import { UpdateProductsComponent } from './Components/admin/update-products/update-products.component';
+import { ViewRequestsComponent } from './Components/admin/view-requests/view-requests.component';
+import { AdminPanelComponent } from './Components/admin/admin-panel/admin-panel.component';
+import { SignInComponent as AdminSignInComponent } from './Components/admin/sign-in/sign-in.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +33,13 @@ import { DeleteEmployeeComponent } from './Components/admin/delete-employee/dele
     ProfileComponent,
     CheckoutComponent,
     AddEmployeeComponent,
-    DeleteEmployeeComponent
+    DeleteEmployeeComponent,
+    AddProductsComponent,
+    DeleteProductsComponent,
+    UpdateProductsComponent,
+    ViewRequestsComponent,
+    AdminPanelComponent,
+    AdminSignInComponent
   ],
   imports: [
     BrowserModule,
