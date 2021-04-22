@@ -3,13 +3,20 @@ const mongoose = require('mongoose');
 
 let schema = mongoose.Schema;
 
+let cartItemSchema = new schema({
+
+    product:{type:schema.Types.ObjectId, ref:'Product'},
+    quantity:Number
+
+})
 
 let order = new schema({
     _id:Number,
     u_username:String,
-    cart:String,                //stringified JSON of user's cart (Product[])
-    datetime_requested:String,
-    datetime_fulfilled:String,
+    //cart:String,                //stringified JSON of user's cart (Product[])
+    cart:[cartItemSchema],
+    datetime_requested:Date,
+    datetime_fulfilled:Date,
     status:String               //can be either "in-progress" or "fulfilled"
 
 });
