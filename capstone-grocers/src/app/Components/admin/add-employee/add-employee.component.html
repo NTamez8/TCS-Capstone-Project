@@ -1,0 +1,8 @@
+<div>
+    <form #empRef = "ngForm" (ngSubmit)='formSubmit(empRef.value)'>
+        <label>First Name </label><input type="text" name='firstName'><br>
+        <label>Last Name </label><input type="text" name='lastName'><br>
+        <label>Email </label><input type="text" name='email'><br>
+        <input type="sumbit" value="Add"><input type="reset" value = "Clear">
+    </form>
+</div>
