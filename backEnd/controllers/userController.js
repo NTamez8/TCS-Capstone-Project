@@ -1,5 +1,7 @@
 const user = require('../models/userModel');
 const userValidator = require('../validators/userValidators');
+const userConfig = require('../config/userConfig');
+const jwt = require('jwt-simple');
 let signIn = async (req,res,next)=>{
     try{
 

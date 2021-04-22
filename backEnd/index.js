@@ -1,5 +1,6 @@
 const serverConfig = require('./config/serverConfig');
 const mongooseConfig = require('./config/dbConfig');
+
 const adminRoutes = require('./routes/adminRoute');
 const employeeRoutes = require('./routes/employeeRoute');
 const orderRoutes = require('./routes/orderRoute');
@@ -7,13 +8,17 @@ const productRoutes = require('./routes/productRoute');
 const requestRoutes = require('./routes/requestRoute');
 const ticketRoutes = require('./routes/ticketRoute');
 const userRoutes = require('./routes/userRoute');
+
 const errorHandler = require('./middleware/errorHandler');
+const adminAuth = require('./middleware/adminPassport')();
+
 const mongoose = require('mongoose');
 const cors = require('cors');
 const express = require('express');
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(adminAuth.initialize());
 
 
 mongoose.Promise = global.Promise;
