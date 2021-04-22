@@ -10,4 +10,6 @@ let product = new schema({
     quantity:Number
 });
 
+
+
 module.exports = mongoose.model('Product',product);

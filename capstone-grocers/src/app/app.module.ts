@@ -15,6 +15,8 @@ import { AddEmployeeComponent } from './Components/admin/add-employee/add-employ
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { DeleteEmployeeComponent } from './Components/admin/delete-employee/delete-employee.component';
+import { SignOutComponent } from './Components/admin/sign-out/sign-out.component';
+import { ReportComponent } from './Components/admin/report/report.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,9 @@ import { DeleteEmployeeComponent } from './Components/admin/delete-employee/dele
     ProfileComponent,
     CheckoutComponent,
     AddEmployeeComponent,
-    DeleteEmployeeComponent
+    DeleteEmployeeComponent,
+    SignOutComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
