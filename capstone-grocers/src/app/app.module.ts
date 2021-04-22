@@ -15,6 +15,11 @@ import { AddEmployeeComponent } from './Components/admin/add-employee/add-employ
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { DeleteEmployeeComponent } from './Components/admin/delete-employee/delete-employee.component';
+import { OrderStatusComponent } from './Components/employee/order-status/order-status.component';
+import { SendRequestComponent } from './Components/employee/send-request/send-request.component';
+import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-users.component';
+import { EditProfileComponent } from './Components/employee/edit-profile/edit-profile.component';
+import { LogOutComponent } from './Components/employee/log-out/log-out.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +32,12 @@ import { DeleteEmployeeComponent } from './Components/admin/delete-employee/dele
     ProfileComponent,
     CheckoutComponent,
     AddEmployeeComponent,
-    DeleteEmployeeComponent
+    DeleteEmployeeComponent,
+    OrderStatusComponent,
+    SendRequestComponent,
+    UnlockUsersComponent,
+    EditProfileComponent,
+    LogOutComponent
   ],
   imports: [
     BrowserModule,

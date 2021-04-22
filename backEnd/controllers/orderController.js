@@ -13,7 +13,7 @@ let getOrderById=(req,res)=>{
 let updateOrderByStatus=(req,res)=>{
     let pid=req.body.pid;
     let updatedstatus=req.body.status
-    ProductModel.updateMany({_id:pid},{$set:{status:updatedstatus}},(err,result)=>{
+    orderModel.updateMany({_id:pid},{$set:{status:updatedstatus}},(err,result)=>{
         if(!err){
             if(result.nModified>0){
             res.send("Order updated succesfully"+result)
@@ -27,5 +27,24 @@ let updateOrderByStatus=(req,res)=>{
         }
     })
 }
+
+// let storeOrderByStatus=(req,res)=>{
+//     let orderdetails = new order({
+//         _id:req.body.oid,
+//         status:req.body.status,
+        
+//     });
+//     orderdetails.save((err,result)=>{
+//         if(!err){
+//             res.send("order status upadted  successfully"+result)
+//             //res.json("msg":"Record Stored successfully")
+//         }else{
+//             res.send("Order Didn't upadte"+err)
+//         }
+
+    
+//     })
+
+// }
 
 module.exports = {getOrderById,updateOrderByStatus}
