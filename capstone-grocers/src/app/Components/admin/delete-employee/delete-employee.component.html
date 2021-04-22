@@ -1,1 +1,8 @@
-<p>delete-employee works!</p>
+<div>
+    <form #emp='ngForm' (ngSubmit)='submitDelete(emp.value)'>
+        <label>Employee to delete</label><select name='_id' ngModel>
+            <option *ngFor='let employee of employees' value="{{employee._id}}">{{employee.firstName}} {{employee.lastName}}</option>
+        </select><br>
+        <input type="submit" value='delete'>
+    </form>
+</div>

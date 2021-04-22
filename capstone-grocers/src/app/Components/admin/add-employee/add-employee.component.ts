@@ -24,7 +24,7 @@ export class AddEmployeeComponent implements OnInit {
     let email = newEmpData.email;
     let emp = new Employee(fname,lname,email);
     
-    this.empService.AddEmployee(emp).subscribe(data=>console.log(data));
+    this.empService.addEmployee(emp).subscribe(data=>console.log(data));
   }
 
 }

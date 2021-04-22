@@ -1,5 +1,17 @@
 const employee = require('../models/employeeModel');
 const validationHandler = require('../validators/validationHandler');
+
+let getAll = async (req,res,next) =>{
+    try{
+        let emps = await employee.find();
+        res.send(emps);
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
+
 let addEmployee = async (req,res,next) =>
 {
     try{
@@ -48,4 +60,4 @@ let deleteEmployee = async (req,res,next)=>{
 
 
 
-module.exports = {addEmployee,deleteEmployee}
+module.exports = {addEmployee,deleteEmployee,getAll}
