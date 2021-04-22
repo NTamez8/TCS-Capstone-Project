@@ -4,9 +4,11 @@ const userConfig = require('../config/userConfig');
 const jwt = require('jwt-simple');
 let signIn = async (req,res,next)=>{
     try{
+        
         let u_username = req.body.email;
         let pass = req.body.pass;
         let user = await User.findOne({u_username});
+        
         if(!user)
         {
             const error = new Error("Wrong credentials");
@@ -14,6 +16,7 @@ let signIn = async (req,res,next)=>{
             throw error;
         }
         const validPassword = await user.validPassword(pass);
+       
         if(!validPassword)
         {
             const error = new Error("Wrong credentials");
@@ -21,7 +24,7 @@ let signIn = async (req,res,next)=>{
             throw error;
         }
         const token = jwt.encode({id:user._id},userConfig.secret);
-        res.send({user,token});
+        res.send({token});
     }
     catch(err)
     {

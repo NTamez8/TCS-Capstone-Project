@@ -27,7 +27,7 @@ user.methods.encryptPassword = async password =>{
 };
 
 user.methods.validPassword = async function(candidatePassword){
-    const result = await bcrypt.compare(candidatePassword,this.password);
+    const result = await bcrypt.compare(candidatePassword,this.u_password);
     return result;
 };
 
