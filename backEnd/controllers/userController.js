@@ -60,7 +60,11 @@ let signUp = async (req,res,next)=>{
     }
 }
 
-let selectItemsfromCart = async(req,res)=>{
+
+
+
+
+let selectItemsfromCart = (req,res)=>{
     let userCart = new User({
         _id:req.body.item_id,
         u_username: req.body.u_username    

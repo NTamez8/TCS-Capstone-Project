@@ -11,8 +11,14 @@ let getProductById = async(req,res)=>{
     });
 };
 
+<<<<<<< HEAD
 let getAllProducts = async(req,res)=>{
     await ProductModel.find({},(error,data)=>{
+=======
+
+let getAllProducts=(req,res)=>{
+    ProductModel.find({},(error,data)=>{
+>>>>>>> testBranch
         if(!error){
             res.json(data);
         }else{
@@ -67,4 +73,9 @@ let deleteProductById = (req,res)=>{
     });
 };
 
+<<<<<<< HEAD
 module.exports = {getProductById, getAllProducts, addProduct, updateProductQuantityById, deleteProductById};
+=======
+module.exports = {getProductById, getAllProducts, updateProductQuantityById, deleteProductById};
+
+>>>>>>> testBranch

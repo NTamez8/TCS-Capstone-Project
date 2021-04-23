@@ -15,18 +15,17 @@ import { AddEmployeeComponent } from './Components/admin/add-employee/add-employ
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { DeleteEmployeeComponent } from './Components/admin/delete-employee/delete-employee.component';
+import { OrderStatusComponent } from './Components/employee/order-status/order-status.component';
+import { SendRequestComponent } from './Components/employee/send-request/send-request.component';
+import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-users.component';
+import { EditProfileComponent } from './Components/employee/edit-profile/edit-profile.component';
+import { LogOutComponent } from './Components/employee/log-out/log-out.component';
 import { AddProductsComponent } from './Components/admin/add-products/add-products.component';
 import { DeleteProductsComponent } from './Components/admin/delete-products/delete-products.component';
 import { UpdateProductsComponent } from './Components/admin/update-products/update-products.component';
 import { ViewRequestsComponent } from './Components/admin/view-requests/view-requests.component';
 import { AdminPanelComponent } from './Components/admin/admin-panel/admin-panel.component';
 import { SignInComponent as AdminSignInComponent } from './Components/admin/sign-in/sign-in.component';
-import { EmployeeComponent } from './employee/employee.component';
-import { OrderStatusComponent } from './Components/employee/order-status/order-status.component';
-import { SendRequestComponent } from './Components/employee/send-request/send-request.component';
-import { EditProfileComponent } from './Components/employee/edit-profile/edit-profile.component';
-import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-users.component';
-import { LogOutComponent } from './Components/employee/log-out/log-out.component';
 import { SignOutComponent } from './Components/admin/sign-out/sign-out.component';
 import { ReportComponent } from './Components/admin/report/report.component';
 
@@ -43,20 +42,25 @@ import { ReportComponent } from './Components/admin/report/report.component';
     CheckoutComponent,
     AddEmployeeComponent,
     DeleteEmployeeComponent,
+    
+   // EmployeeComponent,
+    OrderStatusComponent,
+    SendRequestComponent,
+    UnlockUsersComponent,
+    EditProfileComponent,
+    LogOutComponent,
+
+    SignOutComponent,
+    ReportComponent,
+
     AddProductsComponent,
     DeleteProductsComponent,
     UpdateProductsComponent,
     ViewRequestsComponent,
     AdminPanelComponent,
-    AdminSignInComponent,
-    EmployeeComponent,
-    OrderStatusComponent,
-    SendRequestComponent,
-    EditProfileComponent,
-    UnlockUsersComponent,
-    LogOutComponent,
-    SignOutComponent,
-    ReportComponent
+    AdminSignInComponent
+
+   // DeleteEmployeeComponent
   ],
   imports: [
     BrowserModule,
