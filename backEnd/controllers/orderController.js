@@ -103,18 +103,23 @@ let getOrdersByMonth = async (req, res, next) => {
         let monthStart = req.body.monthStart;
         let date = new Date(monthStart);
         let month = date.getMonth();
+        console.log(month);
         let year = '';
         if (month == 12) {
-            month = 1;
+            month = 0;
             year = date.getFullYear() + 1;
         } else {
             month++;
             year = date.getFullYear();
         }
-        let nextMonth = new Date(year, month, day);
+        let day = 1;
+        let nextMonth = new Date(year, month + 1, day);
+        
+        console.log(nextMonth,date,month);
+
         let foundOrders = await order.find({
             datetime_requested: {
-                $gte: monthStart,
+                $gte: date,
                 $lt: nextMonth.toLocaleDateString()
             }
         });
