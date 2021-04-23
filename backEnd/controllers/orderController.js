@@ -139,8 +139,14 @@ let getOrdersByCust = async (req,res,next) =>
 {
     try
     {
-        let custId = req.boyd.custId;
-        let ordersByProd = await order.find({u_username:custId});
+        let custId = req.params.custId;
+        let ordersByProd = await order.find({u_username:custId}).populate('cart.product');
+        if(!ordersByProd)
+        {
+            const error = new Error("Wrong credentials");
+            error.statusCode = 401;
+            throw error;
+        }
         res.send(ordersByProd);
     }
     catch(err)

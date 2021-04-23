@@ -7,5 +7,5 @@ routes.put("/updateOrderStatus",orderController.updateOrderByStatus)
 // routes.get("/storeOrderStatus",orderController.storeOrderByStatus)
 routes.get("/updateProductStatus",orderController.updateOrderByStatus)
 
-
+routes.get('/getOrdersByCust/:id',orderController.getOrdersByCust);
 module.exports = routes;
