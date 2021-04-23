@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService } from 'src/app/Services/order.service';
+
 @Component({
   selector: 'app-order-status',
   templateUrl: './order-status.component.html',
@@ -28,6 +29,8 @@ export class OrderStatusComponent implements OnInit {
       this.updateMsg=result;
     })
 
+
+  
   }
 
 }

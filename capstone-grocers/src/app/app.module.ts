@@ -15,11 +15,26 @@ import { AddEmployeeComponent } from './Components/admin/add-employee/add-employ
 import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { DeleteEmployeeComponent } from './Components/admin/delete-employee/delete-employee.component';
+// <<<<<<< HEAD
+// import { EmployeeComponent } from './employee/employee.component';
 import { OrderStatusComponent } from './Components/employee/order-status/order-status.component';
 import { SendRequestComponent } from './Components/employee/send-request/send-request.component';
 import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-users.component';
 import { EditProfileComponent } from './Components/employee/edit-profile/edit-profile.component';
 import { LogOutComponent } from './Components/employee/log-out/log-out.component';
+// =======
+// // <<<<<<< HEAD
+// import { EmployeeComponent } from './employee/employee.component';
+// import { OrderStatusComponent } from './Components/employee/order-status/order-status.component';
+// import { SendRequestComponent } from './Components/employee/send-request/send-request.component';
+// import { EditProfileComponent } from './Components/employee/edit-profile/edit-profile.component';
+// import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-users.component';
+// import { LogOutComponent } from './Components/employee/log-out/log-out.component';
+
+import { SignOutComponent } from './Components/admin/sign-out/sign-out.component';
+import { ReportComponent } from './Components/admin/report/report.component';
+// >>>>>>> ab40096027f8d93df78a8c01ea5bccab50b15aa7
+// >>>>>>> master
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,11 +48,24 @@ import { LogOutComponent } from './Components/employee/log-out/log-out.component
     CheckoutComponent,
     AddEmployeeComponent,
     DeleteEmployeeComponent,
+
     OrderStatusComponent,
     SendRequestComponent,
     UnlockUsersComponent,
     EditProfileComponent,
-    LogOutComponent
+    LogOutComponent,
+
+    // EmployeeComponent,
+    OrderStatusComponent,
+    SendRequestComponent,
+    EditProfileComponent,
+    UnlockUsersComponent,
+    LogOutComponent,
+
+    SignOutComponent,
+    ReportComponent
+// >>>>>>> ab40096027f8d93df78a8c01ea5bccab50b15aa7
+// >>>>>>> master
   ],
   imports: [
     BrowserModule,

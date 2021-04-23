@@ -16,4 +16,8 @@ export class SendRequestComponent implements OnInit {
     console.log(productRef);
     this.productSer.sendRequest(productRef)
       }
+  
+
+  
+
 }
