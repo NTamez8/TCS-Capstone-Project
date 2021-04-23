@@ -5,7 +5,6 @@ const routes = express.Router();
 
 routes.post('/signUp',[hasAddress,hasDoB,hasEmail,hasFirstName,hasLastName,hasPassword,hasPhoneNo],userController.signUp);
 
-routes.post('/signIn',userController.signIn);
 
 routes.get("/selectItemsfromCart",userController.selectItemsfromCart)
 routes.get("/deleteItemsfromCart/:item_id",userController.deleteItemsfromCart)
