@@ -8,7 +8,7 @@ import {HttpClientModule} from '@angular/common/http'
 import { AppComponent } from './app.component';
 //USER
 import { UserPanelComponent } from './Components/user/user-panel/user-panel.component';
-import { SignInComponent } from './Components/user/sign-in/sign-in.component';
+import { SignInComponent as UserSignInComponent } from './Components/user/sign-in/sign-in.component';
 import { SignUpComponent } from './Components/user/sign-up/sign-up.component';
 import { SelectItemComponent } from './Components/user/select-item/select-item.component';
 import { ViewCartComponent } from './Components/user/view-cart/view-cart.component';
@@ -20,7 +20,8 @@ import { OrderStatusComponent } from './Components/employee/order-status/order-s
 import { SendRequestComponent } from './Components/employee/send-request/send-request.component';
 import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-users.component';
 import { EditProfileComponent } from './Components/employee/edit-profile/edit-profile.component';
-import { LogOutComponent } from './Components/employee/log-out/log-out.component';
+import { LogOutComponent as EmpLogOutComponent } from './Components/employee/log-out/log-out.component';
+import { SignInComponent as EmpSignInComponent } from './Components/employee/sign-in/sign-in.component';
 //ADMIN
 import { AddEmployeeComponent } from './Components/admin/add-employee/add-employee.component';;
 import { DeleteEmployeeComponent } from './Components/admin/delete-employee/delete-employee.component';
@@ -30,7 +31,7 @@ import { UpdateProductsComponent } from './Components/admin/update-products/upda
 import { ViewRequestsComponent } from './Components/admin/view-requests/view-requests.component';
 import { AdminPanelComponent } from './Components/admin/admin-panel/admin-panel.component';
 import { SignInComponent as AdminSignInComponent } from './Components/admin/sign-in/sign-in.component';
-import { SignOutComponent } from './Components/admin/sign-out/sign-out.component';
+import { SignOutComponent as AdminSignOutComponent} from './Components/admin/sign-out/sign-out.component';
 import { ReportComponent } from './Components/admin/report/report.component';
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { ReportComponent } from './Components/admin/report/report.component';
     AppComponent,
     //USER
     UserPanelComponent,
-    SignInComponent,
+    UserSignInComponent,
     SignUpComponent,
     SelectItemComponent,
     ViewCartComponent,
@@ -46,16 +47,18 @@ import { ReportComponent } from './Components/admin/report/report.component';
     ProfileComponent,
     CheckoutComponent,
     //EMPLOYEE
-    //EmployeeComponent,
+    AddEmployeeComponent,
+    DeleteEmployeeComponent,
+    // EmployeeComponent,
     OrderStatusComponent,
     SendRequestComponent,
     UnlockUsersComponent,
     EditProfileComponent,
-    LogOutComponent,
+    EmpSignInComponent,
+    EmpLogOutComponent,
     //DeleteEmployeeComponen,
     //ADMIN
     AdminSignInComponent,
-    SignOutComponent,
     AdminPanelComponent,
     AddEmployeeComponent,
     DeleteEmployeeComponent,
@@ -63,7 +66,9 @@ import { ReportComponent } from './Components/admin/report/report.component';
     DeleteProductsComponent,
     UpdateProductsComponent,
     ReportComponent,
-    ViewRequestsComponent
+    ViewRequestsComponent,
+    AdminSignOutComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
