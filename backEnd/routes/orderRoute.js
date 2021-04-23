@@ -9,5 +9,6 @@ routes.get("/updateProductStatus",orderController.updateOrderByStatus)
 
 routes.get('/getOrdersByCust/:id',orderController.getOrdersByCust);
 routes.get('/getOrderByProdId/:id',orderController.getOrdersByProduct);
-routes.get('/getOrderByMonth',orderController.getOrdersByMonth);
+routes.post('/getOrderByMonth',orderController.getOrdersByMonth);
+routes.post('/getOrderByWeek',orderController.getOrdersByWeek);
 module.exports = routes;

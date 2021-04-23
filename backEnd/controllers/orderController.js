@@ -77,7 +77,7 @@ let getOrdersByDay = async (req, res, next) => {
 
 function addDay(date, day) {
     var result = new Date(date);
-    result.setDate(result.getDate() + days);
+    result.setDate(result.getDate() + day);
     return result;
 }
 
@@ -85,11 +85,14 @@ let getOrdersByWeek = async (req, res, next) => {
     try {
         let weekStart = req.body.dateStart;
 
-        let weekEnd = addDay(weekStart, 7).toLocaleDateString();
+        let weekEnd = addDay(weekStart, 8).toDateString();
+        weekEnd = new Date(weekEnd);
+        weekStart = new Date(weekStart);
+       
         let foundOrders = await order.find({
             datetime_requested: {
                 $gte: weekStart,
-                $lte: weekEnd
+                $lt: weekEnd
             }
         });
         res.send(foundOrders);
@@ -103,7 +106,7 @@ let getOrdersByMonth = async (req, res, next) => {
         let monthStart = req.body.monthStart;
         let date = new Date(monthStart);
         let month = date.getMonth();
-        console.log(month);
+       
         let year = '';
         if (month == 12) {
             month = 0;
@@ -115,7 +118,7 @@ let getOrdersByMonth = async (req, res, next) => {
         let day = 1;
         let nextMonth = new Date(year, month + 1, day);
         
-        console.log(nextMonth,date,month);
+        
 
         let foundOrders = await order.find({
             datetime_requested: {
