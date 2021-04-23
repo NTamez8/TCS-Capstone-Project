@@ -60,6 +60,8 @@ let signUp = async (req,res,next)=>{
     }
 }
 
+
+module.exports = {signIn,signUp}
 let selectItemsfromCart = async(req,res)=>{
     let userCart = new User({
         _id:req.body.item_id,
