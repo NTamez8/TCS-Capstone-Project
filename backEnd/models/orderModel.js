@@ -8,10 +8,10 @@ let cartItemSchema = new schema({
     product:{type:schema.Types.ObjectId, ref:'Product'},
     quantity:Number
 
-},{_id:false})
+  },{_id:false})
 
 let order = new schema({
-    //_id:Number,
+    _id:Number,
     u_username:String,
     //cart:String,                //stringified JSON of user's cart (Product[])
     cart:[cartItemSchema],
@@ -21,4 +21,5 @@ let order = new schema({
 
 });
 
-module.exports = mongoose.model('Order',order);
+ module.exports = mongoose.model(" ",order,"order");
+// module.exports = mongoose.model("order ",order);

@@ -103,5 +103,20 @@ let viewItemsfromCart =(req,res)=> {
 
 }
 
-module.exports = {signIn,signUp, selectItemsfromCart, deleteItemsfromCart, viewItemsfromCart}
+let updatestatusToUser=async(req,res)=>{
+    
+    User.upadteOne({u_username:u_username},{"$set":{"locked":false}},(err,result)=> {
+        if(!err){
+                if(result.nModified>0){
+                    res.send("User Account is Unlocked Succesfully")
+                }else {
+                    res.send("Check the UserName");
+                }
+        }else {
+            res.send("Error generated "+err);
+        }
+    })
+}
+
+module.exports = {signIn,signUp, selectItemsfromCart, deleteItemsfromCart, viewItemsfromCart,updatestatusToUser}
 

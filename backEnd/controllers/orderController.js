@@ -1,8 +1,8 @@
 const order = require('../models/orderModel');
 
 let getOrderById=(req,res)=>{
-    let oid=req.params.oid;     //passing through path param
-    order.find({_id:oid},(err,data)=>{
+    let _id=req.params._id;     //passing through path param
+    order.find({_id:_id},(err,data)=>{
         if(!err){
             res.json(data);    //return array
         }
@@ -12,7 +12,7 @@ let getOrderById=(req,res)=>{
 
 let updateOrderByStatus=(req,res)=>{
     let _id=req.body._id;
-    let status=req.body.status
+    let status=req.body.status;
     order.updateMany({_id:_id},{$set:{status:status}},(err,result)=>{
         if(!err){
             if(result.nModified>0){

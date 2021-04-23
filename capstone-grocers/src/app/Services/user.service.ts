@@ -21,4 +21,12 @@ export class UserService {
   {
     return this.http.post<{token:string}>('http://localhost:8080/user/signIn',{email,pass});
   }
+
+   public updatestatusToUser(userRef:any):any{
+    return this.http.put("http://localhost:8080/user/updatestatusToUser",userRef,{responseType:'text'})
+
+}
+
+
+  
 }
