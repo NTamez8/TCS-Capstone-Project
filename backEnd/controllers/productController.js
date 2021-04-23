@@ -1,8 +1,8 @@
 const ProductModel = require('../models/productModel');
 
-let getProductById=(req,res)=>{
+let getProductById = async(req,res)=>{
     const product_id = req.params.product_id;
-    ProductModel.find({_id:product_id},(error,data)=>{
+    await ProductModel.find({_id:product_id},(error,data)=>{
         if(!error){
             res.json(data);
         }else{
@@ -11,8 +11,8 @@ let getProductById=(req,res)=>{
     });
 };
 
-let getAllProducts=(req,res)=>{
-    ProductModel.find({},(error,data)=>{
+let getAllProducts = async(req,res)=>{
+    await ProductModel.find({},(error,data)=>{
         if(!error){
             res.json(data);
         }else{
@@ -22,7 +22,7 @@ let getAllProducts=(req,res)=>{
 };
 
 
-let updateProductQuantityById=(req,res)=>{
+let updateProductQuantityById = (req,res)=>{
     const product_id = req.params.product_id;
     const new_quantity = req.params.new_quantity;
     ProductModel.updateOne({_id:product_id},{$set:{quantity:new_quantity}},(error,data)=>{
@@ -38,7 +38,7 @@ let updateProductQuantityById=(req,res)=>{
     });
 };
 
-let deleteProductById=(req,res)=>{
+let deleteProductById = (req,res)=>{
     const product_id = req.params.product_id;
     ProductModel.deleteOne({_id:product_id},(error,data)=>{
         if(!error){

@@ -21,6 +21,15 @@ import { UpdateProductsComponent } from './Components/admin/update-products/upda
 import { ViewRequestsComponent } from './Components/admin/view-requests/view-requests.component';
 import { AdminPanelComponent } from './Components/admin/admin-panel/admin-panel.component';
 import { SignInComponent as AdminSignInComponent } from './Components/admin/sign-in/sign-in.component';
+import { EmployeeComponent } from './employee/employee.component';
+import { OrderStatusComponent } from './Components/employee/order-status/order-status.component';
+import { SendRequestComponent } from './Components/employee/send-request/send-request.component';
+import { EditProfileComponent } from './Components/employee/edit-profile/edit-profile.component';
+import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-users.component';
+import { LogOutComponent } from './Components/employee/log-out/log-out.component';
+import { SignOutComponent } from './Components/admin/sign-out/sign-out.component';
+import { ReportComponent } from './Components/admin/report/report.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +48,15 @@ import { SignInComponent as AdminSignInComponent } from './Components/admin/sign
     UpdateProductsComponent,
     ViewRequestsComponent,
     AdminPanelComponent,
-    AdminSignInComponent
+    AdminSignInComponent,
+    EmployeeComponent,
+    OrderStatusComponent,
+    SendRequestComponent,
+    EditProfileComponent,
+    UnlockUsersComponent,
+    LogOutComponent,
+    SignOutComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
