@@ -11,14 +11,8 @@ let getProductById = async(req,res)=>{
     });
 };
 
-<<<<<<< HEAD
 let getAllProducts = async(req,res)=>{
     await ProductModel.find({},(error,data)=>{
-=======
-
-let getAllProducts=(req,res)=>{
-    ProductModel.find({},(error,data)=>{
->>>>>>> testBranch
         if(!error){
             res.json(data);
         }else{
@@ -28,23 +22,26 @@ let getAllProducts=(req,res)=>{
 };
 
 let addProduct = (req,res)=>{
-    const product = req.params.product;
-    ProductModel.insertOne(product,(error,data)=>{
-        if(!error){
-            if(data.nInserted>0){
-                res.send(`Product added succesfully: ${data}`);
-            }else{
-                res.send("Product was not added.");
-            };
-        }else{
-            res.send(`Error during product insertion: ${error}`);
-        };
-    });
+    //console.log("In Backend");
+    //console.log(req.body);
+    const product = req.body.product;
+    //new ProductModel
+    let new_product = new ProductModel();
+    new_product.name = product.name;
+    new_product.description = product.description;
+    new_product.price = product.price;
+    new_product.quantity = product.quantity;
+    console.log(new_product);
+    new_product.save();
+    console.log("Product added successfully!");
 };
 
 let updateProductQuantityById = (req,res)=>{
     const product_id = req.body.product_id;
     const new_quantity = req.body.new_quantity;
+    console.log("In Backend");
+    console.log(req.body);
+    //HTTP error code 200 from this point forward...
     ProductModel.updateOne({_id:product_id},{$set:{quantity:new_quantity}},(error,data)=>{
         if(!error){
             if(data.modifiedCount>0){
@@ -55,7 +52,7 @@ let updateProductQuantityById = (req,res)=>{
         }else{
             res.send(`Error during product update: ${error}`);
         };
-    });
+    });S
 };
 
 let deleteProductById = (req,res)=>{
@@ -73,9 +70,4 @@ let deleteProductById = (req,res)=>{
     });
 };
 
-<<<<<<< HEAD
 module.exports = {getProductById, getAllProducts, addProduct, updateProductQuantityById, deleteProductById};
-=======
-module.exports = {getProductById, getAllProducts, updateProductQuantityById, deleteProductById};
-
->>>>>>> testBranch

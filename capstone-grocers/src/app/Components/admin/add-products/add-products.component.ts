@@ -21,7 +21,7 @@ export class AddProductsComponent implements OnInit {
     console.log("Adding Product!");
     this.productService.addProduct(product).subscribe(data=>{ 
       console.log(data.token);
-      sessionStorage.setItem('token',data.token);
+      //sessionStorage.setItem('token',data.token);
     });
   }
 

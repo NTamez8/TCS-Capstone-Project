@@ -8,6 +8,7 @@ import { AdminPanelComponent } from 'src/app/Components/admin/admin-panel/admin-
 import { DeleteProductsComponent } from 'src/app/Components/admin/delete-products/delete-products.component';
 import { SignInComponent as AdminSignInComponent} from 'src/app/Components/admin/sign-in/sign-in.component';
 import { UpdateProductsComponent } from 'src/app/Components/admin/update-products/update-products.component';
+import { ViewProductsComponent } from 'src/app/Components/admin/view-products/view-products.component';
 import { ViewRequestsComponent } from 'src/app/Components/admin/view-requests/view-requests.component';
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   //ADMIN
   {path:"\admin/signIn",component:AdminSignInComponent},
   {path:"\admin/addProducts",component:AddProductsComponent},
+  {path:"\admin/viewProducts",component:ViewProductsComponent},
   {path:"\admin/updateProducts",component:UpdateProductsComponent},
   {path:"\admin/deleteProducts",component:DeleteProductsComponent},
   {path:"\admin/viewRequests",component:ViewRequestsComponent},

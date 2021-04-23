@@ -26,6 +26,7 @@ import { SignInComponent as EmpSignInComponent } from './Components/employee/sig
 import { AddEmployeeComponent } from './Components/admin/add-employee/add-employee.component';;
 import { DeleteEmployeeComponent } from './Components/admin/delete-employee/delete-employee.component';
 import { AddProductsComponent } from './Components/admin/add-products/add-products.component';
+import { ViewProductsComponent } from './Components/admin/view-products/view-products.component';
 import { DeleteProductsComponent } from './Components/admin/delete-products/delete-products.component';
 import { UpdateProductsComponent } from './Components/admin/update-products/update-products.component';
 import { ViewRequestsComponent } from './Components/admin/view-requests/view-requests.component';
@@ -63,6 +64,7 @@ import { ReportComponent } from './Components/admin/report/report.component';
     AddEmployeeComponent,
     DeleteEmployeeComponent,
     AddProductsComponent,
+    ViewProductsComponent,
     DeleteProductsComponent,
     UpdateProductsComponent,
     ReportComponent,

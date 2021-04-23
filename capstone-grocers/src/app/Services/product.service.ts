@@ -14,15 +14,16 @@ export class ProductService {
     return this.http.get<Product[]>("http://localhost:8080/product/getAllProducts");
   }
 
-  getProductById(product_id:String):Observable<Product>{
-    return this.http.get<Product>("http://localhost:8080/product/getProductById/"+product_id);
+  getProductById(product_id:String):Observable<Product[]>{
+    return this.http.get<Product[]>("http://localhost:8080/product/getProductById/"+product_id);
   }
 
   addProduct(product:Product){
-    return this.http.post<{token:string}>("http://localhost:8080/product/addProduct/",product);
+    return this.http.post<{token:string}>("http://localhost:8080/product/addProduct",{product});
   }
 
   updateProduct(product_id:String,new_quantity:Number){
+    console.log("Calling update service");
     return this.http.post<{token:string}>("http://localhost:8080/product/updateProductQuantityById",{product_id,new_quantity});
   }
 

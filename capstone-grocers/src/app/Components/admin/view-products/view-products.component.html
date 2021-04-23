@@ -1,0 +1,19 @@
+<app-admin-panel></app-admin-panel>
+<div style="text-align:center;">
+    <button (click)="getAllProducts()">View Products</button>
+    <button (click)="getProductById()">View Test Product</button>
+    <table style="border:1px solid black;margin:auto;">
+        <thead>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </thead>
+        <tr *ngFor="let product of products">
+            <td>{{product._id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.quantity}}</td>
+        </tr>
+    </table>
+</div>

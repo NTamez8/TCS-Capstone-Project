@@ -8,7 +8,7 @@ routes.get("/getAllProducts",productController.getAllProducts);
 
 routes.delete("/deleteProductById/:product_id",adminAuth.authenticate(),productController.deleteProductById);
 
-routes.post("/addProduct/:product",adminAuth.authenticate(),productController.addProduct);
-routes.post("/updateProductQuantityById",adminAuth.authenticate(),productController.updateProductQuantityById);
+routes.post("/addProduct",productController.addProduct);
+routes.post("/updateProductQuantityById",productController.updateProductQuantityById);
 
 module.exports = routes;
