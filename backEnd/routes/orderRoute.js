@@ -11,4 +11,5 @@ routes.get('/getOrdersByCust/:id',orderController.getOrdersByCust);
 routes.get('/getOrderByProdId/:id',orderController.getOrdersByProduct);
 routes.post('/getOrderByMonth',orderController.getOrdersByMonth);
 routes.post('/getOrderByWeek',orderController.getOrdersByWeek);
+routes.post('/getOrderByDay',orderController.getOrdersByDay);
 module.exports = routes;

@@ -65,9 +65,18 @@ let updateOrderByStatus = (req, res) => {
 
 let getOrdersByDay = async (req, res, next) => {
     try {
-        let day = req.body.date;
+        let day = req.body.day;
+        let beginDay = addDay(day,-1);
+        beginDay = addDay(beginDay,1);
+        let endDay = addDay(day,1);
+        console.log(beginDay,endDay);
+        day = new Date(day);
+      
         let foundOrders = await order.find({
-            datetime_requested: day
+            datetime_requested: {
+                $gte: beginDay,
+                $lt: endDay
+            }
         });
         res.send(foundOrders);
     } catch (err) {
