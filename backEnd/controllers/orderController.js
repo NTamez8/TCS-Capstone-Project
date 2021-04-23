@@ -56,7 +56,7 @@ let updateOrderByStatus=(req,res)=>{
 
 // }
 
-module.exports = {getOrderById,updateOrderByStatus}
+
 let getOrdersByDay = async (req,res,next) =>
 {
     try
