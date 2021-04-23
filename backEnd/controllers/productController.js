@@ -21,10 +21,24 @@ let getAllProducts = async(req,res)=>{
     });
 };
 
+let addProduct = (req,res)=>{
+    const product = req.params.product;
+    ProductModel.insertOne(product,(error,data)=>{
+        if(!error){
+            if(data.nInserted>0){
+                res.send(`Product added succesfully: ${data}`);
+            }else{
+                res.send("Product was not added.");
+            };
+        }else{
+            res.send(`Error during product insertion: ${error}`);
+        };
+    });
+};
 
 let updateProductQuantityById = (req,res)=>{
-    const product_id = req.params.product_id;
-    const new_quantity = req.params.new_quantity;
+    const product_id = req.body.product_id;
+    const new_quantity = req.body.new_quantity;
     ProductModel.updateOne({_id:product_id},{$set:{quantity:new_quantity}},(error,data)=>{
         if(!error){
             if(data.modifiedCount>0){
@@ -53,4 +67,4 @@ let deleteProductById = (req,res)=>{
     });
 };
 
-module.exports = {getProductById, getAllProducts, updateProductQuantityById, deleteProductById};
+module.exports = {getProductById, getAllProducts, addProduct, updateProductQuantityById, deleteProductById};
