@@ -12,7 +12,8 @@ let cartItemSchema = new schema({
 
 let order = new schema({
     //_id:Number,
-    u_username:String,
+    //u_username:String,
+    user_ID:{type:schema.Types.ObjectId, ref:'User'},
     //cart:String,                //stringified JSON of user's cart (Product[])
     cart:[cartItemSchema],
     datetime_requested:Date,
