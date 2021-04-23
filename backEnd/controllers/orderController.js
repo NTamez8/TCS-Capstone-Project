@@ -124,8 +124,10 @@ let getOrdersByProduct = async (req,res,next) =>
 {
     try
     {
-        let productId = '6081ec19a6af1e1a94f37691';
-        let ordersByProd = await order.find({"cart.product":productId});
+        let productId = req.params.id;
+        let ordersByProd = await order.find({"cart.product":productId}).populate('cart.product');
+       
+       
         res.send(ordersByProd);
 
     }

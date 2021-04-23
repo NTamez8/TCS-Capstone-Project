@@ -8,4 +8,5 @@ routes.put("/updateOrderStatus",orderController.updateOrderByStatus)
 routes.get("/updateProductStatus",orderController.updateOrderByStatus)
 
 routes.get('/getOrdersByCust/:id',orderController.getOrdersByCust);
+routes.get('/getOrderByProdId/:id',orderController.getOrdersByProduct)
 module.exports = routes;
