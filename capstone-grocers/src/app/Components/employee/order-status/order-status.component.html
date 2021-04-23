@@ -8,11 +8,11 @@
 
     <form #orderRef="ngForm" (ngSubmit)="updateStatus(orderRef.value)">
         <label>OrderId</label>
-        <input type="text" name="oid" ngModel><br/>
+        <input type="text" name="_id" ngModel><br/>
         <label>Status</label>
         <!-- <input type="text" name="status" ngModel><br/> -->
-        <select name="orderStatus" ng-model>
-            <option value="shipped">Shiiped</option>
+        <select name="status" ng-model>
+            <option  value="shipped">Shiiped</option>
             <option value="OutForDelivery">Out For OutForDelivery</option>
             <option value="delivered">Delivered</option>
             <option value="cancelled">cancelled</option></select>

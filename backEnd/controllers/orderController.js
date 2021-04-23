@@ -11,12 +11,21 @@ let getOrderById=(req,res)=>{
 
 
 let updateOrderByStatus=(req,res)=>{
-    let pid=req.body.pid;
-    let updatedstatus=req.body.status
-    orderModel.updateMany({_id:pid},{$set:{status:updatedstatus}},(err,result)=>{
+    let _id=req.body._id;
+    let status=req.body.status
+    order.updateMany({_id:_id},{$set:{status:status}},(err,result)=>{
         if(!err){
             if(result.nModified>0){
-            res.send("Order updated succesfully"+result)
+            res.send("Order status updated succesfully"+result)
+
+            if(status=="cancelled"){
+               // res.send(user.funds);
+               var a = 1000;
+               var b = 50;
+               var sum = a+b;
+               console.log(sum)
+            }
+
             }
             else{
                 res.send("Order is not Upadated")

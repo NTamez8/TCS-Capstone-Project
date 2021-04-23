@@ -60,4 +60,5 @@ let signUp = async (req,res,next)=>{
     }
 }
 
+
 module.exports = {signIn,signUp}
