@@ -18,7 +18,11 @@ export class AddProductsComponent implements OnInit {
   addProduct(productRef:NgForm){
     const p_values = productRef.value;
     const product = new Product(p_values.p_name,p_values.p_description,p_values.p_price,p_values.p_quantity);
-    this.productService.addProduct(product);
+    console.log("Adding Product!");
+    this.productService.addProduct(product).subscribe(data=>{ 
+      console.log(data.token);
+      sessionStorage.setItem('token',data.token);
+    });
   }
 
 }

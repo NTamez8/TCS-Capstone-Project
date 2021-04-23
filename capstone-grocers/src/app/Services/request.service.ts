@@ -19,6 +19,6 @@ export class RequestService {
 
   sendRequest(productRef:any){
     this.http.post("http://localhost:8080/request/sendRequest",productRef).
-    subscribe(result=>console.log(result),error=>console.log(error))
+    subscribe(result=>console.log(result),error=>console.log(error));
   }
 }

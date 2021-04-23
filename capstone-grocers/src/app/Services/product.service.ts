@@ -19,14 +19,14 @@ export class ProductService {
   }
 
   addProduct(product:Product){
-    return this.http.post<{token:String}>("http://localhost:8080/product/addProduct/",product);
+    return this.http.post<{token:string}>("http://localhost:8080/product/addProduct/",product);
   }
 
   updateProduct(product_id:String,new_quantity:Number){
-    return this.http.post<{token:String}>("http://localhost:8080/product/updateProductQuantityById",{product_id,new_quantity});
+    return this.http.post<{token:string}>("http://localhost:8080/product/updateProductQuantityById",{product_id,new_quantity});
   }
 
   deleteProductById(product_id:String){
-    return this.http.delete<{token:String}>("http://localhost:8080/product/deleteProductById/"+product_id);
+    return this.http.delete<{token:string}>("http://localhost:8080/product/deleteProductById/"+product_id);
   }
 }
