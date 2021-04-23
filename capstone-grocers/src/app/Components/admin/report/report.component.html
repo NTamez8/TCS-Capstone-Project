@@ -27,8 +27,21 @@
         <select #cust (change)='changeCust(cust.value)'>
             <option></option>
         </select>
-    </div>
+    </div><!--
     <div>
         <button (click)='buildReport()'>Generate report</button>
+    </div>-->
+</div>
+<div *ngIf='orders.length != 0'><!--
+    <div *ngFor='let order of orders'>
+        <div *ngFor='let item of order.cart'>
+            {{item.product.name}}
+        </div>
     </div>
+    <app-report-table [orders] = 'orders'></app-report-table>-->
+</div>
+<app-report-table [orders] = 'orders'></app-report-table>
+
+<div>
+
 </div>

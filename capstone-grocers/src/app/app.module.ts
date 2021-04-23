@@ -35,6 +35,7 @@ import { SignInComponent as AdminSignInComponent } from './Components/admin/sign
 
 import { SignOutComponent } from './Components/admin/sign-out/sign-out.component';
 import { ReportComponent } from './Components/admin/report/report.component';
+import { ReportTableComponent } from './Components/admin/report-table/report-table.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { ReportComponent } from './Components/admin/report/report.component';
     UpdateProductsComponent,
     ViewRequestsComponent,
     AdminPanelComponent,
-    AdminSignInComponent
+    AdminSignInComponent,
+    ReportTableComponent
 
    // DeleteEmployeeComponent
   

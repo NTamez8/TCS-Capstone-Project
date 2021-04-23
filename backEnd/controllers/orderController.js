@@ -77,7 +77,7 @@ let getOrdersByDay = async (req, res, next) => {
                 $gte: beginDay,
                 $lt: endDay
             }
-        });
+        }).populate('cart.product');
         res.send(foundOrders);
     } catch (err) {
         next(err)
@@ -103,7 +103,7 @@ let getOrdersByWeek = async (req, res, next) => {
                 $gte: weekStart,
                 $lt: weekEnd
             }
-        });
+        }).populate('cart.product');
         res.send(foundOrders);
     } catch (err) {
         next(err)
@@ -134,7 +134,7 @@ let getOrdersByMonth = async (req, res, next) => {
                 $gte: date,
                 $lt: nextMonth.toLocaleDateString()
             }
-        });
+        }).populate('cart.product');
         res.send(foundOrders);
     } catch (err) {
         next(err)
