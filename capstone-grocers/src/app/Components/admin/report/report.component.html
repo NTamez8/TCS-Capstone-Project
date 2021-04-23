@@ -19,13 +19,17 @@
     <div *ngIf='reportType == "4"'>
         <label>Select Product: </label>
         <select #prod (change)='changeProd(prod.value)'>
-            <option></option>
+            <option value='-1'>-</option>
+            <option value='6081ec19a6af1e1a94f37690'>watch</option>
+            <option value='6081ec19a6af1e1a94f37691'>phone</option>
         </select>
     </div>
     <div *ngIf='reportType =="5"'>
         <label>Select Customer: </label>
         <select #cust (change)='changeCust(cust.value)'>
-            <option></option>
+             <option value='-1'>-</option>
+            <option value='6081c38ffe01831facdb79ba'> peter</option>
+            <option value='608325cef4560728b840481d'> nicolas</option>
         </select>
     </div><!--
     <div>
