@@ -1,4 +1,33 @@
-const admin = require('../models/adminModel');
+const AdminModel = require('../models/adminModel');
+const adminConfig = require('../config/adminConfig');
+const jwt = require('jwt-simple');
 
+let signIn = async (req,res,next)=>{
+    try{
+        const a_username = req.body.a_username;
+        const a_password = req.body.a_password;
+        const admin = await AdminModel.findOne({a_username});
+        
+        if(!admin){
+            const error = new Error("Wrong admin credentials");
+            error.statusCode = 401;
+            throw error;
+        }
 
-module.exports = {}
+        const a_validPassword = await AdminModel.validPassword(a_password);
+       
+        if(!a_validPassword){
+            const error = new Error("Wrong admin credentials");
+            error.statusCode = 401;
+            throw error;
+        }
+
+        const token = jwt.encode({id:AdminModel._id},adminConfig.secret);
+        res.send({token});
+    }
+    catch(error){
+        next(error);
+    }
+}
+
+module.exports = {signIn}

@@ -15,8 +15,9 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  a_login(a_loginRef:NgForm){
-    this.adminService.signIn(a_loginRef.value.a_username,a_loginRef.value.a_password);
+  a_signIn(a_loginRef:NgForm){
+    const a_credentials = a_loginRef.value;
+    this.adminService.signIn(a_credentials.a_username,a_credentials.a_password);
   }
 
 }
