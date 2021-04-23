@@ -64,6 +64,7 @@ import { SignInComponent as AdminSignInComponent } from './Components/admin/sign
     AdminPanelComponent,
     AdminSignInComponent
 
+   // DeleteEmployeeComponent
   ],
   imports: [
     BrowserModule,
