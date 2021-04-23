@@ -12,4 +12,10 @@ export class LogOutComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  logOut()
+  {
+    sessionStorage.clear();
+    //redirect to home page here
+  }
+
 }
