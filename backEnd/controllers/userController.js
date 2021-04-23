@@ -91,7 +91,7 @@ let deleteItemsfromCart = async(req,res)=>{
 
 }
 
-let viewItemsfromCart =(req,res)=> {
+let viewItemsfromCart = async(req,res)=> {
 
     User.find({},(err,result)=> {
         if(!err){
