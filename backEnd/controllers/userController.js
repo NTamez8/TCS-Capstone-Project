@@ -48,7 +48,7 @@ let signUp = async (req,res,next)=>{
         user.date_of_birth = req.body.date_of_birth;
         user.locked = false;
         user.funds = 1000;
-        user.order_history = '';
+        user.order_history = null;
         
         await user.save();
         const token = jwt.encode({id:user._id},userConfig.secret);
