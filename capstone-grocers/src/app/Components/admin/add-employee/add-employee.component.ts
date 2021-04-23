@@ -18,7 +18,7 @@ export class AddEmployeeComponent implements OnInit {
 
   formSubmit(newEmpData:any)
   {
-    console.log(newEmpData);
+    
     let fname = newEmpData.firstName;
     let lname = newEmpData.lastName;
     let email = newEmpData.email;
