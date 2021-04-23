@@ -1,0 +1,9 @@
+<div>
+    <form #productRef="ngForm" (ngSubmit)="updateProduct(productRef)">
+        <h3>Product Updating</h3><hr/>
+        <label>Product Name: </label><input type="text" name="p_name" id="p_name" required ngModel/><br>
+        <label>New Quantity: </label><input type="number" name="p_newQuantity" id="p_newQuantity" required ngModel/><br>
+        <input type="submit" value="Update" [disabled]="productRef.valid"/>
+        <input type="reset" value="Clear"/>
+    </form>
+</div>

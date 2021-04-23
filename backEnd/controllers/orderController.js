@@ -13,7 +13,7 @@ let getOrderById=(req,res)=>{
 let updateOrderByStatus=(req,res)=>{
     let pid=req.body.pid;
     let updatedstatus=req.body.status
-    ProductModel.updateMany({_id:pid},{$set:{status:updatedstatus}},(err,result)=>{
+    order.updateMany({_id:pid},{$set:{status:updatedstatus}},(err,result)=>{
         if(!err){
             if(result.nModified>0){
             res.send("Order updated succesfully"+result)
