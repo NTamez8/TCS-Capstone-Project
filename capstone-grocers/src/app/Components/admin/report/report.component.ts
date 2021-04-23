@@ -53,8 +53,7 @@ export class ReportComponent implements OnInit {
   }
 
   changeDate(newDate: any) {
-    // console.log(newDate);
-    // console.log(this.getDateFromWeek(newDate));
+    
     if (this.reportType == '1') {
       this.date = newDate;
       this.oService.getOrdersByDay(this.date).subscribe(data=>{this.orders = data
@@ -71,19 +70,26 @@ export class ReportComponent implements OnInit {
       this.reportTable?.parentBuildTable(data);
       });
     }
-    //this.reportTable?.parentBuildTable(this.orders);
-    console.log(this.date);
+   
   }
 
   changeCust(newCust: any) {
-    console.log(newCust);
     
-    this.oService.getOrdersByCust('').subscribe(data=>this.orders = data);
+    
+    this.oService.getOrdersByCust(newCust).subscribe(data=>{this.orders = data
+    this.reportTable?.parentBuildTable(data);
+    }
+      
+      );
   }
 
   changeProd(newProd: any) {
-    console.log(newProd);
-    this.oService.getOrdersByProd('').subscribe(data=>this.orders = data);
+   
+    this.oService.getOrdersByProd(newProd).subscribe(data=>{this.orders = data
+    this.reportTable?.parentBuildTable(data);
+    }
+      
+      );
   }
 
   getDateFromWeek(weekDate: string) {
