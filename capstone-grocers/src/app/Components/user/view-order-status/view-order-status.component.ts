@@ -12,7 +12,7 @@ export class ViewOrderStatusComponent implements OnInit {
   constructor(public orderSer:OrderService) { }
 
   ngOnInit(): void {
-    this.orderSer.getOrderStatus().subscribe(result=>this.status=result);
+    this.orderSer.getOrderStatus().subscribe(result=>this.orderStatus=result);
 
 }
 }
