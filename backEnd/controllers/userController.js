@@ -104,8 +104,9 @@ let viewItemsfromCart =(req,res)=> {
 }
 
 let updatestatusToUser=async(req,res)=>{
-    
-    User.upadteOne({u_username:u_username},{"$set":{"locked":false}},(err,result)=> {
+    let u_username=req.body.u_username;
+    let locked=req.body.locked;
+    User.updateOne({u_username:u_username},{"$set":{locked:locked}},(err,result)=> {
         if(!err){
                 if(result.nModified>0){
                     res.send("User Account is Unlocked Succesfully")
