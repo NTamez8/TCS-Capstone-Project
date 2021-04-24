@@ -13,6 +13,7 @@ let getOrderById=(req,res)=>{
 let updateOrderByStatus=(req,res)=>{
     let _id=req.body._id;
     let status=req.body.status;
+    
     order.updateMany({_id:_id},{$set:{status:status}},(err,result)=>{
         if(!err){
             if(result.nModified>0){
@@ -20,10 +21,21 @@ let updateOrderByStatus=(req,res)=>{
 
             if(status=="cancelled"){
                // res.send(user.funds);
-               var a = 1000;
-               var b = 50;
-               var sum = a+b;
+               //total=fund+price
+               //
+              // let refund=req.body.refund;
+               var fixfund = 1000;
+               var price = 50;
+               let sum = fixfund+price;
+               order.updateMany({_id:_id},{$set:{refund:sum}},(err,result1)=>{
+                if(result1.nModified>0){
+                    res.send("refund"+result1)
+                }
+            });
                console.log(sum)
+               
+
+
             }
 
             }

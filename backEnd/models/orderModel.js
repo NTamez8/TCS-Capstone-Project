@@ -17,7 +17,9 @@ let order = new schema({
     cart:[cartItemSchema],
     datetime_requested:Date,
     datetime_fulfilled:Date,
-    status:String               //can be either "in-progress" or "fulfilled"
+    status:String,
+    refund:Number
+ //can be either "in-progress" or "fulfilled"
 
 });
 
