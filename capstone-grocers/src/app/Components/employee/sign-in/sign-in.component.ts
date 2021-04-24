@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from 'src/app/Services/employee.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -8,17 +7,9 @@ import { EmployeeService } from 'src/app/Services/employee.service';
 })
 export class SignInComponent implements OnInit {
 
-  constructor(private empServ:EmployeeService) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  login(empRef:any)
-  {
-    this.empServ.signIn(empRef.userName,empRef.password).subscribe(data=>{
-      console.log(data.token);
-      sessionStorage.setItem('token',data.token);
-    })
   }
 
 }

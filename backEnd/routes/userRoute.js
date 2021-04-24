@@ -7,4 +7,9 @@ routes.post('/signUp',[hasAddress,hasDoB,hasEmail,hasFirstName,hasLastName,hasPa
 
 routes.post('/signIn',userController.signIn);
 
+routes.get("/selectItemsfromCart",userController.selectItemsfromCart)
+routes.get("/deleteItemsfromCart/:item_id",userController.deleteItemsfromCart)
+routes.get("/viewItemsfromCart",userController.viewItemsfromCart)
+routes.put('/updatestatusToUser',userController.updatestatusToUser)
+
 module.exports = routes;
