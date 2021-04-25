@@ -6,7 +6,8 @@ let schema = mongoose.Schema;
 let cartItemSchema = new schema({
 
     product:{type:schema.Types.ObjectId, ref:'Product'},
-    quantity:Number
+    quantity:Number,
+    product_id: Number
 
 },{_id:false})
 
