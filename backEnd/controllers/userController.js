@@ -60,8 +60,6 @@ let signUp = async (req,res,next)=>{
     }
 }
 
-
-module.exports = {signIn,signUp}
 let selectItemsfromCart = async(req,res)=>{
     let userCart = new User({
         _id:req.body.item_id,
@@ -93,7 +91,7 @@ let deleteItemsfromCart = async(req,res)=>{
 
 }
 
-let viewItemsfromCart =(req,res)=> {
+let viewItemsfromCart = async(req,res)=> {
 
     User.find({},(err,result)=> {
         if(!err){
@@ -102,30 +100,22 @@ let viewItemsfromCart =(req,res)=> {
     })
 
 }
-
-let updatestatusToUser=async(req,res)=>{
+let editPassword=(req,res)=>{
     let u_username=req.body.u_username;
-    let locked=req.body.locked;
-    User.updateOne({u_username:u_username},{"$set":{locked:locked}},(err,result)=> {
+    let u_password=req.body.u_password
+    user.updateMany({u_username:u_username},{$set:{u_password:u_password}},(err,result)=>{
         if(!err){
-                if(result.nModified>0){
-                    res.send("User Account is Unlocked Succesfully")
-                }else {
-                    res.send("Check the UserName");
-                }
-        }else {
-            res.send("Error generated "+err);
+            if(result.nModified>0){
+            res.send("Password updated succesfully"+result)
+            }
+            else{
+                res.send("Email is not available")
+            }
+        }
+        else{
+            res.send("Error  "+err);
         }
     })
 }
-
-//Retrive order staus
-let orderstatusToUser=(req,res)=>{
-    let orderdetails = neworder ({
-        status:req.body.order_history,
-    });
-    
-}
-
-module.exports = {signIn,signUp, selectItemsfromCart, deleteItemsfromCart, viewItemsfromCart,updatestatusToUser}
+module.exports = {signIn,signUp, selectItemsfromCart, deleteItemsfromCart, viewItemsfromCart,editPassword}
 

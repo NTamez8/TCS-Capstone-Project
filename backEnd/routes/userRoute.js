@@ -10,6 +10,6 @@ routes.post('/signIn',userController.signIn);
 routes.get("/selectItemsfromCart",userController.selectItemsfromCart)
 routes.get("/deleteItemsfromCart/:item_id",userController.deleteItemsfromCart)
 routes.get("/viewItemsfromCart",userController.viewItemsfromCart)
-routes.put('/updatestatusToUser',userController.updatestatusToUser)
+routes.put('/editPassword',userController.editPassword)
 
 module.exports = routes;

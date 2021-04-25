@@ -1,33 +1,6 @@
 const employee = require('../models/employeeModel');
 const validationHandler = require('../validators/validationHandler');
-const jwt =require('jwt-simple');
-let signIn = async (req,res,next) =>{
-    try{
-        let email_address =req.body.email_address;
-        let e_password =req.body.e_password;
-        let Emp = await Emp.findOne({email_address});
-        if(!Emp)
-        {
-            const error = new Error("Wrong credentials");
-            error.statusCode = 401;
-            throw error;
-        }
-        const validPassword = await Emp.validPassword(e_password);
-       
-        if(!validPassword)
-        {
-            const error = new Error("Wrong credentials");
-            error.statusCode = 401;
-            throw error;
-        }
-        const token = jwt.encode({id:Emp._id},userConfig.secret);
-        res.send({token});
-    }
-    catch(err)
-    {
-        next(err);
-    }
-}
+
 let getAll = async (req,res,next) =>{
     try{
         let emps = await employee.find();
@@ -87,6 +60,4 @@ let deleteEmployee = async (req,res,next)=>{
 
 
 
-
-
-module.exports = {signIn,addEmployee,deleteEmployee,getAll}
+module.exports = {addEmployee,deleteEmployee,getAll}

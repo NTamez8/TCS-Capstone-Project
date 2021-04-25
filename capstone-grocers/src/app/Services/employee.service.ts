@@ -9,10 +9,6 @@ import { Employee } from '../Classes/employee';
 export class EmployeeService {
 
   constructor(private http:HttpClient) { }
-  public signIn(email:string,pass:string)
-  {
-    return this.http.post<{token:string}>('http://localhost:8080/employee/signIn',{email,pass});
-  }
 
   public getAllEmployees():Observable<Employee[]>
   {
