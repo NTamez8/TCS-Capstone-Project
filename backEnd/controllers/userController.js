@@ -93,7 +93,7 @@ let selectItemsfromCart = async(req,res)=>{
     })
 }
 
-let deleteItemsfromCart = (req,res)=>{
+let deleteItemsfromCart = async(req,res)=>{
     
     User.deleteOne({_id:item_id},(err,result)=> {
         if(!err){
@@ -172,6 +172,42 @@ let addItemstoCart = async (req, res, next) => {
         })
     
     }
-module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, viewItemsfromCart,isValid, selectItemsfromCart}
 
+
+let viewItemsfromCart =(req,res)=> {
+
+    User.find({},(err,result)=> {
+        if(!err){
+            res.json(result);
+        }
+    })
+
+}
+
+let updatestatusToUser=async(req,res)=>{
+    let u_username=req.body.u_username;
+    let locked=req.body.locked;
+    User.updateOne({u_username:u_username},{"$set":{locked:locked}},(err,result)=> {
+        if(!err){
+                if(result.nModified>0){
+                    res.send("User Account is Unlocked Succesfully")
+                }else {
+                    res.send("Check the UserName");
+                }
+        }else {
+            res.send("Error generated "+err);
+        }
+    })
+}
+
+//Retrive order staus
+let orderstatusToUser=(req,res)=>{
+    let orderdetails = neworder ({
+        status:req.body.order_history,
+    });
+    
+}
+
+
+module.exports = {signIn,signUp, addItemstoCart,selectItemsfromCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser}
 

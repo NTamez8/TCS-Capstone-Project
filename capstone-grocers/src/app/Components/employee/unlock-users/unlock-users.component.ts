@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 import { Component, OnInit } from '@angular/core';
+=======
+import { UserService } from 'src/app/Services/user.service';
+import { TicketService } from './../../../Services/ticket.service';
+import { Component, OnInit } from '@angular/core';
+import { Ticket } from 'src/app/Classes/ticket';
+>>>>>>> pruthvi
 
 @Component({
   selector: 'app-unlock-users',
@@ -6,10 +13,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./unlock-users.component.css']
 })
 export class UnlockUsersComponent implements OnInit {
+<<<<<<< HEAD
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+=======
+details?:Array<Ticket>
+  constructor(public detailSer:TicketService,public userSer:UserService) { }
+userMsg?:String
+  ngOnInit(): void {
+    this.detailSer.getDetailOfUser().subscribe(result=>this.details=result)
+  }
+
+  unlockUser(userRef:any){
+    console.log(userRef)
+    this.userSer.updatestatusToUser(userRef).subscribe((result:string)=>{
+
+     this.userMsg=result;
+  })
+
+}
+>>>>>>> pruthvi
 }

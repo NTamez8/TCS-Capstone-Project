@@ -12,4 +12,13 @@ export class LogOutComponent implements OnInit {
   ngOnInit(): void {
   }
 
+<<<<<<< HEAD
+=======
+  logOut()
+  {
+    sessionStorage.clear();
+    //redirect to home page here
+  }
+
+>>>>>>> pruthvi
 }

@@ -7,7 +7,7 @@ let cartItemSchema = new schema({
 
     product:{type:schema.Types.ObjectId, ref:'Product'},
     quantity:Number,
-    product_id: Number
+   
 
 },{_id:false})
 
@@ -19,8 +19,11 @@ let order = new schema({
     cart:[cartItemSchema],
     datetime_requested:Date,
     datetime_fulfilled:Date,
-    status:String               //can be either "in-progress" or "fulfilled"
+    status:String,
+    refund:Number
+ //can be either "in-progress" or "fulfilled"
 
 });
 
 module.exports = mongoose.model('Order',order);
+// module.exports = mongoose.model("order ",order);

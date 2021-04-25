@@ -1,40 +1,51 @@
 const order = require('../models/orderModel');
 
-let getOrderById = (req, res) => {
-    let oid = req.params.oid; //passing through path param
-    order.find({
-        _id: oid
-    }, (err, data) => {
-        if (!err) {
-            res.json(data); //return array
+let getOrderById=(req,res)=>{
+    let _id=req.params._id;     //passing through path param
+    order.find({_id:_id},(err,data)=>{
+        if(!err){
+            res.json(data);    //return array
         }
     })
 }
-
-
-let updateOrderByStatus = (req, res) => {
-    let pid = req.body.pid;
-    let updatedstatus = req.body.status
-    order.updateMany({
-        _id: pid
-    }, {
-        $set: {
-            status: updatedstatus
+ let getorderstatusToUser=(req,res)=>{
+    let status=req.body.status;
+    order.find({status:status},(err,data)=>{
+        if(!err){
+            res.json(data);    //return array
         }
-    }, (err, result) => {
-        if (!err) {
-            if (result.nModified > 0) {
-                res.send("Order status updated succesfully" + result)
+    })
+}
+let updateOrderByStatus=(req,res)=>{
+    let _id=req.body._id;
+    let status=req.body.status;
+    
+    order.updateMany({_id:_id},{$set:{status:status}},(err,result)=>{
+        if(!err){
+            if(result.nModified>0){
+            res.send("Order status updated succesfully"+result)
 
-                if (status == "cancelled") {
-                    // res.send(user.funds);
-                    var a = 1000;
-                    var b = 50;
-                    var sum = a + b;
-                    console.log(sum)
+            if(status=="cancelled"){
+               // res.send(user.funds);
+               //total=fund+price
+               //
+              // let refund=req.body.refund;
+               var fixfund = 1000;
+               var price = 50;
+               let sum = fixfund+price;
+               order.updateMany({_id:_id},{$set:{refund:sum}},(err,result1)=>{
+                if(result1.nModified>0){
+                    res.send("refund"+result1)
                 }
+            });
+               console.log(sum)
+               
 
-            } else {
+
+            }
+
+            }
+            else{
                 res.send("Order is not Upadated")
             }
         } else {
@@ -48,6 +59,7 @@ let updateOrderByStatus = (req, res) => {
 //         _id:req.body.oid,
 //         status:req.body.status,
 
+        
 //     });
 //     orderdetails.save((err,result)=>{
 //         if(!err){
@@ -58,6 +70,7 @@ let updateOrderByStatus = (req, res) => {
 //         }
 
 
+    
 //     })
 
 // }

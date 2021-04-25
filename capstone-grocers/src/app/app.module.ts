@@ -16,8 +16,8 @@ import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { DeleteEmployeeComponent } from './Components/admin/delete-employee/delete-employee.component';
 
-// import { EmployeeComponent } from './employee/employee.component';
 
+// import { EmployeeComponent } from './employee/employee.component';
 import { OrderStatusComponent } from './Components/employee/order-status/order-status.component';
 import { SendRequestComponent } from './Components/employee/send-request/send-request.component';
 import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-users.component';
@@ -35,12 +35,16 @@ import { SignInComponent as AdminSignInComponent } from './Components/admin/sign
 
 
 
-import { SignOutComponent } from './Components/admin/sign-out/sign-out.component';
-import { ReportComponent } from './Components/admin/report/report.component';
+
 import { ReportTableComponent } from './Components/admin/report-table/report-table.component';
 import { NoLoginComponent } from './Components/no-login/no-login.component';
 import { UserOptionsComponent } from './Components/user/user-options/user-options.component';
 
+
+
+
+import { SignOutComponent } from './Components/admin/sign-out/sign-out.component';
+import { ReportComponent } from './Components/admin/report/report.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +61,7 @@ import { UserOptionsComponent } from './Components/user/user-options/user-option
     DeleteEmployeeComponent,
 
    // EmployeeComponent,
-    // EmployeeComponent,
+
     OrderStatusComponent,
     SendRequestComponent,
     UnlockUsersComponent,
@@ -71,8 +75,7 @@ import { UserOptionsComponent } from './Components/user/user-options/user-option
     
     
 
-    SignOutComponent,
-    ReportComponent,
+  
 
     AddProductsComponent,
     DeleteProductsComponent,
@@ -90,6 +93,15 @@ import { UserOptionsComponent } from './Components/user/user-options/user-option
    
   
    
+    OrderStatusComponent,
+    SendRequestComponent,
+    EditProfileComponent,
+    UnlockUsersComponent,
+    LogOutComponent,
+
+    SignOutComponent,
+    ReportComponent
+
   ],
   imports: [
     BrowserModule,

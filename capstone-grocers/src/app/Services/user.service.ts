@@ -23,6 +23,7 @@ export class UserService {
     return this.http.post<{token:string}>('http://localhost:8080/user/signIn',{email,pass});
   }
 
+<<<<<<< HEAD
   // ------------------------------------------Adding changes to cart-----------------------------------
   addProductDetailsInfo(productRef:any){
     this.http.post("http://localhost:8080/user/select-item",
@@ -31,4 +32,13 @@ export class UserService {
 
   
  
+=======
+   public updatestatusToUser(userRef:any):any{
+    return this.http.put("http://localhost:8080/user/updatestatusToUser",userRef,{responseType:'text'})
+
+}
+
+
+  
+>>>>>>> pruthvi
 }
