@@ -11,7 +11,18 @@ import { ViewCartComponent } from './Components/user/view-cart/view-cart.compone
 import { ViewOrderStatusComponent } from './Components/user/view-order-status/view-order-status.component';
 import { ProfileComponent } from './Components/user/profile/profile.component';
 import { CheckoutComponent } from './Components/user/checkout/checkout.component';
-
+import { AddEmployeeComponent } from './Components/admin/add-employee/add-employee.component';
+import { FormsModule } from '@angular/forms';
+import {HttpClientModule} from '@angular/common/http';
+import { DeleteEmployeeComponent } from './Components/admin/delete-employee/delete-employee.component';
+// import { EmployeeComponent } from './employee/employee.component';
+import { OrderStatusComponent } from './Components/employee/order-status/order-status.component';
+import { SendRequestComponent } from './Components/employee/send-request/send-request.component';
+import { EditProfileComponent } from './Components/employee/edit-profile/edit-profile.component';
+import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-users.component';
+import { LogOutComponent } from './Components/employee/log-out/log-out.component';
+import { SignOutComponent } from './Components/admin/sign-out/sign-out.component';
+import { ReportComponent } from './Components/admin/report/report.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,11 +33,23 @@ import { CheckoutComponent } from './Components/user/checkout/checkout.component
     ViewCartComponent,
     ViewOrderStatusComponent,
     ProfileComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    AddEmployeeComponent,
+    DeleteEmployeeComponent,
+    // EmployeeComponent,
+    OrderStatusComponent,
+    SendRequestComponent,
+    EditProfileComponent,
+    UnlockUsersComponent,
+    LogOutComponent,
+    SignOutComponent,
+    ReportComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
