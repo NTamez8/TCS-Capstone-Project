@@ -11,6 +11,7 @@ const userRoutes = require('./routes/userRoute');
 
 const errorHandler = require('./middleware/errorHandler');
 const adminAuth = require('./middleware/adminPassport')();
+const userAuth = require('./middleware/userPassport')();
 
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -19,6 +20,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(adminAuth.initialize());
+app.use(userAuth.initialize());
 
 
 mongoose.Promise = global.Promise;
