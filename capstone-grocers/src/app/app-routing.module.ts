@@ -17,9 +17,10 @@ const routes: Routes = [
   {path:'user',component:UserOptionsComponent,children:[
     {path:'signUp',component:SignUpComponent},
     {path:'signIn',component:SignInComponent},
-    {path:'userPanel',component:UserPanelComponent,canActivate:[UserGuard]},
+  //  {path:'userPanel',component:UserPanelComponent,canActivate:[UserGuard]},
     //{path:'raiseTicket',component:}
   ]},
+  {path:'userPanel',component:UserPanelComponent,canActivate:[UserGuard]},
   {path:'admin',component:AdminPanelComponent,canActivate:[AdminGuard],children:[
     {path:'addEmployee',component:AddEmployeeComponent},
     {path:'deleteEmployee',component:DeleteEmployeeComponent},

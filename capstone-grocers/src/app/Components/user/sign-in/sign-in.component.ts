@@ -19,7 +19,7 @@ export class SignInComponent implements OnInit {
     this.userServ.signIn(userRef.userName,userRef.password).subscribe(data=>{
       console.log(data.token);
       sessionStorage.setItem('token',data.token);
-      this.router.navigateByUrl('/user/userPanel');
+      this.router.navigateByUrl('/userPanel');
     })
   }
 
