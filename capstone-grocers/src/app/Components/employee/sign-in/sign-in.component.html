@@ -1,6 +1,6 @@
 
 <div>
-    <form #userRef = 'ngForm' (ngSubmit) = 'login(empRef.value)'>
+    <form #empRef = 'ngForm' (ngSubmit) = 'login(empRef.value)'>
         <label >User Name: </label><input type="text" name='userName' required ngModel><br>
         <label >Password</label><input type="password" name='password' required ngModel><br>
         <input type="submit" value='login' [disabled] = "!empRef.valid">

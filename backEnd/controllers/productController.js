@@ -1,8 +1,8 @@
 const ProductModel = require('../models/productModel');
 
-let getProductById=(req,res)=>{
+let getProductById = async(req,res)=>{
     const product_id = req.params.product_id;
-    ProductModel.find({_id:product_id},(error,data)=>{
+    await ProductModel.find({_id:product_id},(error,data)=>{
         if(!error){
             res.json(data);
         }else{
@@ -11,9 +11,8 @@ let getProductById=(req,res)=>{
     });
 };
 
-
-let getAllProducts=(req,res)=>{
-    ProductModel.find({},(error,data)=>{
+let getAllProducts = async(req,res)=>{
+    await ProductModel.find({},(error,data)=>{
         if(!error){
             res.json(data);
         }else{
@@ -22,10 +21,27 @@ let getAllProducts=(req,res)=>{
     });
 };
 
+let addProduct = (req,res)=>{
+    //console.log("In Backend");
+    //console.log(req.body);
+    const product = req.body.product;
+    //new ProductModel
+    let new_product = new ProductModel();
+    new_product.name = product.name;
+    new_product.description = product.description;
+    new_product.price = product.price;
+    new_product.quantity = product.quantity;
+    console.log(new_product);
+    new_product.save();
+    console.log("Product added successfully!");
+};
 
-let updateProductQuantityById=(req,res)=>{
-    const product_id = req.params.product_id;
-    const new_quantity = req.params.new_quantity;
+let updateProductQuantityById = (req,res)=>{
+    const product_id = req.body.product_id;
+    const new_quantity = req.body.new_quantity;
+    console.log("In Backend");
+    console.log(req.body);
+    //HTTP error code 200 from this point forward...
     ProductModel.updateOne({_id:product_id},{$set:{quantity:new_quantity}},(error,data)=>{
         if(!error){
             if(data.modifiedCount>0){
@@ -36,10 +52,10 @@ let updateProductQuantityById=(req,res)=>{
         }else{
             res.send(`Error during product update: ${error}`);
         };
-    });
+    });S
 };
 
-let deleteProductById=(req,res)=>{
+let deleteProductById = (req,res)=>{
     const product_id = req.params.product_id;
     ProductModel.deleteOne({_id:product_id},(error,data)=>{
         if(!error){
@@ -54,5 +70,4 @@ let deleteProductById=(req,res)=>{
     });
 };
 
-module.exports = {getProductById, getAllProducts, updateProductQuantityById, deleteProductById};
-
+module.exports = {getProductById, getAllProducts, addProduct, updateProductQuantityById, deleteProductById};

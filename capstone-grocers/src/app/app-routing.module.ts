@@ -1,17 +1,26 @@
+//==MODULES==\\
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddEmployeeComponent } from './Components/admin/add-employee/add-employee.component';
 import { AdminPanelComponent } from './Components/admin/admin-panel/admin-panel.component';
 import { DeleteEmployeeComponent } from './Components/admin/delete-employee/delete-employee.component';
 import { ReportComponent } from './Components/admin/report/report.component';
-import { NoLoginComponent } from './Components/no-login/no-login.component';
+
 import { SignInComponent } from './Components/user/sign-in/sign-in.component';
 import { SignUpComponent } from './Components/user/sign-up/sign-up.component';
-import { UserOptionsComponent } from './Components/user/user-options/user-options.component';
+
 import { UserPanelComponent } from './Components/user/user-panel/user-panel.component';
 import { AdminGuard } from './Guards/admin.guard';
 import { UserGuard } from './Guards/user.guard';
+import { AddProductsComponent } from 'src/app/Components/admin/add-products/add-products.component';
 
+import { DeleteProductsComponent } from 'src/app/Components/admin/delete-products/delete-products.component';
+import { SignInComponent as AdminSignInComponent} from 'src/app/Components/admin/sign-in/sign-in.component';
+import { UpdateProductsComponent } from 'src/app/Components/admin/update-products/update-products.component';
+import { ViewProductsComponent } from 'src/app/Components/admin/view-products/view-products.component';
+import { ViewRequestsComponent } from 'src/app/Components/admin/view-requests/view-requests.component';
+import { NoLoginComponent } from './Components/no-login/no-login.component';
+import { UserOptionsComponent } from './Components/user/user-options/user-options.component';
 const routes: Routes = [
   {path:'',component:NoLoginComponent},
   {path:'user',component:UserOptionsComponent,children:[
@@ -25,8 +34,20 @@ const routes: Routes = [
     {path:'addEmployee',component:AddEmployeeComponent},
     {path:'deleteEmployee',component:DeleteEmployeeComponent},
     {path:'generateReport',component:ReportComponent}
-  ]}
-];
+  ]},
+   //must use path:"\x/y" for the pages to properly load
+  //ADMIN
+  {path:"\admin/signIn",component:AdminSignInComponent},
+  {path:"\admin/addProducts",component:AddProductsComponent},
+  {path:"\admin/viewProducts",component:ViewProductsComponent},
+  {path:"\admin/updateProducts",component:UpdateProductsComponent},
+  {path:"\admin/deleteProducts",component:DeleteProductsComponent},
+  {path:"\admin/viewRequests",component:ViewRequestsComponent},
+  {path:"\admin/panel",component:AdminPanelComponent}
+]
+
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

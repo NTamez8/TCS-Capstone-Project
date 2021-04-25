@@ -1,8 +1,9 @@
+<app-admin-panel></app-admin-panel>
 <div>
     <form #productRef="ngForm" (ngSubmit)="deleteProduct(productRef)">
         <h3>Product Deletion</h3><hr/>
         <label>Product Name: </label><input type="text" name="p_name" id="p_name" required ngModel/><br>
-        <input type="submit" value="Delete" [disabled]="productRef.valid"/>
+        <input type="submit" value="Delete" [disabled]="!productRef.valid"/>
         <input type="reset" value="Clear"/>
     </form>
 </div>

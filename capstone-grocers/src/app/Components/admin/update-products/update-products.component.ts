@@ -15,6 +15,8 @@ export class UpdateProductsComponent implements OnInit {
   }
 
   updateProduct(productRef:NgForm){
-    this.productService.updateProduct(productRef.value.p_name,productRef.value.p_newQuantity);
+    const formValues = productRef.value;
+    console.log("Updating Product");
+    this.productService.updateProduct(formValues.product_id,formValues.product_newQuantity).subscribe(data=>console.log(data.token));
   }
 }

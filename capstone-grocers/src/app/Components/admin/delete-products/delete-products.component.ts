@@ -15,7 +15,7 @@ export class DeleteProductsComponent implements OnInit {
   }
 
   deleteProduct(productRef:NgForm){
-    this.productService.deleteProduct(productRef.value.p_name);
+    this.productService.deleteProductById(productRef.value.p_name);
   }
 
 }
