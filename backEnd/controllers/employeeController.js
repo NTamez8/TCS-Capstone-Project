@@ -59,7 +59,28 @@ let deleteEmployee = async (req,res,next)=>{
 }
 
 
+let editPassword=(req,res)=>{
+    let email_address=req.body.email_address;
+    let e_password=req.body.e_password
+    employee.updateMany({email_address:email_address},{$set:{e_password:e_password}},(err,result)=>{
+        if(!err){
+            if(result.nModified>0){
+            res.send("Password updated succesfully"+result)
+            }
+            else{
+                res.send("Email is not available")
+            }
+        }
+        else{
+            res.send("Error  "+err);
+        }
+    })
+}
 
 
 
-module.exports = {addEmployee,deleteEmployee,getAll}
+
+
+
+
+module.exports = {addEmployee,deleteEmployee,getAll,editPassword}

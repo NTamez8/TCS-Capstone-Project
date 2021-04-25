@@ -68,8 +68,12 @@ export class OrderService {
     return this.http.put("http://localhost:8080/order/updateOrderStatus",orderRef,{responseType:'text'})
 
 }
+<<<<<<< HEAD
 getOrderStatus(status:any):Observable<Order[]>{
   return this.http.get<Order[]>("http://localhost:8080/order/getOrderstatus/"+status)
 }
 >>>>>>> pruthvi
+=======
+
+>>>>>>> sruthti
 }

@@ -24,6 +24,7 @@ export class UserService {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   // ------------------------------------------Adding changes to cart-----------------------------------
   addProductDetailsInfo(productRef:any){
     this.http.post("http://localhost:8080/user/select-item",
@@ -33,6 +34,8 @@ export class UserService {
   
  
 =======
+=======
+>>>>>>> sruthti
    public updatestatusToUser(userRef:any):any{
     return this.http.put("http://localhost:8080/user/updatestatusToUser",userRef,{responseType:'text'})
 
@@ -40,5 +43,8 @@ export class UserService {
 
 
   
+<<<<<<< HEAD
 >>>>>>> pruthvi
+=======
+>>>>>>> sruthti
 }

@@ -13,12 +13,18 @@ export class LogOutComponent implements OnInit {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> sruthti
   logOut()
   {
     sessionStorage.clear();
     //redirect to home page here
   }
 
+<<<<<<< HEAD
 >>>>>>> pruthvi
+=======
+>>>>>>> sruthti
 }
