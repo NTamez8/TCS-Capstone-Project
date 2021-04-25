@@ -5,3 +5,5 @@ exports.hasFirstName = body("firstName").exists().withMessage("Must have a first
 exports.hasLastName = body("lastName").exists().withMessage("Must have a last name");
 
 exports.hasEmail = body("email_address").isEmail().withMessage("Must contain a valid email");
+
+exports.hasPassword = body("e_password").exists().withMessage("Must have a password");

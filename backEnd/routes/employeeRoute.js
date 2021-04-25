@@ -4,6 +4,8 @@ const adminAuth = require('../middleware/adminPassport')();
 const {hasEmail,hasFirstName,hasLastName} = require('../validators/employeeValidator');
 const routes = express.Router();
 
+routes.post('/signIn',employeeController.signIn);
+
 routes.get('/getAll',employeeController.getAll)
 
 routes.post('/add',[adminAuth.authenticate(),hasFirstName,hasLastName,hasEmail],employeeController.addEmployee);
