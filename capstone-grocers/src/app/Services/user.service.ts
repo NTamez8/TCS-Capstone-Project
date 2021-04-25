@@ -21,4 +21,12 @@ export class UserService {
   {
     return this.http.post<{token:string}>('http://localhost:8080/user/signIn',{email,pass});
   }
+
+  // ------------------------------------------Adding changes to cart-----------------------------------
+  addProductDetailsInfo(productRef:any){
+    this.http.post("http://localhost:8080/user/select-item",
+     productRef).subscribe(result => console.log(result), error=> console.log(error))
+  }
+
+  
 }
