@@ -60,6 +60,17 @@ let signUp = async (req,res,next)=>{
     }
 }
 
+let isValid = async (req,res,next) =>{
+    try{
+      
+        res.send({"Message":"Authorized"});
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
+
 
 
 
@@ -105,5 +116,5 @@ let viewItemsfromCart =(req,res)=> {
 
 }
 
-module.exports = {signIn,signUp, selectItemsfromCart, deleteItemsfromCart, viewItemsfromCart}
+module.exports = {signIn,signUp, selectItemsfromCart, deleteItemsfromCart, viewItemsfromCart,isValid}
 

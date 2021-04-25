@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { User } from '../Classes/user';
 
 
@@ -21,4 +22,6 @@ export class UserService {
   {
     return this.http.post<{token:string}>('http://localhost:8080/user/signIn',{email,pass});
   }
+
+ 
 }
