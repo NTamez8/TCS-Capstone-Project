@@ -1,3 +1,4 @@
+import { EmployeeService } from 'src/app/Services/employee.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditProfileComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(public editSer:EmployeeService) { }
+  updateMsg?:string;
   ngOnInit(): void {
+  }
+
+  updatePassword(passwordRef:any){
+    console.log(passwordRef)
+    this.editSer.editPassword(passwordRef).subscribe((result:string)=>{
+      this.updateMsg=result;
+    })
+
   }
 
 }

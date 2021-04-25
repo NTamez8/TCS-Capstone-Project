@@ -23,4 +23,12 @@ export class EmployeeService {
   {
    return this.http.delete('http://localhost:8080/employee/delete/'+idToDelete);
   }
+  // public editPassword(productRef:any):any{
+  //   return this.http.delete("http://localhost:8080/employee/editPassword",productRef,{responseType:'text'});
+
+
+  // }
+  editPassword(passwordRef:any):any{
+    return this.http.put("http://localhost:8080/employee/editPassword",passwordRef,{responseType:'text'})
+  }
 }
