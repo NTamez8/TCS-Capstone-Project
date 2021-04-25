@@ -5,6 +5,7 @@ const userAuth = require('../middleware/userPassport')();
 const routes = express.Router();
 
 routes.post('/signUp',[hasAddress,hasDoB,hasEmail,hasFirstName,hasLastName,hasPassword,hasPhoneNo],userController.signUp);
+
 routes.post('/signIn',userController.signIn);
 routes.get('/isValid',userAuth.authenticate(),userController.isValid);
 
