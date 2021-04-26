@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,7 @@
 <body>
     
 </body>
-</html>
+</html>-->
 
 <h2>Account Funds</h2>
 
@@ -29,8 +29,8 @@
     <h3>Add Funds</h3>
     <div class="input-group mb-3 amntInput">
         <span class="input-group-text">$</span>
-        <input fundsAmnt type="text" class="form-control" aria-label="Amount">
+        <input #fundsAmnt type="text" class="form-control" aria-label="Amount">
         <span class="input-group-text">.00$</span>
     </div>
-    <input type="button" class="btn btn-success" value="Load Funds" (click)="loadFunds(funds)">
+    <input type="button" class="btn btn-success" value="Load Funds" (click)="loadFunds(fundsAmnt.value)">
 </div>
