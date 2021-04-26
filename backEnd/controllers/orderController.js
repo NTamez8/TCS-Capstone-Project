@@ -19,6 +19,7 @@ let getOrderById=(req,res)=>{
 let updateOrderByStatus= async (req,res,next)=>{
     try
     {
+        console.log('here');
         // get the orders id and the status to change to
         let _id=req.body._id;
         let status=req.body.status;
@@ -35,7 +36,7 @@ let updateOrderByStatus= async (req,res,next)=>{
         }
 
         // if the status is canceled 
-        if(status == 'canceled')
+        if(status == 'canceled' || status == 'cancelled')
         {
             let refund = 0;
 

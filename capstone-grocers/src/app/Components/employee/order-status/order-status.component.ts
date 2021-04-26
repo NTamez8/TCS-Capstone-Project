@@ -16,7 +16,7 @@ export class OrderStatusComponent implements OnInit {
   serchorderDetails(id:any){
     this.orderSer.retriveOrderById(id).subscribe(result=>{
       if(result.length>0){
-  this.resultMsg = " Id is  "+ result[0]._id +" username is  " +result[0].u_username+ "  status is "+result[0].status
+  this.resultMsg = " Id is  "+ result[0]._id +" username is  " +result[0].user_ID+ "  status is "+result[0].status
       }else{
   this.resultMsg="Id is not Present"
       }
@@ -25,8 +25,8 @@ export class OrderStatusComponent implements OnInit {
   }
   updateStatus(orderRef:any){
     console.log(orderRef)
-    this.orderSer.updateOrderStatus(orderRef).subscribe((result:string)=>{
-      this.updateMsg=result;
+    this.orderSer.updateOrderStatus(orderRef).subscribe((result:any)=>{
+      this.updateMsg=result.Message;
     })
 
 
