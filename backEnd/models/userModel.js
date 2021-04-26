@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const cartItemSchema = require("./cartModel");
 
 let schema = mongoose.Schema;
 
@@ -15,6 +16,7 @@ let user = new schema({
     locked:Boolean,
     funds:Number,
     failedAttempts:Number,
+    currentCart:[cartItemSchema],
    // order_history:String,            //stringified JSON of order array (Order[]) 
     order_history:{type:schema.Types.ObjectId, ref:'Order'}
 });

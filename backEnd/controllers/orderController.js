@@ -95,7 +95,7 @@ let getOrdersByDay = async (req, res, next) => {
             datetime_requested: {
                 $gte: beginDay,
                 $lt: endDay
-            }
+            }  ,status:{$not:{$eq:'cancelled'}}
         }).populate('cart.product');
         res.send(foundOrders);
     } catch (err) {
@@ -126,7 +126,7 @@ let getOrdersByWeek = async (req, res, next) => {
             datetime_requested: {
                 $gte: weekStart,
                 $lt: weekEnd
-            }
+            }  ,status:{$not:{$eq:'cancelled'}}
         }).populate('cart.product');
         res.send(foundOrders);
     } catch (err) {
@@ -164,6 +164,7 @@ let getOrdersByMonth = async (req, res, next) => {
                 $gte: date,
                 $lt: nextMonth.toLocaleDateString()
             }
+            ,status:{$not:{$eq:'cancelled'}}
         }).populate('cart.product');
         res.send(foundOrders);
     } catch (err) {
@@ -174,9 +175,9 @@ let getOrdersByMonth = async (req, res, next) => {
 let getOrdersByProduct = async (req, res, next) => {
     try {
         let productId = req.params.id;
-        let ordersByProd = await order.find({},{
+        let ordersByProd = await order.find({ status:{$not:{$eq:'cancelled'}}},{
            // "cart.product": productId
-           cart:{$elemMatch:{product:productId}}
+           cart:{$elemMatch:{product:productId}} 
         }).populate('cart.product');
 
 
@@ -191,7 +192,7 @@ let getOrdersByCust = async (req, res, next) => {
     try {
         let custId = req.params.id;
         let ordersByProd = await order.find({
-            user_ID: custId
+            user_ID: custId  ,status:{$not:{$eq:'cancelled'}}
         }).populate('cart.product');
         if (!ordersByProd) {
             const error = new Error("Wrong credentials");

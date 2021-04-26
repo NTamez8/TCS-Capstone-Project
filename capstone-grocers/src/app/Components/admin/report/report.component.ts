@@ -4,7 +4,11 @@ import {
   ViewChild
 } from '@angular/core';
 import { Order } from 'src/app/Classes/order';
+import { Product } from 'src/app/Classes/product';
+import { User } from 'src/app/Classes/user';
 import { OrderService } from 'src/app/Services/order.service';
+import { ProductService } from 'src/app/Services/product.service';
+import { UserService } from 'src/app/Services/user.service';
 import { ReportTableComponent } from '../report-table/report-table.component';
 
 @Component({
@@ -17,12 +21,16 @@ export class ReportComponent implements OnInit {
   @ViewChild(ReportTableComponent) reportTable?:ReportTableComponent;
   reportType: string = '1';
   date: string = '';
-  product: string = '';
-  customer: string = '';
+  products: Product[] = [];
+  customers: User[] = [];
   orders:Order[] = [];
-  constructor(private oService:OrderService) {}
+  constructor(private oService:OrderService,private userServ:UserService,private productServ:ProductService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.productServ.getAllProducts().subscribe(data=>{this.products = data});
+    this.userServ.getAllUsers().subscribe(data=>{this.customers = data})
+
+  }
 
   changedValue(selector: any) {
 

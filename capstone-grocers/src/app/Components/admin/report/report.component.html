@@ -1,51 +1,66 @@
-<div>
-   <label>Report Type: </label> <select #selectedType (change)='changedValue(selectedType.value)'>
-        <option value='1'>Daily</option>
-        <option value='2'>Weekly</option>
-        <option value='3'>Monthly</option>
-        <option value='4'>Product</option>
-        <option value='5'>Customer</option>
-    </select>
-    <div *ngIf='reportType == "1"'>
-        <label>Select Day: </label><input type="date" #day (change)='changeDate(day.value)'>
-    </div>
-
-    <div *ngIf='reportType == "2"'>
-        <label>Select Week: </label><input type="week" #week (change)='changeDate(week.value)' >
-    </div>
-    <div *ngIf='reportType == "3"'>
-        <label>Select Month: </label><input type="month" #month (change)='changeDate(month.value)'>
-    </div>
-    <div *ngIf='reportType == "4"'>
-        <label>Select Product: </label>
-        <select #prod (change)='changeProd(prod.value)'>
-            <option value='-1'>-</option>
-            <option value='6081ec19a6af1e1a94f37690'>watch</option>
-            <option value='6081ec19a6af1e1a94f37691'>phone</option>
-        </select>
-    </div>
-    <div *ngIf='reportType =="5"'>
-        <label>Select Customer: </label>
-        <select #cust (change)='changeCust(cust.value)'>
-             <option value='-1'>-</option>
-            <option value='6081c38ffe01831facdb79ba'> peter</option>
-            <option value='608325cef4560728b840481d'> nicolas</option>
-        </select>
-    </div><!--
-    <div>
-        <button (click)='buildReport()'>Generate report</button>
-    </div>-->
-</div>
-<div *ngIf='orders.length != 0'><!--
-    <div *ngFor='let order of orders'>
-        <div *ngFor='let item of order.cart'>
-            {{item.product.name}}
+<div class='row'>
+  <div class='col-4 offset-4'>
+     <div class='form-group'>
+        <label>Report Type: </label> <select #selectedType (change)='changedValue(selectedType.value)' class='form-control'>
+            <option value='1'>Daily</option>
+            <option value='2'>Weekly</option>
+            <option value='3'>Monthly</option>
+            <option value='4'>Product</option>
+            <option value='5'>Customer</option>
+          </select>
+     </div>
+        
+          <div *ngIf='reportType == "1"' class='form-group'>
+            <label>Select Day: </label><input type="date" #day (change)='changeDate(day.value)' class='form-control'>
+          </div>
+      
+          <div *ngIf='reportType == "2"'  class='form-group'>
+            <label>Select Week: </label><input type="week" #week (change)='changeDate(week.value)'  class='form-control'>
+          </div>
+          <div *ngIf='reportType == "3"'  class='form-group'>
+            <label>Select Month: </label><input type="month" #month (change)='changeDate(month.value)'  class='form-control'>
+          </div>
+          <div *ngIf='reportType == "4"'  class='form-group'>
+            <label>Select Product: </label>
+            <select #prod (change)='changeProd(prod.value)'  class='form-control'>
+              <option value='-1'>-</option>
+              <option *ngFor='let product of products' value='{{product._id}}'>{{product.name}}</option>
+              <!--
+              <option value='6081ec19a6af1e1a94f37690'>watch</option>
+              <option value='6081ec19a6af1e1a94f37691'>phone</option>-->
+            </select>
+          </div>
+          <div *ngIf='reportType =="5"'  class='form-group'>
+            <label>Select Customer: </label>
+            <select #cust (change)='changeCust(cust.value)'  class='form-control'>
+              <option value='-1'>-</option>
+              <option *ngFor='let customer of customers' value='{{customer._id}}'>{{customer.firstName}} {{customer.lastName}}</option>
+           
+           
+               <!--<option value='6081c38ffe01831facdb79ba'> peter</option>
+              <option value='608325cef4560728b840481d'> nicolas</option>-->
+            </select>
+          </div>
+          <app-report-table [orders]='orders'></app-report-table>
+   
+    <!--
+        <div>
+            <button (click)='buildReport()'>Generate report</button>
+        </div>-->
+  </div>
+   <!-- <div *ngIf='orders.length != 0'>
+  
+        <div *ngFor='let order of orders'>
+            <div *ngFor='let item of order.cart'>
+                {{item.product.name}}
+            </div>
         </div>
-    </div>
-    <app-report-table [orders] = 'orders'></app-report-table>-->
-</div>
-<app-report-table [orders] = 'orders'></app-report-table>
+        <app-report-table [orders] = 'orders'></app-report-table>
+  </div>-->
 
-<div>
+
+  <div>
+
+  </div>
 
 </div>

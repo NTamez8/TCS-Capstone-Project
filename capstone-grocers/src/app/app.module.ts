@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { UserPanelComponent } from './Components/user/user-panel/user-panel.component';
 import { SignInComponent as UserSignInComponent } from './Components/user/sign-in/sign-in.component';
 import { SignUpComponent } from './Components/user/sign-up/sign-up.component';
+import {LogOutComponent as userLogOut} from './Components/user/log-out/log-out.component';
 import { SelectItemComponent } from './Components/user/select-item/select-item.component';
 import { ViewCartComponent } from './Components/user/view-cart/view-cart.component';
 import { ViewOrderStatusComponent } from './Components/user/view-order-status/view-order-status.component';
@@ -88,7 +89,7 @@ import { DeleteItemComponent } from './Components/user/delete-item/delete-item.c
     // EmployeeComponent,
    
    
-    
+    userLogOut,
     
     
 

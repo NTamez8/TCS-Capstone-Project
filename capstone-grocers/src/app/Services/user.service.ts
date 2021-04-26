@@ -19,7 +19,10 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-
+public getAllUsers():Observable<User[]>
+{
+  return this.http.get<User[]>('http://localhost:8080/user/getAll');
+}
 
   public signUp(user: User) {
     console.log(user);

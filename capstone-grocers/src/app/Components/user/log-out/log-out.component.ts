@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-log-out',
+  selector: 'app-user-log-out',
   templateUrl: './log-out.component.html',
   styleUrls: ['./log-out.component.css']
 })

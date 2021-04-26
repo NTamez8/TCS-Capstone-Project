@@ -5,7 +5,17 @@ const userConfig = require('../config/userConfig');
 const jwt = require('jwt-simple');
 
 
-
+let getAll = async (req,res,next)=>{
+    try
+    {
+        let users = await User.find({});
+        res.send(users);
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
 
 let signIn = async (req,res,next)=>{
     let user;
@@ -92,6 +102,7 @@ let signUp = async (req,res,next)=>{
         user.funds = 1000;
         user.order_history = null;
         user.failedAttempts = 0;
+        user.currentCart = [];
         
         await user.save();
         const token = jwt.encode({id:user._id},userConfig.secret);
@@ -225,5 +236,7 @@ let orderstatusToUser=(req,res)=>{
 }
 
 
-module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser, checkoutCart}
+
+module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser, checkoutCart,getAll}
+
 
