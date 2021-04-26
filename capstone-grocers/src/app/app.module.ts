@@ -98,16 +98,16 @@ import { UserOptionsComponent } from './Components/user/user-options/user-option
     //ADMIN
     AdminSignInComponent,
     AdminPanelComponent,
-    AddEmployeeComponent,
-    DeleteEmployeeComponent,
+  
+ 
     AddProductsComponent,
     ViewProductsComponent,
     DeleteProductsComponent,
     UpdateProductsComponent,
     ReportComponent,
     ViewRequestsComponent,
-    AdminPanelComponent,
-    AdminSignInComponent,
+  
+  
     ReportTableComponent,
     NoLoginComponent,
     UserOptionsComponent,
@@ -118,17 +118,16 @@ import { UserOptionsComponent } from './Components/user/user-options/user-option
    
   
    
-    OrderStatusComponent,
-    SendRequestComponent,
-    EditProfileComponent,
-    UnlockUsersComponent,
-    LogOutComponent,
+ 
+
+   
+ 
 
     SignOutComponent,
-    ReportComponent,
+  
 
     AdminSignOutComponent,
-    ReportComponent
+  
   ],
   imports: [
     BrowserModule,
