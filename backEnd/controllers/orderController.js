@@ -24,14 +24,20 @@ let updateOrderByStatus=(req,res)=>{
                //total=fund+price
                //
               // let refund=req.body.refund;
-               var fixfund = 1000;
-               var price = 50;
-               let sum = fixfund+price;
-               User.updateMany({_id:_id},{$set:{refund:sum}},(err,result1)=>{
+    
+              let funds = req.body.funds
+               //let u_username=User.req.body.u_username;
+               let price =cart.price;
+               let quantity =User.cart.quantity;
+               //var fixfund = 1000;
+                price = 50;
+                quantity=2
+              let sum = price*quantity;
+               User.updateMany({_id:_id},{$set:{funds:sum}},(err,result1)=>{
                 if(!err){
                     res.send("refund"+result1)
                 }
-            });
+            })
                console.log(sum)
                
 
@@ -46,7 +52,7 @@ let updateOrderByStatus=(req,res)=>{
         else{
             res.send("Error generated "+err);
         }
-    })
+    }).populate('cart.product');
 }
 
 // let storeOrderByStatus=(req,res)=>{
