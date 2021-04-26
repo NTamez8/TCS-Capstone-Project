@@ -23,6 +23,7 @@ import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-
 import { LogOutComponent } from './Components/employee/log-out/log-out.component';
 import { SignOutComponent } from './Components/admin/sign-out/sign-out.component';
 import { ReportComponent } from './Components/admin/report/report.component';
+import { FundsComponent } from './Components/user/funds/funds.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +44,8 @@ import { ReportComponent } from './Components/admin/report/report.component';
     UnlockUsersComponent,
     LogOutComponent,
     SignOutComponent,
-    ReportComponent
+    ReportComponent,
+    FundsComponent
   ],
   imports: [
     BrowserModule,
