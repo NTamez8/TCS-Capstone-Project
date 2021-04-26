@@ -11,5 +11,5 @@ routes.get("/selectItemsfromCart",userController.selectItemsfromCart)
 routes.get("/deleteItemsfromCart/:item_id",userController.deleteItemsfromCart)
 routes.get("/viewItemsfromCart",userController.viewItemsfromCart)
 routes.put('/editPassword',userController.editPassword)
-
+routes.put("/updateFunds",userController.updateFunds)
 module.exports = routes;

@@ -117,5 +117,35 @@ let editPassword=(req,res)=>{
         }
     })
 }
-module.exports = {signIn,signUp, selectItemsfromCart, deleteItemsfromCart, viewItemsfromCart,editPassword}
+
+let updateFunds =(req,res) =>{
+    let account =req.body.account;
+    let amount =req.body.amount;
+    user.find({u_username: id , accountN:account},(err1,result)=>{
+        if(!err1){
+            if(result1.balance > amount){
+                let newBalance =result1.balance - amount ;
+                let newFunds = result1.balance + amount;
+                user.updateOne(
+                    {u_username:id , accountN:account},
+                    {$set:{balance: newBalance, funds: newFunds}},
+                    (err2,result) =>{
+                        if(!err2){
+                            if(result2.nModified > 0){
+                                res.send("Funds and balance is updated");
+                            }else{
+                                res.send("account is not available");
+                            }
+                        }else{
+                            res.send("chcek account number");
+                        }
+                    }
+                )
+            }else{
+                res.send("Amount not sufficient for transfer");
+            }
+        }
+    })
+}
+module.exports = {signIn,signUp, selectItemsfromCart, deleteItemsfromCart, viewItemsfromCart,editPassword,updateFunds}
 

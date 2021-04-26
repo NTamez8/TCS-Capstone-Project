@@ -21,6 +21,10 @@ export class UserService {
     return this.http.post<{token:string}>('http://localhost:8080/user/signIn',{email,pass});
   }
   public editPassword(passwordRef:any):any{
-    return this.http.put("http://localhost:8080//editPassword",passwordRef,{responseType:'text'})
+    return this.http.put("http://localhost:8080/user/editPassword",passwordRef,{responseType:'text'})
+  }
+  public loadFunds(funds: any){
+    console.log(funds);
+    return this.http.put("http://localhost:8080/user/loadFunds",{funds})
   }
 }
