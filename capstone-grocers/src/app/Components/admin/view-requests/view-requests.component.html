@@ -1,21 +1,24 @@
-<div style="text-align:center;">
-    <button (click)="getAllRequests()" class="btn btn-primary">View Requests</button>
-    <table style="border:1px solid black;margin:auto;">
-        <thead>
-            <th>Employee</th>
-            <th>Product ID</th>
-            <th>Quantity Requested</th>
-            <th>Time Requested</th>
-            <th>Time Resolved</th>
-            <th>Status</th>
-        </thead>
-        <tr *ngFor="let request of requests">
-            <td>{{request.e_username}}</td>
-            <td>{{request.product_id}}</td>
-            <td>{{request.new_quantity}}</td>
-            <td>{{request.datetime_requested}}</td>
-            <td>{{request.datetime_resolved}}</td>
-            <td>{{request.status}}</td>
-        </tr>
-    </table>
+<div class="text-center row">
+    <div class="col-7 m-auto">
+        <h3>Request Viewing</h3><hr/>
+        <button (click)="getAllRequests()" class="btn btn-primary">View Requests</button>
+        <table style="border:1px solid black;margin:auto;">
+            <thead>
+                <th>Employee</th>
+                <th>Product ID</th>
+                <th>Quantity Requested</th>
+                <th>Time Requested</th>
+                <th>Time Resolved</th>
+                <th>Status</th>
+            </thead>
+            <tr *ngFor="let request of requests">
+                <td>{{request.e_username}}</td>
+                <td>{{request.product_id}}</td>
+                <td>{{request.new_quantity}}</td>
+                <td>{{request.datetime_requested}}</td>
+                <td>{{request.datetime_resolved}}</td>
+                <td>{{request.status}}</td>
+            </tr>
+        </table>
+        </div>
 </div>
