@@ -23,6 +23,7 @@ export class UserGuard implements CanActivate, CanActivateChild {
       
         return new Promise<boolean>((resolve,reject)=>{
 
+          // try changing the response type to text and seeing how that effects the response
           this.http.get('http://localhost:8080/user/isValid',{headers:{"Authorization":token}}).subscribe((data)=>{
            
             resolve(true);
