@@ -21,6 +21,9 @@ import { ViewProductsComponent } from 'src/app/Components/admin/view-products/vi
 import { ViewRequestsComponent } from 'src/app/Components/admin/view-requests/view-requests.component';
 import { NoLoginComponent } from './Components/no-login/no-login.component';
 import { UserOptionsComponent } from './Components/user/user-options/user-options.component';
+import { SelectItemComponent } from './Components/user/select-item/select-item.component';
+import { ViewCartComponent } from './Components/user/view-cart/view-cart.component';
+import { ViewOrderStatusComponent } from './Components/user/view-order-status/view-order-status.component';
 const routes: Routes = [
   {path:'',component:NoLoginComponent},
   {path:'user',component:UserOptionsComponent,children:[
@@ -29,7 +32,12 @@ const routes: Routes = [
   //  {path:'userPanel',component:UserPanelComponent,canActivate:[UserGuard]},
     //{path:'raiseTicket',component:}
   ]},
-  {path:'userPanel',component:UserPanelComponent,canActivate:[UserGuard]},
+  {path:'userPanel',component:UserPanelComponent,canActivate:[UserGuard],canActivateChild:[UserGuard],children:[
+    {path:'select',component:SelectItemComponent},
+    {path:'viewCart',component:ViewCartComponent},
+    {path:'viewOrderStatus',component:ViewOrderStatusComponent}
+
+  ]},
   {path:'admin',component:AdminPanelComponent,canActivate:[AdminGuard],children:[
     {path:'addEmployee',component:AddEmployeeComponent},
     {path:'deleteEmployee',component:DeleteEmployeeComponent},
