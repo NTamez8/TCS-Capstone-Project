@@ -174,17 +174,6 @@ let addItemstoCart = async (req, res, next) => {
     
     }
 
-
-let viewItemsfromCart =(req,res)=> {
-
-    User.find({},(err,result)=> {
-        if(!err){
-            res.json(result);
-        }
-    })
-
-}
-
 let updatestatusToUser=async(req,res)=>{
     let u_username=req.body.u_username;
     let locked=req.body.locked;
@@ -210,5 +199,5 @@ let orderstatusToUser=(req,res)=>{
 }
 
 
-module.exports = {signIn,signUp, addItemstoCart,selectItemsfromCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser}
+module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser}
 
