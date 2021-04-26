@@ -16,10 +16,45 @@ let getOrderById=(req,res)=>{
         }
     })
 }
-let updateOrderByStatus=(req,res)=>{
-    let _id=req.body._id;
-    let status=req.body.status;
+let updateOrderByStatus= async (req,res,next)=>{
+    try
+    {
+        let _id=req.body._id;
+        let status=req.body.status;
+        let currOrder = await order.findById(_id).populate('cart.product');
+
+        if(currOrder == null)
+        {
+            let error = new Error('Bad request');
+            error.statusCode = 400;
+            throw error;
+        }
+        if(status == 'canceled')
+        {
+            let refund = 0;
+            let cart = currOrder.cart;
+            let length = cart.length;
+            for(let x = 0; x < length; x++)
+            {
+                refund += cart[x].product.price * cart[x].quantity;
+            }
+            console.log(refund);
     
+            let currUser = await User.findById(currOrder.user_ID);
+            currUser.funds += refund;
+            await currUser.save();
+        }
+       
+        currOrder.status = status;
+            await currOrder.save();
+        res.send({"Message":"Success"});
+    }
+    catch(err)
+    {
+        next(err);
+    }
+  
+    /*
     order.updateMany({_id:_id},{$set:{status:status}},(err,result)=>{
         if(!err){
             if(result.nModified>0){
@@ -57,7 +92,7 @@ let updateOrderByStatus=(req,res)=>{
         } else {
             res.send("Error generated " + err);
         }
-    }).populate('cart.product');
+    }).populate('cart.product');*/
 }
 
 // let storeOrderByStatus=(req,res)=>{
