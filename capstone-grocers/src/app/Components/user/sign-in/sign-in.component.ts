@@ -18,19 +18,19 @@ export class SignInComponent implements OnInit {
   login(userRef:any)
   {
     this.userServ.signIn(userRef.userName,userRef.password).subscribe(data=>{
-     if(data.token != "-1")
-     {
+     
       sessionStorage.setItem('token',data.token);
       this.router.navigateByUrl('/userPanel');
-     }
-     else
-     {
-      
-       this.msg = 'Exceeded max login'
-     }
+     
+     
      
     },err=>{
-      console.log(err);
+    
+      if(err.error.message == "Exceeded max login")
+      {
+        
+        this.msg = 'Exceeded max login'
+      }
     })
   }
 

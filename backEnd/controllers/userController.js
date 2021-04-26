@@ -11,7 +11,7 @@ const jwt = require('jwt-simple');
 
 let signIn = async (req,res,next)=>{
     let user;
-    let noErr = false;
+  
     try{
         
         let u_username = req.body.email;
@@ -27,8 +27,11 @@ let signIn = async (req,res,next)=>{
         if(user.failedAttempts >= 3)
         {
            
-            noErr = true;
-            res.send({"token":"-1"});
+           
+            const error = new Error("Exceeded max login");
+            error.statusCode = 401;
+            throw error;
+
            
         }
         const validPassword = await user.validPassword(pass);
@@ -39,17 +42,19 @@ let signIn = async (req,res,next)=>{
             error.statusCode = 401;
             throw error;
         }
+        user.failedAttempts = 0;
+        await user.save();
         const token = jwt.encode({id:user._id},userConfig.secret);
         res.send({token});
     }
     catch(err)
     {
-     
+    
         if(err.message == 'Wrong credentials')
             {
                 increaseUserFailedAttempts(user);
             }
-        if(!noErr)
+      
         next(err);
     }
 }
