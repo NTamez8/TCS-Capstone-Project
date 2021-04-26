@@ -59,7 +59,7 @@ export class UserService {
 
   // ------------------------------------------Adding changes to cart-----------------------------------
   addProductDetailsInfo(productRef: any) {
-    this.http.post("http://localhost:8080/user/select-item",
+    this.http.post("http://localhost:8080/user/addProductDetailsInfo",
       productRef).subscribe(result => console.log(result), error => console.log(error))
   }
 

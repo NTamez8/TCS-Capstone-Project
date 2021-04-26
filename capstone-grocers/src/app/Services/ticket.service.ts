@@ -13,8 +13,8 @@ export class TicketService {
 
   constructor(private http:HttpClient) { }
   
-  sendTicket(ticketRef:any){
-    this.http.post("http://localhost:8080/ticket/sendTicket",ticketRef).
+  public sendTicket(user:any){
+    this.http.post("http://localhost:8080/ticket/sendTicket",user).
     subscribe(result=>console.log(result),error=>console.log(error))
   }
 

@@ -1,0 +1,13 @@
+<div>
+    <form #userRef="ngForm" (ngSubmit)="raiseTicket(userRef.value)" >
+        <label>User Name</label>
+        <input type="text" name="user" ngModel/> <br/>
+        <label>Reason for raising Ticket</label>
+        <input type="text" name="ticket" ngModel/> <br/>
+        <input type="submit" value="submit"/>
+        <input type="reset" value="reset"/>
+    </form>
+    <br/>
+  
+    
+</div>
