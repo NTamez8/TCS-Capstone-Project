@@ -17,7 +17,8 @@ let user = new schema({
     accountN:Number,
     balance:Number,
     failedAttempts:Number,
-   // order_history:String,            //stringified JSON of order array (Order[]) 
+    order_history:String,            //stringified JSON of order array (Order[]) 
+    cost:Number,
     order_history:{type:schema.Types.ObjectId, ref:'Order'}
 });
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-funds',
@@ -7,12 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FundsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public userService:UserService) { }
 
   ngOnInit(): void {
   }
-  loadFunds(funds:any){
-    console.log("Funds added are :")
-    console.log(funds)
+  loadFunds(fundsRef:any){
+    this.userService.loadFunds(fundsRef).subscribe((res:any)=>{
+      console.log(res);
+      if(res.approved==true){
+        console.log(fundsRef)
+      }
+    })
+  }
+  checkFunds(id:string ,cost:number){
+    this.userService.checkFunds(id,cost).subscribe((res:any)=>{
+      if(res.approved == true){
+        console.log(res)
+      }
+    })
   }
 }

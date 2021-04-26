@@ -23,8 +23,23 @@ export class UserService {
   public editPassword(passwordRef:any):any{
     return this.http.put("http://localhost:8080/user/editPassword",passwordRef,{responseType:'text'})
   }
-  public loadFunds(funds: any){
-    console.log(funds);
-    return this.http.put("http://localhost:8080/user/loadFunds",{funds})
+  public loadFunds(fundsRef: any){
+    console.log(fundsRef);
+    return this.http.put("http://localhost:8080/user/loadFunds",fundsRef,{responseType:"text"})
   }
+  checkFunds(id:string, cost:number){
+
+    let newobj = {
+      id,
+      cost
+    }
+    let funds: any;
+    this.http.post("http://localhost:8080/user/checkFunds", newobj, {responseType:'text'}).
+    subscribe((res:any) => {
+      console.log("Funds", res);
+      funds = res;
+    }, err => console.log(err));
+    return funds;
+  }
+
 }

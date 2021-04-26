@@ -100,6 +100,29 @@ let viewItemsfromCart = async(req,res)=> {
     })
 
 }
+
+let checkFunds =(req,res) =>{
+    let id =   req.body.id;
+    let cost = req.body.cost;
+    user.find({u_username:id},(err,result)=>{
+        if(!err){
+            console.log(result.funds);
+            if(result.funds > cost){
+                let newFunds ={};
+                newFunds.fund = cost - result.funds;
+                newFunds.approved = true;
+                newFunds.error="";
+                res.json(newFunds);
+            }else{
+                let errorObj = {fund:0,error: "funds are not sufficient",approved: false};
+                res.json(errorObj);
+            }
+        }else{
+            res.send("Record not found");
+        }
+    })
+}
+
 let editPassword=(req,res)=>{
     let u_username=req.body.u_username;
     let u_password=req.body.u_password
@@ -147,5 +170,5 @@ let updateFunds =(req,res) =>{
         }
     })
 }
-module.exports = {signIn,signUp, selectItemsfromCart, deleteItemsfromCart, viewItemsfromCart,editPassword,updateFunds}
+module.exports = {signIn,signUp, selectItemsfromCart, deleteItemsfromCart, viewItemsfromCart,checkFunds,editPassword,updateFunds}
 
