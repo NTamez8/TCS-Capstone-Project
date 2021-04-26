@@ -1,5 +1,5 @@
 const order = require('../models/orderModel');
-
+const User = require('../models/userModel');
 let getOrderById=(req,res)=>{
     let _id=req.params._id;     //passing through path param
     order.find({_id:_id},(err,data)=>{
@@ -27,8 +27,8 @@ let updateOrderByStatus=(req,res)=>{
                var fixfund = 1000;
                var price = 50;
                let sum = fixfund+price;
-               order.updateMany({_id:_id},{$set:{refund:sum}},(err,result1)=>{
-                if(result1.nModified>0){
+               User.updateMany({_id:_id},{$set:{refund:sum}},(err,result1)=>{
+                if(!err){
                     res.send("refund"+result1)
                 }
             });
