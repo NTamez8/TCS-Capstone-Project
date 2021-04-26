@@ -169,7 +169,7 @@ let addItemstoCart = async (req, res, next) => {
         })
     };
 
-  let viewItemsfromCart =(req,res)=> {
+  let viewItemsfromCart = async(req,res)=> {
         let userOrder= await User.findOne({user_id});
         userOrder.currentCart.find({},(err,result)=> {
             if(!err){
