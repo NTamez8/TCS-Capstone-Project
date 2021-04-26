@@ -11,6 +11,10 @@ const userRoutes = require('./routes/userRoute');
 
 const errorHandler = require('./middleware/errorHandler');
 const adminAuth = require('./middleware/adminPassport')();
+const userAuth = require('./middleware/userPassport')();
+
+//for deault admin creation
+const AdminModel = require('./models/adminModel');
 
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -19,12 +23,25 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(adminAuth.initialize());
-
+app.use(userAuth.initialize());
 
 mongoose.Promise = global.Promise;
 
 mongoose.connect(mongooseConfig.url,mongooseConfig.options);
 
+//make an admin if one does not exist
+AdminModel.find({},async (error,data)=>{
+    if(data.length==0){
+        defaultAdmin = new AdminModel();
+        defaultAdmin.firstName = "admin";
+        defaultAdmin.lastName = "capstone";
+        defaultAdmin.a_username = "admin";
+        defaultAdmin.a_password = await defaultAdmin.encryptPassword("AdminCapstone");
+        defaultAdmin.save();
+        //console.log("Default admin added!");
+    }
+    //console.log(data.length);
+});
 
 app.use('/admin',adminRoutes);
 

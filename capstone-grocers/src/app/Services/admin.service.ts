@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,10 @@ import { Injectable } from '@angular/core';
 })
 export class AdminService {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
+
+  signIn(a_username:String,a_password:String){
+    return this.http.post<{token:string}>('http://localhost:8080/admin/signIn',{a_username,a_password});
+  };
+
 }

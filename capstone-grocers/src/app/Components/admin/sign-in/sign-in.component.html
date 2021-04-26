@@ -1,0 +1,8 @@
+<div>
+    <form #a_signInRef="ngForm" (ngSubmit)="a_signIn(a_signInRef)">
+        <h3>Admin Login</h3><hr/>
+        <label >Username: </label><input type="text" name="a_username" id="a_username" required ngModel/><br>
+        <label >Password: </label><input type="password" name="a_password" id="a_password" required ngModel/><br>
+        <input type="submit" value="Login" [disabled]="!a_signInRef.valid"/>
+    </form>
+</div>

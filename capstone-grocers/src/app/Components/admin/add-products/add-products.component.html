@@ -1,0 +1,12 @@
+<app-admin-panel></app-admin-panel>
+<div>
+    <form #productRef="ngForm" (ngSubmit)="addProduct(productRef)">
+        <h3>Product Addition</h3><hr/>
+        <label>Product Name: </label><input type="text" name="p_name" id="p_name" required ngModel/><br>
+        <label>Description: </label><input type="text" name="p_description" id="p_description" required ngModel/><br>
+        <label>Price: </label><input type="number" name="p_price" id="p_price" required ngModel/><br>
+        <label>Initial Quantity: </label><input type="number" name="p_quantity" id="p_quantity" required ngModel/><br>
+        <input type="submit" value="Add" [disabled]="!productRef.valid"/>
+        <input type="reset" value="Clear"/>
+    </form>
+</div>

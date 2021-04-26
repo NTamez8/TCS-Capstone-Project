@@ -11,4 +11,4 @@ let employee = new schema({
     first_login:Boolean
 });
 
-module.exports = mongoose.model('employee',employee);
+module.exports = mongoose.model('Employee',employee);

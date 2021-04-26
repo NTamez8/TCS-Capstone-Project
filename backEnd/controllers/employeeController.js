@@ -81,4 +81,6 @@ let editPassword=(req,res)=>{
 
 
 
+
+
 module.exports = {addEmployee,deleteEmployee,getAll,editPassword}
