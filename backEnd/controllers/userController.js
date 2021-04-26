@@ -151,7 +151,7 @@ let addItemstoCart = async (req, res, next) => {
     }
   };
 
-  let deleteItemsfromCart =  (req, res, next) => {
+  let deleteItemsfromCart = async (req, res, next) => {
     let cart = await Order.findOne({user_id});
     cart.updateMany({user_id : req.params.user_id}, 
         { $pull: { product : {product_id: req.params.product_id }}}, {multi: true}, (err, result)=> {
