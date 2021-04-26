@@ -78,38 +78,6 @@ let isValid = async (req,res,next) =>{
     }
 }
 
-let selectItemsfromCart = async(req,res)=>{
-    let userCart = new User({
-
-        _id:req.body.item_id,
-        u_username: req.body.u_username    
-    });
-    userCart.save((err,result)=> {
-        if(!err){
-            res.send("Selected items stored in cart successfully "+ result)
-        }else {
-            res.send("Cart items didn't store "+err);
-        }
-    })
-}
-
-let deleteItemsfromCart = async(req,res)=>{
-    
-    User.deleteOne({_id:item_id},(err,result)=> {
-        if(!err){
-                if(result.deletedCount>0){
-                    res.send("Items in cart deleted successfully")
-                }else {
-                    res.send("Item not present");
-                }
-        }else {
-            res.send("Error generated "+err);
-        }
-    })
-    
-
-}
-
 // --------------------------------Adding changes to the Cart-----------------------------------//
 
 let addItemstoCart = async (req, res, next) => {
@@ -173,17 +141,6 @@ let addItemstoCart = async (req, res, next) => {
     
     }
 
-
-let viewItemsfromCart =(req,res)=> {
-
-    User.find({},(err,result)=> {
-        if(!err){
-            res.json(result);
-        }
-    })
-
-}
-
 let updatestatusToUser=async(req,res)=>{
     let u_username=req.body.u_username;
     let locked=req.body.locked;
@@ -209,5 +166,5 @@ let orderstatusToUser=(req,res)=>{
 }
 
 
-module.exports = {signIn,signUp, addItemstoCart,selectItemsfromCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser}
+module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser}
 
