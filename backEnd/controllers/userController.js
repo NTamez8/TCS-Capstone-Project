@@ -154,29 +154,30 @@ let addItemstoCart = async (req, res, next) => {
     const quantity = req.body.quantity;
     const name = req.body.name;
     const price = req.body.price;
-    const user_id = req.body.user_id;
+    const user_id = req.body.user_id ;
   
     try {
-      let cart = await User.findOne({user_id});
+      let userOrder = await User.findOne({user_id });
+      userCart = userOrder.currentCart;
   
-      if (cart) {
+      if (userCart) {
         //if the cart is existing for the user
-        let item_idx = cart.product.findIndex(p => p.product_id == product_id);
+        let item_idx = userCart.product.findIndex(p => p.product_id == product_id);
         // if product is existing in the cart update the quantity
         if (item_idx > -1) {
-          let product_item = cart.product[item_idx];
+          let product_item = userCart.product[item_idx];
           product_item.quantity = quantity;
-          cart.product[item_idx] = product_item;
+          userCart.product[item_idx] = product_item;
         // if product is not in the cart, add the new item
         } else {
-          cart.product.push({product_id, quantity, name, price });
+            userCart.product.push({product_id, quantity, name, price });
         }
-        cart = await cart.save();
-        return res.send(cart);
+        userCart = await userCart.save();
+        return res.send(userCart);
         // if the cart doesn't exist create a new cart for the user
       } else {
-        let new_Cart = await Cart.create({
-          user_id,
+        let new_Cart = await User.currentCart.create({
+          user_id ,
           product: [{ product_id, quantity, name, price }]
         });
         return res.send(new_Cart);
@@ -188,8 +189,8 @@ let addItemstoCart = async (req, res, next) => {
   };
 
   let deleteItemsfromCart = async (req, res, next) => {
-    let cart = await User.findOne({user_id});
-    cart.updateMany({user_id : req.params.user_id}, 
+    let userOrder= await User.findOne({user_id});
+    userOrder.currentCart.updateMany({user_id  : req.params.user_id }, 
         { $pull: { product : {product_id: req.params.product_id }}}, {multi: true}, (err, result)=> {
             if (!err){
                 res.send("Items in cart deleted successfully" + result)
@@ -201,14 +202,35 @@ let addItemstoCart = async (req, res, next) => {
     };
 
   let viewItemsfromCart =(req,res)=> {
-
-        User.find({},(err,result)=> {
+        let userOrder= await User.findOne({user_id});
+        userOrder.currentCart.find({},(err,result)=> {
             if(!err){
                 res.json(result);
             }
         })
     
     }
+
+let checkoutCart = async(req,res,next)=>{
+    try
+    {
+        let userOrder= await User.findOne({user_id});
+        let funds = await User.findById(userOrder.funds)
+        let cart = userOrder.currentCart;
+       
+        for(let i = 0; i < cart.length; i++){
+                total_amount += cart[i].product.price * cart[i].quantity;
+            }
+        userOrder.funds = funds - total_amount;
+        userOrder.save();
+        res.send({"msg":"Cart checkout successful"});
+    }
+    catch(err)
+    {
+        next(err);
+    }
+
+}
 
 let updatestatusToUser=async(req,res)=>{
     let u_username=req.body.u_username;
@@ -235,5 +257,5 @@ let orderstatusToUser=(req,res)=>{
 }
 
 
-module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser}
+module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser, checkoutCart}
 

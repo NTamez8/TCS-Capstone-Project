@@ -12,6 +12,7 @@ routes.get('/isValid',userAuth.authenticate(),userController.isValid);
 routes.get("/addItemstoCart",userController.addItemstoCart)
 routes.get("/deleteItemsfromCart/:product_id",userController.deleteItemsfromCart)
 routes.get("/viewItemsfromCart",userController.viewItemsfromCart)
+routes.get("/checkoutCart",userController.checkoutCart)
 
 routes.put('/updatestatusToUser',userController.updatestatusToUser)
 
