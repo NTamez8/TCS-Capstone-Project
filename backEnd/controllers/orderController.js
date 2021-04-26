@@ -79,10 +79,16 @@ let updateOrderByStatus=(req,res)=>{
 let getOrdersByDay = async (req, res, next) => {
     try {
         let day = req.body.day;
+        if(day == null)
+        {
+            let error = new Error('Bad request');
+            error.statusCode = 400;
+            throw error;
+        }
         let beginDay = addDay(day,-1);
         beginDay = addDay(beginDay,1);
         let endDay = addDay(day,1);
-        console.log(beginDay,endDay);
+      
         day = new Date(day);
       
         let foundOrders = await order.find({
@@ -106,7 +112,12 @@ function addDay(date, day) {
 let getOrdersByWeek = async (req, res, next) => {
     try {
         let weekStart = req.body.dateStart;
-
+        if(weekStart == null)
+        {
+            let error = new Error('Bad request');
+            error.statusCode = 400;
+            throw error;
+        }
         let weekEnd = addDay(weekStart, 8).toDateString();
         weekEnd = new Date(weekEnd);
         weekStart = new Date(weekStart);
@@ -126,6 +137,12 @@ let getOrdersByWeek = async (req, res, next) => {
 let getOrdersByMonth = async (req, res, next) => {
     try {
         let monthStart = req.body.monthStart;
+        if(monthStart == null)
+        {
+            let error = new Error('Bad request');
+            error.statusCode = 400;
+            throw error;
+        }
         let date = new Date(monthStart);
         let month = date.getMonth();
        
