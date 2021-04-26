@@ -62,7 +62,10 @@ export class UserService {
     this.http.post("http://localhost:8080/user/addProductDetailsInfo",
       productRef).subscribe(result => console.log(result), error => console.log(error))
   }
-
+  
+  viewAllProducts():Observable<User[]>{
+    return this.http.get<User[]>("http://localhost:8080/product/getAllProducts");
+  }
 
 
 
