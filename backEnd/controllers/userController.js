@@ -127,7 +127,7 @@ let isValid = async (req,res,next) =>{
 
 
 // --------------------------------Adding changes to the Cart-----------------------------------//
-
+// can you test this and see if it works?
 let addItemstoCart = async (req, res, next) => {
     const product_id = req.body.product_id;
     const quantity = req.body.quantity;
@@ -149,15 +149,15 @@ let addItemstoCart = async (req, res, next) => {
           userCart.product[item_idx] = product_item;
         // if product is not in the cart, add the new item
         } else {
-            userCart.product.push({product_id, quantity, name, price });
+            userCart.product.push({product_id, quantity, name, price });// when adding to the cart like this is takes in a cartItem not a whole product
         }
-        userCart = await userCart.save();
+        userCart = await userCart.save();// I think you can just do the userOrder.save() if you tested this and it works let me know
         return res.send(userCart);
         // if the cart doesn't exist create a new cart for the user
       } else {
         let new_Cart = await User.currentCart.create({
           user_id ,
-          product: [{ product_id, quantity, name, price }]
+          product: [{ product_id, quantity, name, price }]// the cart item model does not need an id just a reference to a product and a quantity
         });
         return res.send(new_Cart);
       }
