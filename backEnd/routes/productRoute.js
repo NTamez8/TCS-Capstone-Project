@@ -6,9 +6,9 @@ const routes = express.Router();
 routes.get("/getProductById/:product_id",productController.getProductById);
 routes.get("/getAllProducts",productController.getAllProducts);
 
-routes.post("/deleteProductById",adminAuth.authenticate(),productController.deleteProductById);
+routes.post("/deleteProductById",productController.deleteProductById);
 
-routes.post("/addProduct",adminAuth.authenticate(),productController.addProduct);
-routes.post("/updateProductQuantityById",adminAuth.authenticate(),productController.updateProductQuantityById);
+routes.post("/addProduct",productController.addProduct);
+routes.post("/updateProductQuantityById",productController.updateProductQuantityById);
 
 module.exports = routes;
