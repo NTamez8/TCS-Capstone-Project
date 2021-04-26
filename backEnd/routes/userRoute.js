@@ -6,6 +6,8 @@ const routes = express.Router();
 
 routes.get('/getAll',userController.getAll);
 
+routes.get('/getMe',userAuth.authenticate(),userController.getMe);
+
 routes.post('/signUp',[hasAddress,hasDoB,hasEmail,hasFirstName,hasLastName,hasPassword,hasPhoneNo],userController.signUp);
 
 routes.post('/signIn',userController.signIn);
