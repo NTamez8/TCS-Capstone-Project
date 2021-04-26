@@ -70,6 +70,7 @@ export class UserService {
   public viewAllProductsinCart():Observable<User[]>{
     return this.http.get<User[]>("http://localhost:8080/product/viewAllProductsinCart");
   }
+  // public viewCartCheckout():
 
   public updatestatusToUser(userRef: any): any {
     return this.http.put("http://localhost:8080/user/updatestatusToUser", userRef, {
