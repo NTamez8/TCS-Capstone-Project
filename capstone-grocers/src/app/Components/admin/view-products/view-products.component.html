@@ -1,17 +1,24 @@
 <div style="text-align:center;">
-    <button (click)="getAllProducts()">View Products</button>
-    <button (click)="getProductById()">View Test Product</button>
+    <form #productRef="ngForm" (ngSubmit)="getProductById(productRef)">
+        <h3>Product Viewing</h3><hr/>
+        <label>Product ID: </label><input type="text" name="product_id" id="product_id" required ngModel/><br>
+        <input type="submit" value="Delete" [disabled]="!productRef.valid"/>
+        <input type="reset" value="Clear"/>
+    </form><hr/>
+    <button (click)="getAllProducts()">View All Products</button>
     <table style="border:1px solid black;margin:auto;">
         <thead>
             <th>Product ID</th>
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
+            <th>Quantity</th>
         </thead>
         <tr *ngFor="let product of products">
             <td>{{product._id}}</td>
             <td>{{product.name}}</td>
             <td>{{product.description}}</td>
+            <td>{{product.price}}</td>
             <td>{{product.quantity}}</td>
         </tr>
     </table>
