@@ -5,7 +5,17 @@ const userConfig = require('../config/userConfig');
 const jwt = require('jwt-simple');
 
 
-
+let getAll = async (req,res,next)=>{
+    try
+    {
+        let users = await User.find({});
+        res.send(users);
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
 
 let signIn = async (req,res,next)=>{
     let user;
@@ -236,5 +246,5 @@ let orderstatusToUser=(req,res)=>{
 }
 
 
-module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser}
+module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll}
 

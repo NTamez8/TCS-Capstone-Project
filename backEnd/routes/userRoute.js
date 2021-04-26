@@ -4,6 +4,8 @@ const {hasAddress,hasDoB,hasEmail,hasFirstName,hasLastName,hasPassword,hasPhoneN
 const userAuth = require('../middleware/userPassport')();
 const routes = express.Router();
 
+routes.get('/getAll',userController.getAll);
+
 routes.post('/signUp',[hasAddress,hasDoB,hasEmail,hasFirstName,hasLastName,hasPassword,hasPhoneNo],userController.signUp);
 
 routes.post('/signIn',userController.signIn);
