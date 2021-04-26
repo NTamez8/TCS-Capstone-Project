@@ -7,7 +7,6 @@ import { Subscriber, Observable } from 'rxjs';
 })
 export class RequestService {
 
-<<<<<<< HEAD
   constructor(private http:HttpClient) { }
 
   getRequests(){
@@ -17,9 +16,7 @@ export class RequestService {
   addRequest(){}
 
  
-=======
-  constructor(public http:HttpClient) { }
->>>>>>> pruthvi
+
 
   sendRequest(productRef:any){
     this.http.post("http://localhost:8080/request/sendRequest",productRef).
