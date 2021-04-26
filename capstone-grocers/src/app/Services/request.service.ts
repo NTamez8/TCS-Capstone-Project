@@ -9,8 +9,8 @@ export class RequestService {
 
   constructor(private http:HttpClient) { }
 
-  getRequests(){
-
+  getAllRequests(){
+    return this.http.get<Request[]>("http://localhost:8080/request/getAllRequests");
   }
 
   addRequest(){}

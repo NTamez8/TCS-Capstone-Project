@@ -14,7 +14,7 @@ let signIn = async (req,res,next)=>{
             throw error;
         }
 
-        const a_validPassword = await AdminModel.validPassword(a_password);
+        const a_validPassword = await admin.validPassword(a_password);
        
         if(!a_validPassword){
             const error = new Error("Wrong admin credentials");
@@ -30,4 +30,13 @@ let signIn = async (req,res,next)=>{
     }
 }
 
-module.exports = {signIn}
+let isValid = async (req,res,next) =>{
+    try{      
+        res.send("Authorized");
+    }
+    catch(err){
+        next(err);
+    }
+}
+
+module.exports = {signIn, isValid};

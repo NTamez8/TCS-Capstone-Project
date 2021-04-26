@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Request } from '../../../Classes/request';
 import { RequestService } from 'src/app/Services/request.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { RequestService } from 'src/app/Services/request.service';
 })
 export class ViewRequestsComponent implements OnInit {
 
-  private requests = [];
+  public requests:Array<Request> = [];
 
   constructor(private requestService:RequestService) { }
 
@@ -16,8 +17,9 @@ export class ViewRequestsComponent implements OnInit {
 
   }
 
-  viewRequests(){
+  getAllRequests(){
     //probably returning an observable for .subscribe
-    
+    this.requestService.getAllRequests().subscribe(result=>this.requests=result,error=>console.log(error));
+    this.requests.push(new Request("emp1",9,5,"10/05/2021","In Progress"));
   }
 }

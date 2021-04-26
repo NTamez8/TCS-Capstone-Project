@@ -1,6 +1,40 @@
-<div style="text-align:center;margin:5px 0px 5px;">
-    <a href="admin/addProducts">Add Products</a> | 
-    <a href="admin/viewProducts">View Products</a> | 
-    <a href="admin/updateProducts">Update Products</a> | 
-    <a href="admin/deleteProducts">Delete Products</a>
-</div>
+<nav class="navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+  
+        <div class='row'>
+            <div class='col-9'>
+                <ul class="navbar-nav justify-content-begin">
+                    <li class="nav-item">
+                        <a routerLink='addProducts' class="nav-link ">Add Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink='viewProducts' class="nav-link ">View Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink='updateProducts' class="nav-link ">Update Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink='deleteProducts' class="nav-link ">Delete Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink='viewRequests' class="nav-link ">View Requests</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class='col'> 
+                <ul class= 'navbar-nav justify-content-end'>
+                    <li class='nav-item'>
+                        <app-admin-logout></app-admin-logout>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</nav>
+  
+  
+  <div>
+    <router-outlet></router-outlet>
+  </div>

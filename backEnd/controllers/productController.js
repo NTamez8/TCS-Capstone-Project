@@ -39,33 +39,31 @@ let addProduct = (req,res)=>{
 let updateProductQuantityById = (req,res)=>{
     const product_id = req.body.product_id;
     const new_quantity = req.body.new_quantity;
-    console.log("In Backend");
-    console.log(req.body);
     //HTTP error code 200 from this point forward...
     ProductModel.updateOne({_id:product_id},{$set:{quantity:new_quantity}},(error,data)=>{
         if(!error){
             if(data.modifiedCount>0){
-                res.send(`Product quantity updated succesfully: ${data}`);
+                //res.send(`Product quantity updated succesfully: ${data}`);
             }else{
-                res.send("Product was not updated.");
+                //res.send("Product was not updated.");
             };
         }else{
-            res.send(`Error during product update: ${error}`);
+            //res.send(`Error during product update: ${error}`);
         };
-    });S
+    });
 };
 
 let deleteProductById = (req,res)=>{
-    const product_id = req.params.product_id;
+    const product_id = req.body.product_id;
     ProductModel.deleteOne({_id:product_id},(error,data)=>{
         if(!error){
             if(data.deletedCount > 0){
-                res.send("Product was successfully deleted.");
+                //res.send("Product was successfully deleted.");
             }else{
-                res.send("Product was not deleted.");
+                //res.send("Product was not deleted.");
             }
         }else{
-            res.send(`Error during product deletion: ${error}`);
+            //res.send(`Error during product deletion: ${error}`);
         }
     });
 };

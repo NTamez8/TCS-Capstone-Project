@@ -23,11 +23,10 @@ export class ProductService {
   }
 
   updateProduct(product_id:String,new_quantity:Number){
-    console.log("Calling update service");
     return this.http.post<{token:string}>("http://localhost:8080/product/updateProductQuantityById",{product_id,new_quantity});
   }
 
   deleteProductById(product_id:String){
-    return this.http.delete<{token:string}>("http://localhost:8080/product/deleteProductById/"+product_id);
+    return this.http.post<{token:string}>("http://localhost:8080/product/deleteProductById",{product_id});
   }
 }

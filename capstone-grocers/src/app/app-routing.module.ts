@@ -42,20 +42,17 @@ const routes: Routes = [
     {path:'viewOrderStatus',component:ViewOrderStatusComponent}
 
   ]},
-  {path:'admin',component:AdminPanelComponent,canActivate:[AdminGuard],children:[
+  {path:'admin',component:AdminPanelComponent,canActivate:[AdminGuard],canActivateChild:[AdminGuard],children:[
     {path:'addEmployee',component:AddEmployeeComponent},
     {path:'deleteEmployee',component:DeleteEmployeeComponent},
-    {path:'generateReport',component:ReportComponent}
+    {path:'generateReport',component:ReportComponent},
+    {path:"addProducts",component:AddProductsComponent},
+    {path:"viewProducts",component:ViewProductsComponent},
+    {path:"updateProducts",component:UpdateProductsComponent},
+    {path:"deleteProducts",component:DeleteProductsComponent},
+    {path:"viewRequests",component:ViewRequestsComponent},
   ]},
-   //must use path:"\x/y" for the pages to properly load
-  //ADMIN
-  {path:"\admin/signIn",component:AdminSignInComponent},
-  {path:"\admin/addProducts",component:AddProductsComponent},
-  {path:"\admin/viewProducts",component:ViewProductsComponent},
-  {path:"\admin/updateProducts",component:UpdateProductsComponent},
-  {path:"\admin/deleteProducts",component:DeleteProductsComponent},
-  {path:"\admin/viewRequests",component:ViewRequestsComponent},
-  {path:"\admin/panel",component:AdminPanelComponent},
+  {path:"admin/signIn",component:AdminSignInComponent},
   {path:'**',redirectTo:'',pathMatch:'full'}
 ]
 
