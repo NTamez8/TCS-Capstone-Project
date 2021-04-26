@@ -10,17 +10,26 @@ const jwt = require('jwt-simple');
 
 
 let signIn = async (req,res,next)=>{
+    let user;
+    let noErr = false;
     try{
         
         let u_username = req.body.email;
         let pass = req.body.pass;
-        let user = await User.findOne({u_username});
+         user = await User.findOne({u_username});
         
         if(!user)
         {
-            const error = new Error("Wrong credentials");
+            const error = new Error("Wrong credentials: not a valid user");
             error.statusCode = 401;
             throw error;
+        }
+        if(user.failedAttempts >= 3)
+        {
+           
+            noErr = true;
+            res.send({"token":"-1"});
+           
         }
         const validPassword = await user.validPassword(pass);
        
@@ -35,8 +44,31 @@ let signIn = async (req,res,next)=>{
     }
     catch(err)
     {
+     
+        if(err.message == 'Wrong credentials')
+            {
+                increaseUserFailedAttempts(user);
+            }
+        if(!noErr)
         next(err);
     }
+}
+
+
+async function increaseUserFailedAttempts(user)
+{
+    let numFailed = user.failedAttempts;
+    if(!numFailed)
+    {
+        user.failedAttempts = 1;
+    }
+    else
+    {
+        user.failedAttempts = numFailed + 1;
+    }
+   
+
+    await user.save();
 }
 
 
@@ -56,6 +88,7 @@ let signUp = async (req,res,next)=>{
         user.locked = false;
         user.funds = 1000;
         user.order_history = null;
+        user.failedAttempts = 0;
         
         await user.save();
         const token = jwt.encode({id:user._id},userConfig.secret);
@@ -70,7 +103,7 @@ let signUp = async (req,res,next)=>{
 let isValid = async (req,res,next) =>{
     try{
       
-        res.send({"Message":"Authorized"});
+        res.send("Authorized");
     }
     catch(err)
     {

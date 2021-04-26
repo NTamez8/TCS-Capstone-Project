@@ -9,6 +9,7 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class SignInComponent implements OnInit {
 
+  msg:String = '';
   constructor(private userServ:UserService,private router:Router) { }
 
   ngOnInit(): void {
@@ -17,9 +18,19 @@ export class SignInComponent implements OnInit {
   login(userRef:any)
   {
     this.userServ.signIn(userRef.userName,userRef.password).subscribe(data=>{
-      console.log(data.token);
+     if(data.token != "-1")
+     {
       sessionStorage.setItem('token',data.token);
       this.router.navigateByUrl('/userPanel');
+     }
+     else
+     {
+      
+       this.msg = 'Exceeded max login'
+     }
+     
+    },err=>{
+      console.log(err);
     })
   }
 

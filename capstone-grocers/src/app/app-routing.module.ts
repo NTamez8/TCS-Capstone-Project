@@ -43,7 +43,8 @@ const routes: Routes = [
   {path:"\admin/updateProducts",component:UpdateProductsComponent},
   {path:"\admin/deleteProducts",component:DeleteProductsComponent},
   {path:"\admin/viewRequests",component:ViewRequestsComponent},
-  {path:"\admin/panel",component:AdminPanelComponent}
+  {path:"\admin/panel",component:AdminPanelComponent},
+  {path:'**',redirectTo:'',pathMatch:'full'}
 ]
 
 

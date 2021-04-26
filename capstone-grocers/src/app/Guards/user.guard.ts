@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CanActivate, CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { UserService } from '../Services/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserGuard implements CanActivate, CanActivateChild {
-  constructor(private http:HttpClient){}
+  constructor(private http:HttpClient,private userServ:UserService){}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -18,8 +19,8 @@ export class UserGuard implements CanActivate, CanActivateChild {
 
        
         let token = 'bearer ' + sessionStorage.getItem('token');
-      
-        
+      return this.userServ.validate(token);
+        /*
       
         return new Promise<boolean>((resolve,reject)=>{
 
@@ -33,7 +34,8 @@ export class UserGuard implements CanActivate, CanActivateChild {
           })
 
 
-        })
+        })*/
+
        
        
       
@@ -50,8 +52,8 @@ export class UserGuard implements CanActivate, CanActivateChild {
 
      
       let token = 'bearer ' + sessionStorage.getItem('token');
-    
-      
+      return this.userServ.validate(token);
+      /*
     
       return new Promise<boolean>((resolve,reject)=>{
 
@@ -64,7 +66,7 @@ export class UserGuard implements CanActivate, CanActivateChild {
         })
 
 
-      })
+      })*/
   }
   
 }
