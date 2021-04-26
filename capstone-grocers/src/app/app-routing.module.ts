@@ -9,6 +9,7 @@ import { ReportComponent } from './Components/admin/report/report.component';
 import { SignInComponent } from './Components/user/sign-in/sign-in.component';
 import { SignUpComponent } from './Components/user/sign-up/sign-up.component';
 
+
 import { UserPanelComponent } from './Components/user/user-panel/user-panel.component';
 import { AdminGuard } from './Guards/admin.guard';
 import { UserGuard } from './Guards/user.guard';
@@ -21,11 +22,14 @@ import { ViewProductsComponent } from 'src/app/Components/admin/view-products/vi
 import { ViewRequestsComponent } from 'src/app/Components/admin/view-requests/view-requests.component';
 import { NoLoginComponent } from './Components/no-login/no-login.component';
 import { UserOptionsComponent } from './Components/user/user-options/user-options.component';
+import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component';
 const routes: Routes = [
   {path:'',component:NoLoginComponent},
   {path:'user',component:UserOptionsComponent,children:[
     {path:'signUp',component:SignUpComponent},
     {path:'signIn',component:SignInComponent},
+    {path:'raiseTicket',component:RaiseTicketComponent}
+
   //  {path:'userPanel',component:UserPanelComponent,canActivate:[UserGuard]},
     //{path:'raiseTicket',component:}
   ]},
