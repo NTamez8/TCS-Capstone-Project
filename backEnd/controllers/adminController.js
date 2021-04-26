@@ -12,7 +12,7 @@ let signIn = async (req,res,next)=>{
             const error = new Error("Wrong admin credentials");
             error.statusCode = 401;
             throw error;
-        }
+        };
 
         const a_validPassword = await admin.validPassword(a_password);
        
@@ -20,23 +20,30 @@ let signIn = async (req,res,next)=>{
             const error = new Error("Wrong admin credentials");
             error.statusCode = 401;
             throw error;
-        }
+        };
 
         const token = jwt.encode({id:AdminModel._id},adminConfig.secret);
         res.send({token});
-    }
-    catch(error){
+    }catch(error){
         next(error);
-    }
-}
+    };
+};
+
+let getMe = async (req,res,next) =>{
+    try{
+        let me = await AdminModel.findById(req.admin);
+        return res.send(me);
+    }catch(error){
+        next(error);
+    };
+};
 
 let isValid = async (req,res,next) =>{
     try{      
         res.send("Authorized");
-    }
-    catch(err){
-        next(err);
-    }
-}
+    }catch(error){
+        next(error);
+    };
+};
 
-module.exports = {signIn, isValid};
+module.exports = {signIn, getMe, isValid};
