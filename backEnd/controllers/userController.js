@@ -78,6 +78,7 @@ let isValid = async (req,res,next) =>{
     }
 }
 
+/*
 let selectItemsfromCart = async(req,res)=>{
     let userCart = new User({
 
@@ -108,7 +109,7 @@ let deleteItemsfromCart = async(req,res)=>{
     })
     
 
-}
+}*/
 
 // --------------------------------Adding changes to the Cart-----------------------------------//
 

@@ -195,5 +195,6 @@ module.exports = {
     getOrdersByWeek,
     getOrdersByMonth,
     getOrdersByCust,
-    getOrdersByProduct
+    getOrdersByProduct,
+    getorderstatusToUser
 }

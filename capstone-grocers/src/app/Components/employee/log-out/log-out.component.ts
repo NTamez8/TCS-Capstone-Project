@@ -12,19 +12,12 @@ export class LogOutComponent implements OnInit {
   ngOnInit(): void {
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> sruthti
+
   logOut()
   {
     sessionStorage.clear();
     //redirect to home page here
   }
 
-<<<<<<< HEAD
->>>>>>> pruthvi
-=======
->>>>>>> sruthti
+
 }

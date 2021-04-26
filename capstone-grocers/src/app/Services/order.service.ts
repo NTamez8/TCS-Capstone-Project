@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {
   Injectable
 } from '@angular/core';
@@ -12,12 +11,6 @@ import {
   Subscriber,
   Observable
 } from 'rxjs';
-=======
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import {Order} from '../Classes/order';
-import { Subscriber, Observable } from 'rxjs';
->>>>>>> pruthvi
 
 @Injectable({
   providedIn: 'root'
@@ -27,17 +20,10 @@ export class OrderService {
     throw new Error('Method not implemented.');
   }
 
-<<<<<<< HEAD
-  constructor(public http: HttpClient) {}
-  retriveOrderById(id: any): Observable < Order[] > {
-    return this.http.get < Order[] > ("http://localhost:8080/order/retriveOrderById/" + id)
-  }
-  updateOrderStatus(orderRef: any): any {
-    return this.http.put("http://localhost:8080/order/updateOrderStatus", orderRef, {
-      responseType: 'text'
-    })
 
-  }
+  constructor(public http: HttpClient) {}
+  
+ 
 
   getOrdersByDay(date:String):Observable<Order[]>
   {
@@ -59,8 +45,7 @@ export class OrderService {
   {
     return this.http.get<Order[]>('http://localhost:8080/order/getOrdersByCust/' + id);
   }
-=======
-  constructor(public http:HttpClient) { }
+
   retriveOrderById(id:any):Observable<Order[]>{
     return this.http.get<Order[]>("http://localhost:8080/order/retriveOrderById/"+id)
   }
@@ -68,12 +53,9 @@ export class OrderService {
     return this.http.put("http://localhost:8080/order/updateOrderStatus",orderRef,{responseType:'text'})
 
 }
-<<<<<<< HEAD
+
 getOrderStatus(status:any):Observable<Order[]>{
   return this.http.get<Order[]>("http://localhost:8080/order/getOrderstatus/"+status)
 }
->>>>>>> pruthvi
-=======
 
->>>>>>> sruthti
 }

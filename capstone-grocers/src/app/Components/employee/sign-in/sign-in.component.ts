@@ -15,11 +15,7 @@ export class SignInComponent implements OnInit {
 
   login(empRef:any)
   {
-<<<<<<< HEAD
     /*
-=======
-    
->>>>>>> pruthvi
     this.empServ.signIn(empRef.userName,empRef.password).subscribe(data=>{
       console.log(data.token);
       sessionStorage.setItem('token',data.token);
