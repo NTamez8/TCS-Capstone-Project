@@ -9,13 +9,13 @@
     <form #orderRef="ngForm" (ngSubmit)="updateStatus(orderRef.value)">
         <label>OrderId</label>
 
-        <input type="text" name="_id" ngModel><br/>
+        <input type="text" name=" id" ngModel><br/>
 
         <label>Status</label>
         <input list="browsers" name="status"  ngModel><br/>
-        <!-- <select id="status"  ng-model> -->
+       
             <datalist id="browsers" ng-model>
-            <option  value="shipped">Shiiped</option>
+            <option  value="shipped">Shipped</option>
             <option value="OutForDelivery">Out For OutForDelivery</option>
             <option value="delivered">Delivered</option>
           
