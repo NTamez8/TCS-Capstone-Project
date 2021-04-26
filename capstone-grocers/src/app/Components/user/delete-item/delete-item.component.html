@@ -1,0 +1,10 @@
+<app-user-panel></app-user-panel>
+<div>
+    <form #productIDRef="ngForm" (ngSubmit)="deleteProduct(productIDRef)">
+        <h3>Delete Item from Cart</h3><hr/>
+        <label>Product Name: </label>
+        <input type="text" id="p_name" required ngModel/><br>
+        <input type="submit" value="Delete" [disabled]="!productIDRef.valid"/>
+        <input type="reset" value="Reset"/>
+    </form>
+</div>
