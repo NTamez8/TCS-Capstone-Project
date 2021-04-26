@@ -94,6 +94,7 @@ let signUp = async (req,res,next)=>{
         user.funds = 1000;
         user.order_history = null;
         user.failedAttempts = 0;
+        user.currentCart = [];
         
         await user.save();
         const token = jwt.encode({id:user._id},userConfig.secret);
