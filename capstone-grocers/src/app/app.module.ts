@@ -58,6 +58,7 @@ import { ReportComponent } from './Components/admin/report/report.component';
 import { ReportTableComponent } from './Components/admin/report-table/report-table.component';
 import { NoLoginComponent } from './Components/no-login/no-login.component';
 import { UserOptionsComponent } from './Components/user/user-options/user-options.component';
+import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component';
 @NgModule({
   declarations: [
     //==COMPONENTS==\\
@@ -128,6 +129,7 @@ import { UserOptionsComponent } from './Components/user/user-options/user-option
   
 
     AdminSignOutComponent,
+          RaiseTicketComponent,
   
   ],
   imports: [

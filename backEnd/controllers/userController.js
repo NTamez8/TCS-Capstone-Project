@@ -1,7 +1,5 @@
 
 const User = require('../models/userModel');
-const Order = require('../models/orderModel');
-
 const validationHandler = require('../validators/validationHandler');
 const userConfig = require('../config/userConfig');
 const jwt = require('jwt-simple');
@@ -160,7 +158,7 @@ let addItemstoCart = async (req, res, next) => {
     const user_id = req.body.user_id;
   
     try {
-      let cart = await Order.findOne({user_id});
+      let cart = await User.findOne({user_id});
   
       if (cart) {
         //if the cart is existing for the user
@@ -191,7 +189,7 @@ let addItemstoCart = async (req, res, next) => {
   };
 
   let deleteItemsfromCart = async (req, res, next) => {
-    let cart = await Order.findOne({user_id});
+    let cart = await User.findOne({user_id});
     cart.updateMany({user_id : req.params.user_id}, 
         { $pull: { product : {product_id: req.params.product_id }}}, {multi: true}, (err, result)=> {
             if (!err){
@@ -205,7 +203,7 @@ let addItemstoCart = async (req, res, next) => {
 
   let viewItemsfromCart =(req,res)=> {
 
-        Order.find({},(err,result)=> {
+        User.find({},(err,result)=> {
             if(!err){
                 res.json(result);
             }
@@ -238,5 +236,5 @@ let orderstatusToUser=(req,res)=>{
 }
 
 
-module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser}
+module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser}
 

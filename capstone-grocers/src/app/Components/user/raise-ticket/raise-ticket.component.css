@@ -1,0 +1,27 @@
+form{
+    display: inline-block;
+    border-radius: 20px;
+}
+
+input{
+    width: 100%;
+    padding: 8px 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;    
+  }
+
+  label{
+    text-align: right;
+    clear: both;
+    float:left;
+    margin-right:15px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+div{
+    text-align:center;
+    
+}
