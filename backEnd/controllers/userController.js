@@ -124,6 +124,18 @@ let isValid = async (req,res,next) =>{
         next(err);
     }
 }
+let getMe = async(req,res,next)=>
+{
+    try{
+      
+       let me = await User.findById(req.user);
+       return res.send(me);
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
 
 /*
 let selectItemsfromCart = async(req,res)=>{
@@ -246,5 +258,5 @@ let orderstatusToUser=(req,res)=>{
 }
 
 
-module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll}
+module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe}
 
