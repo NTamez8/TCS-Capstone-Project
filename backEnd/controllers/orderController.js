@@ -19,34 +19,50 @@ let getOrderById=(req,res)=>{
 let updateOrderByStatus= async (req,res,next)=>{
     try
     {
+        // get the orders id and the status to change to
         let _id=req.body._id;
         let status=req.body.status;
+
+        // get the order that is to be changed
         let currOrder = await order.findById(_id).populate('cart.product');
 
+        // if the order is null then throw error
         if(currOrder == null)
         {
             let error = new Error('Bad request');
             error.statusCode = 400;
             throw error;
         }
+
+        // if the status is canceled 
         if(status == 'canceled')
         {
             let refund = 0;
+
+            // get the cart from the order
             let cart = currOrder.cart;
             let length = cart.length;
+
+            // iterate
             for(let x = 0; x < length; x++)
             {
+                // sum the products
                 refund += cart[x].product.price * cart[x].quantity;
             }
             console.log(refund);
     
+            // get the owner of the order
             let currUser = await User.findById(currOrder.user_ID);
+            // add back the funds
             currUser.funds += refund;
+            // save the changes to the user
             await currUser.save();
         }
-       
+       // regardless update the status
         currOrder.status = status;
+        //save the status
             await currOrder.save();
+            // send message
         res.send({"Message":"Success"});
     }
     catch(err)
