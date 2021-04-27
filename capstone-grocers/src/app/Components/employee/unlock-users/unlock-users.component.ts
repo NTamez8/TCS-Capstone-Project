@@ -23,7 +23,7 @@ details?:Array<Ticket>
 
 
   ngOnInit(): void {
-    this.detailSer.getDetailOfUser().subscribe(result=>this.details=result)
+    this.detailSer.getDetailOfUser().subscribe(result=>{this.details=result; console.log(result)})
   }
 
 
