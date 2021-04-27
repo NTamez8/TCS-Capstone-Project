@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+
 import {HttpClientModule} from '@angular/common/http'
 //==COMPONENTS==\\
 import { AppComponent } from './app.component';
@@ -23,8 +23,8 @@ import { CheckoutComponent } from './Components/user/checkout/checkout.component
 //EMPLOYEE
 import { OrderStatusComponent } from './Components/employee/order-status/order-status.component';
 import { SendRequestComponent } from './Components/employee/send-request/send-request.component';
-import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-users.component';
 import { EditProfileComponent } from './Components/employee/edit-profile/edit-profile.component';
+import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-users.component';
 import { LogOutComponent } from './Components/employee/log-out/log-out.component';
 
 
@@ -58,8 +58,12 @@ import { ReportComponent } from './Components/admin/report/report.component';
 import { ReportTableComponent } from './Components/admin/report-table/report-table.component';
 import { NoLoginComponent } from './Components/no-login/no-login.component';
 import { UserOptionsComponent } from './Components/user/user-options/user-options.component';
+import {EditProfileComponent as userEdit} from './Components/user/edit-profile/edit-profile.component';
 import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component';
+import { FundsComponent } from './Components/user/funds/funds.component';
 import { DeleteItemComponent } from './Components/user/delete-item/delete-item.component';
+import { FormsModule } from '@angular/forms';
+import { EmployeePanelComponent } from './Components/employee/employee-panel/employee-panel.component';
 @NgModule({
   declarations: [
     //==COMPONENTS==\\
@@ -79,19 +83,14 @@ import { DeleteItemComponent } from './Components/user/delete-item/delete-item.c
 
    // EmployeeComponent,
 
-    // EmployeeComponent,
-    OrderStatusComponent,
-    SendRequestComponent,
-    UnlockUsersComponent,
-    EditProfileComponent,
-    LogOutComponent,
+    
 
     // EmployeeComponent,
    
    
     userLogOut,
     
-    
+    userEdit,
 
   
 
@@ -116,29 +115,30 @@ import { DeleteItemComponent } from './Components/user/delete-item/delete-item.c
     UserOptionsComponent,
 
    // DeleteEmployeeComponent
-  
 
-   
-  
-   
- 
-
-   
- 
-
-    SignOutComponent,
-  
 
     AdminSignOutComponent,
-          RaiseTicketComponent,
-          DeleteItemComponent,
+    RaiseTicketComponent,
+    // EmployeeComponent,
+    OrderStatusComponent,
+    SendRequestComponent,
+    EditProfileComponent,
+    UnlockUsersComponent,
+    LogOutComponent,
+    SignOutComponent,
+    ReportComponent,
+    FundsComponent,
+        
+    DeleteItemComponent,
+              EmployeePanelComponent
   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    HttpClientModule
+ FormsModule,
+    HttpClientModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

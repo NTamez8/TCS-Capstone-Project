@@ -16,9 +16,6 @@ import {
   providedIn: 'root'
 })
 export class OrderService {
-  OrderStatus() {
-    throw new Error('Method not implemented.');
-  }
 
 
   constructor(public http: HttpClient) {}
@@ -50,7 +47,7 @@ export class OrderService {
     return this.http.get<Order[]>("http://localhost:8080/order/retriveOrderById/"+id)
   }
   updateOrderStatus(orderRef:any):any{
-    return this.http.put("http://localhost:8080/order/updateOrderStatus",orderRef,{responseType:'text'})
+    return this.http.put("http://localhost:8080/order/updateOrderStatus",orderRef)
 
 }
 

@@ -1,5 +1,8 @@
 <div>
-    <form #empRef = "ngForm" (ngSubmit)='formSubmit(empRef.value)'>
+    <div *ngIf='message.length != 0'>
+        {{message}}
+    </div>
+    <form #empRef = "ngForm" (ngSubmit)='formSubmit(empRef)'>
         <div class='form-group'>
             <label>First Name </label><input type="text" name='firstName' ngModel required class="form-control">
         </div>

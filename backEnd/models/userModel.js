@@ -18,6 +18,11 @@ let user = new schema({
     failedAttempts:Number,
     currentCart:[cartItemSchema],
    // order_history:String,            //stringified JSON of order array (Order[]) 
+    accountN:Number,
+    balance:Number,
+  
+ 
+    cost:Number,// what is this?
     order_history:{type:schema.Types.ObjectId, ref:'Order'}
 });
 

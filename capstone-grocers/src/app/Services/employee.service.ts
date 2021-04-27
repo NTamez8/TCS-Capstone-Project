@@ -13,19 +13,21 @@ export class EmployeeService {
   {
     return this.http.post<{token:string}>('http://localhost:8080/employee/signIn',{email,pass});
   }
-
   public getAllEmployees():Observable<Employee[]>
   {
-   return this.http.get<Employee[]>('http://localhost:8080/employee/getAll');
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+   return this.http.get<Employee[]>('http://localhost:8080/employee/getAll',{headers:{"Authorization":token}});
   }
 
   public addEmployee(newEmp:Employee)
   {
-   return this.http.post('http://localhost:8080/employee/add',newEmp);
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+   return this.http.post('http://localhost:8080/employee/add',newEmp,{headers:{"Authorization":token}});
   }
   public deleteEmployee(idToDelete:String)
   {
-   return this.http.delete('http://localhost:8080/employee/delete/'+idToDelete);
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+   return this.http.delete('http://localhost:8080/employee/delete/'+idToDelete,{headers:{"Authorization":token}});
   }
   // public editPassword(productRef:any):any{
   //   return this.http.delete("http://localhost:8080/employee/editPassword",productRef,{responseType:'text'});

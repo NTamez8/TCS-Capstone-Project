@@ -1,4 +1,4 @@
-export class Request {
+export class productRequest {
     constructor(
         public e_username:String,              //employee who requested the change
         public product_id:Number,              //_id in "productModel.js"
@@ -10,3 +10,4 @@ export class Request {
         ){}
 
 }
+

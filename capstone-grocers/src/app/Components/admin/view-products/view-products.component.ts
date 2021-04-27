@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Product } from 'src/app/Classes/product';
 import { ProductService } from 'src/app/Services/product.service';
 
@@ -20,9 +21,8 @@ export class ViewProductsComponent implements OnInit {
     this.productService.getAllProducts().subscribe(result=>this.products=result,error=>console.log(error));
   }
 
-  getProductById(){
+  getProductById(productRef:NgForm){
     //console.log("Getting product by ID");
-    const test_id = "608331bf4e5c0b3488695b40";
-    this.productService.getProductById(test_id).subscribe(result=>this.products=result,error=>console.log(error));
+    this.productService.getProductById(productRef.value.product_id).subscribe(result=>this.products=result,error=>console.log(error));
   }
 }

@@ -23,8 +23,7 @@ admin.methods.encryptPassword = async password =>{
 
 //BORROWED FROM "userModel.js", thanks :) - Darren
 admin.methods.validPassword = async function(candidatePassword){
-    //const result = await bcrypt.compare(candidatePassword,this.a_password);
-    const result = candidatePassword == this.a_password;
+    const result = await bcrypt.compare(candidatePassword,this.a_password);
     return result;
 };
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-out',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignOutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -15,7 +16,7 @@ export class SignOutComponent implements OnInit {
   logOut()
   {
     sessionStorage.clear();
-    //redirect to home page here
+    this.router.navigateByUrl('');
   }
 
 }

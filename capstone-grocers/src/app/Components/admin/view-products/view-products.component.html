@@ -1,19 +1,27 @@
-<app-admin-panel></app-admin-panel>
-<div style="text-align:center;">
-    <button (click)="getAllProducts()">View Products</button>
-    <button (click)="getProductById()">View Test Product</button>
-    <table style="border:1px solid black;margin:auto;">
-        <thead>
-            <th>Product ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-        </thead>
-        <tr *ngFor="let product of products">
-            <td>{{product._id}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.description}}</td>
-            <td>{{product.quantity}}</td>
-        </tr>
-    </table>
+<div class="text-center row">
+    <div class="col-7 m-auto">
+        <form #productRef="ngForm" (ngSubmit)="getProductById(productRef)">
+            <h3>Product Viewing</h3><hr/>
+            <label>Product ID: </label><input type="text" name="product_id" id="product_id" required ngModel/><br>
+            <input type="submit" value="View Product" [disabled]="!productRef.valid" class="btn btn-primary"/>
+            <input type="reset" value="Clear" class="btn btn-secondary"/>
+        </form><hr/>
+        <button class="btn btn-primary" (click)="getAllProducts()">View All Products</button>
+        <table style="border:1px solid black;margin:auto;">
+            <thead>
+                <th>Product ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </thead>
+            <tr *ngFor="let product of products">
+                <td>{{product._id}}</td>
+                <td>{{product.name}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.quantity}}</td>
+            </tr>
+        </table>
+    </div>
 </div>

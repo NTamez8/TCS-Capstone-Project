@@ -25,10 +25,18 @@ import { UserOptionsComponent } from './Components/user/user-options/user-option
 import { SelectItemComponent } from './Components/user/select-item/select-item.component';
 import { ViewCartComponent } from './Components/user/view-cart/view-cart.component';
 import { ViewOrderStatusComponent } from './Components/user/view-order-status/view-order-status.component';
-import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component';
+
 import { CheckoutComponent } from './Components/user/checkout/checkout.component';
 import { DeleteItemComponent } from './Components/user/delete-item/delete-item.component';
 
+import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component'
+import { EditProfileComponent as employeeEdit } from './Components/employee/edit-profile/edit-profile.component';
+import { EditProfileComponent as userEdit } from './Components/user/edit-profile/edit-profile.component';
+import { EmployeePanelComponent } from 'src/app/Components/employee/employee-panel/employee-panel.component';
+import { OrderStatusComponent } from 'src/app/Components/employee/order-status/order-status.component';
+import { SendRequestComponent } from 'src/app/Components/employee/send-request/send-request.component';
+import { UnlockUsersComponent } from 'src/app/Components/employee/unlock-users/unlock-users.component';
+import { SignInComponent as EmpSignInComponent} from 'src/app/Components/employee/sign-in/sign-in.component';
 const routes: Routes = [
   {path:'',component:NoLoginComponent},
   {path:'user',component:UserOptionsComponent,children:[
@@ -44,23 +52,33 @@ const routes: Routes = [
     {path:'deleteItem',component:DeleteItemComponent},
     {path:'viewCart',component:ViewCartComponent},
     {path:'checkout', component:CheckoutComponent},
-    {path:'viewOrderStatus',component:ViewOrderStatusComponent}
+ 
+    {path:'viewOrderStatus',component:ViewOrderStatusComponent},
+    {path:'edit',component:userEdit}
 
   ]},
-  {path:'admin',component:AdminPanelComponent,canActivate:[AdminGuard],children:[
+  {path:"employee",children:[
+    {path:"signIn",component:EmpSignInComponent}
+  ]},
+  {path:"employeePanel",component:EmployeePanelComponent,children:[
+    {path:"editProfile",component:employeeEdit},
+    {path:"orderStatus",component:OrderStatusComponent},
+    {path:"sendRequest",component:SendRequestComponent},
+    {path:"unlockUsers",component:UnlockUsersComponent}
+  ]},
+  {path:"adminPanel",component:AdminPanelComponent,canActivate:[AdminGuard],canActivateChild:[AdminGuard],children:[
     {path:'addEmployee',component:AddEmployeeComponent},
     {path:'deleteEmployee',component:DeleteEmployeeComponent},
-    {path:'generateReport',component:ReportComponent}
+    {path:'generateReport',component:ReportComponent},
+    {path:"addProducts",component:AddProductsComponent},
+    {path:"viewProducts",component:ViewProductsComponent},
+    {path:"updateProducts",component:UpdateProductsComponent},
+    {path:"deleteProducts",component:DeleteProductsComponent},
+    {path:"viewRequests",component:ViewRequestsComponent}
   ]},
-   //must use path:"\x/y" for the pages to properly load
-  //ADMIN
-  {path:"\admin/signIn",component:AdminSignInComponent},
-  {path:"\admin/addProducts",component:AddProductsComponent},
-  {path:"\admin/viewProducts",component:ViewProductsComponent},
-  {path:"\admin/updateProducts",component:UpdateProductsComponent},
-  {path:"\admin/deleteProducts",component:DeleteProductsComponent},
-  {path:"\admin/viewRequests",component:ViewRequestsComponent},
-  {path:"\admin/panel",component:AdminPanelComponent},
+  {path:"admin",children:[
+    {path:"signIn",component:AdminSignInComponent}
+  ]},
   {path:'**',redirectTo:'',pathMatch:'full'}
 ]
 

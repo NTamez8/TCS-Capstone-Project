@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Request} from '../Classes/request';
-import { Subscriber, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { productRequest } from '../Classes/request';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,8 +10,8 @@ export class RequestService {
 
   constructor(private http:HttpClient) { }
 
-  getRequests(){
-
+ public getAllRequests():Observable<productRequest[]>{
+    return this.http.get<productRequest[]>("http://localhost:8080/request/getAllRequests");
   }
 
   addRequest(){}
