@@ -14,8 +14,11 @@ let getAllRequests = async(req,res)=>{
 let sendRequest=(req,res)=>{
     let productdetails = new request({
         product_id:req.body.product_id,
-        e_username:req.body.e_username,
-        new_quantity:req.body.new_quantity
+        e_user:req.body.e_username,
+        new_quantity:req.body.new_quantity,
+        status:'',
+        datetime_requested:Date.now(),
+        datetime_resolved:null
         });
     productdetails.save((err,result)=>{
         if(!err){
