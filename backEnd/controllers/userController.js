@@ -244,6 +244,38 @@ let updatestatusToUser=async(req,res)=>{
         }
     })
 }
+
+let unlockLockUser=async(req,res)=>{
+    try{
+        let u_username = req.body.u_username;
+        let locked = req.body.locked;
+        //console.log(User.findOne({u_username:u_username}));
+        //if locked, unlock the account
+        if(locked){
+            locked = false;
+            User.updateOne({u_username:u_username},{"$set":{locked:locked}},(error,result)=>{
+                if(!error){
+                    //res.send(`${u_username is now unlocked!}`);
+                }else{
+                    res.send(`Error during User unlock: ${{"user":u_username,error}}`);
+                }
+            });
+        //if unlocked, lock the account
+        }else{
+            locked = true;
+            User.updateOne({u_username:u_username},{"$set":{locked:locked}},(error,result)=>{
+                if(!error){
+                    //res.send(`${u_username} is now locked!`)
+                }else{
+                    res.send(`Error during User lock: ${{"user":u_username,error}}`);
+                }
+            });
+        }
+    }catch(tryError){
+        res.send(`Error during user unlock/lock: ${tryError}`);
+    }
+}
+
 let updateFunds =(req,res) =>{
     let account =req.body.account;
     let amount =req.body.amount;
