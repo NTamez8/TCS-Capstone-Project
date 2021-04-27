@@ -25,7 +25,7 @@ import { UserOptionsComponent } from './Components/user/user-options/user-option
 import { SelectItemComponent } from './Components/user/select-item/select-item.component';
 import { ViewCartComponent } from './Components/user/view-cart/view-cart.component';
 import { ViewOrderStatusComponent } from './Components/user/view-order-status/view-order-status.component';
-import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component';
+import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component'
 import { EditProfileComponent as employeeEdit } from './Components/employee/edit-profile/edit-profile.component';
 import { EditProfileComponent as userEdit } from './Components/user/edit-profile/edit-profile.component';
 const routes: Routes = [
