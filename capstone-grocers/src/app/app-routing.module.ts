@@ -50,7 +50,7 @@ const routes: Routes = [
     {path:"viewProducts",component:ViewProductsComponent},
     {path:"updateProducts",component:UpdateProductsComponent},
     {path:"deleteProducts",component:DeleteProductsComponent},
-    {path:"viewRequests",component:ViewRequestsComponent},
+    {path:"viewRequests",component:ViewRequestsComponent}
   ]},
   {path:"admin",children:[
     {path:"signIn",component:AdminSignInComponent}
