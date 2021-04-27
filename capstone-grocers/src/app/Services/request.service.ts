@@ -8,6 +8,9 @@ import { productRequest } from '../Classes/request';
 })
 export class RequestService {
 
+  public currentRequest:any;
+  public viewRequestURL:any;
+
   constructor(private http:HttpClient) { }
 
  public getAllRequests():Observable<productRequest[]>{

@@ -130,7 +130,7 @@ import { EmployeePanelComponent } from './Components/employee/employee-panel/emp
     FundsComponent,
         
     DeleteItemComponent,
-              EmployeePanelComponent
+    EmployeePanelComponent
   
   ],
   imports: [

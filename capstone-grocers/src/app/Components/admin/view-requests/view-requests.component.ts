@@ -1,4 +1,5 @@
 import { Component, OnInit, ɵɵsetComponentScope } from '@angular/core';
+import { Router } from '@angular/router';
 import { productRequest } from 'src/app/Classes/request';
 import { RequestService } from 'src/app/Services/request.service';
 
@@ -12,7 +13,7 @@ export class ViewRequestsComponent implements OnInit {
 
   public requests:Array<productRequest> = [];
 
-  constructor(private requestService:RequestService) { }
+  constructor(private requestService:RequestService, private router:Router) { }
 
   ngOnInit(): void {
     this.getAllRequests();
@@ -29,6 +30,9 @@ export class ViewRequestsComponent implements OnInit {
     console.log("Resolving request!");
     //await this.requestService.resolveRequest(request._id as string).subscribe(
     //  result=>console.log(result.token),error=>console.log(error));
-    request.status="resolved";
+    ////request.status="resolved";
+    this.requestService.currentRequest = request;
+    this.requestService.viewRequestURL = this.router.url.split("/")[2];
+    this.router.navigateByUrl("/" + this.router.url.split("/")[1] + "/updateProducts");
   };
 }
