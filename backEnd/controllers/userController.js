@@ -1,4 +1,4 @@
-
+const Order = require('../models/orderModel');
 const User = require('../models/userModel');
 const validationHandler = require('../validators/validationHandler');
 const userConfig = require('../config/userConfig');
@@ -145,10 +145,10 @@ let addItemstoCart = async (req, res, next) => {
     const description = req.body.description;
     const price = req.body.price;
     const quantity = req.body.quantity;
-    const user_id = req.body.user_id ;
+    const user_id = req.body.user_id;
   
     try {
-      let userOrder = await User.findOne({user_id});
+      let userOrder = await User.findOne({_id:user_id});
       userCart = userOrder.currentCart;
   
       if (userCart) {
@@ -179,10 +179,9 @@ let addItemstoCart = async (req, res, next) => {
     }
   };
 
-  
 
   let deleteItemsfromCart = async (req, res, next) => {
-    let userOrder= await User.findOne({user_id});
+    let userOrder= await User.findOne({_id:user_id});
     userOrder.currentCart.updateMany({user_id  : req.params.user_id }, 
         { $pull: { product : {pname: req.params.pname }}}, {multi: true}, (err, result)=> {
             if (!err){
@@ -195,7 +194,7 @@ let addItemstoCart = async (req, res, next) => {
     };
 
   let viewItemsfromCart = async(req,res)=> {
-        let userOrder= await User.findOne({user_id});
+        let userOrder= await User.findOne({_id:user_id});
         userOrder.currentCart.find({},(err,result)=> {
             if(!err){
                 res.json(result);
@@ -205,30 +204,35 @@ let addItemstoCart = async (req, res, next) => {
     }
 
 let checkoutCart = async(req,res,next)=>{
-    try
-    {
-        let userOrder= await User.findOne({user_id});
-        let funds = await User.findById(userOrder.funds)
-        let cart = userOrder.currentCart;
-       
-        for(let i = 0; i < cart.length; i++){
+    try{
+        let user_id = req.body.user_id;
+        let userOrder = new Order();
+        let user = await User.findOne({_id:user_id});
+        userOrder.cart = user.currentCart;
+        userOrder.user_ID = user._id;
+        userOrder.status="in progress";
+        //let funds = await User.findById(userOrder.funds);
+        //let cart = userOrder.currentCart;
+        let total_amount = 0;
+        for(let i = 0; i < userOrder.cart.length; i++){
                 total_amount += cart[i].product.price * cart[i].quantity;
-            }
-        if(funds > total_amount){
-            userOrder.funds = funds - total_amount;
         }
-        else{
-            res.send({"msg":"Insufficient funds"});
-        }
-        userOrder.save();
+        if(user.funds >= total_amount){
+        user.funds = user.funds - total_amount;
+        user.save();
+        //get current date/time for userOrder.date_requested
+        //then save the userOrder.
+        UserOrder.save()
         res.send({"msg":"Cart checkout successful"});
-    }
-    catch(err)
-    {
-        next(err);
-    }
-
-}
+        }else{
+            res.send("Insufficient funds to checkout");
+        }
+        }
+        catch(err){
+            next(err);
+            }
+        
+        }
 
 let updatestatusToUser=async(req,res)=>{
     let u_username=req.body.u_username;
