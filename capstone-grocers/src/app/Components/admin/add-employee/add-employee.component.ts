@@ -33,6 +33,13 @@ export class AddEmployeeComponent implements OnInit {
         setTimeout(() => {
           this.message = '';
         }, 1000);
+      },
+      err=>{
+        this.message = 'Error'
+        empForm.resetForm();
+        setTimeout(() => {
+          this.message = '';
+        }, 1000);
       }
       );
   }
