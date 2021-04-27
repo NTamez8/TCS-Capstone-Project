@@ -16,7 +16,7 @@ export class UpdateProductsComponent implements OnInit {
   public new_quantity:any;
   public fromViewRequest:any;
 
-  constructor(private viewProductComponent:ViewProductsComponent,private productService:ProductService, private requestService:RequestService, private router:Router) { }
+  constructor(public viewProductComponent:ViewProductsComponent,private productService:ProductService, private requestService:RequestService, private router:Router) { }
 
   ngOnInit(): void {
     if(this.requestService.currentRequest){

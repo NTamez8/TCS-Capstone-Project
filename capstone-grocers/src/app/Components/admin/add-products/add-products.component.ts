@@ -11,7 +11,7 @@ import { ProductService } from 'src/app/Services/product.service';
 })
 export class AddProductsComponent implements OnInit {
 
-  constructor(private viewProductComponent:ViewProductsComponent, private productService:ProductService) { }
+  constructor(public viewProductComponent:ViewProductsComponent, private productService:ProductService) { }
 
   ngOnInit(): void {
   }
