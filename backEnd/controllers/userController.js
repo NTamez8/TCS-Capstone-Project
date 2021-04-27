@@ -272,7 +272,7 @@ let unlockLockUser=async(req,res)=>{
             });
         }
     }catch(tryError){
-        res.send(`Error during user unlock/lock: ${tryError}`);
+        res.send(`Error during User unlock/lock: ${tryError}`);
     }
 }
 
