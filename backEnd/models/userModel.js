@@ -8,6 +8,7 @@ let user = new schema({
   
     firstName:String,
     lastName:String,
+    user_id: String,
     u_username:String,
     u_password:String,
     address:String,

@@ -23,7 +23,8 @@ export class RequestService {
 
 
   sendRequest(productRef:any){
-    this.http.post("http://localhost:8080/request/sendRequest",productRef).
+    // changed response type
+    this.http.post("http://localhost:8080/request/sendRequest",productRef,{responseType:"text"}).
     subscribe(result=>console.log(result),error=>console.log(error));
   }
 
