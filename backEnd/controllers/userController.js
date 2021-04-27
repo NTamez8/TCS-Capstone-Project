@@ -151,13 +151,13 @@ let addItemstoCart = async (req, res, next) => {
         } else {
             userCart.product.push({product_id, quantity, name, price });// when adding to the cart like this is takes in a cartItem not a whole product
         }
-        userCart = await userCart.save();// I think you can just do the userOrder.save() if you tested this and it works let me know
-        return res.send(userCart);
+        userOrder.save();// I think you can just do the userOrder.save() if you tested this and it works let me know
+        return res.send(userOrder);
         // if the cart doesn't exist create a new cart for the user
       } else {
         let new_Cart = await User.currentCart.create({
-          user_id ,
-          product: [{ product_id, quantity, name, price }]// the cart item model does not need an id just a reference to a product and a quantity
+          quantity:Number,
+          product:{type:schema.Types.ObjectId, ref:'Product'}// the cart item model does not need an id just a reference to a product and a quantity
         });
         return res.send(new_Cart);
       }
