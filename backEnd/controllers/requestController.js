@@ -1,5 +1,4 @@
 const request = require('../models/requestModel');
-const products 
 
 let getAllRequests = async(req,res)=>{
     //console.log("Retrieving Requests");
