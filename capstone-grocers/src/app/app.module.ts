@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { FormsModule } from '@angular/forms';
+
 import {HttpClientModule} from '@angular/common/http'
 //==COMPONENTS==\\
 import { AppComponent } from './app.component';
@@ -58,9 +58,11 @@ import { ReportComponent } from './Components/admin/report/report.component';
 import { ReportTableComponent } from './Components/admin/report-table/report-table.component';
 import { NoLoginComponent } from './Components/no-login/no-login.component';
 import { UserOptionsComponent } from './Components/user/user-options/user-options.component';
+import {EditProfileComponent as userEdit} from './Components/user/edit-profile/edit-profile.component';
 import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component';
 import { FundsComponent } from './Components/user/funds/funds.component';
 import { DeleteItemComponent } from './Components/user/delete-item/delete-item.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     //==COMPONENTS==\\
@@ -87,7 +89,7 @@ import { DeleteItemComponent } from './Components/user/delete-item/delete-item.c
    
     userLogOut,
     
-    
+    userEdit,
 
   
 
@@ -132,8 +134,9 @@ import { DeleteItemComponent } from './Components/user/delete-item/delete-item.c
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    HttpClientModule
+ FormsModule,
+    HttpClientModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -26,6 +26,8 @@ import { SelectItemComponent } from './Components/user/select-item/select-item.c
 import { ViewCartComponent } from './Components/user/view-cart/view-cart.component';
 import { ViewOrderStatusComponent } from './Components/user/view-order-status/view-order-status.component';
 import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component';
+import { EditProfileComponent as employeeEdit } from './Components/employee/edit-profile/edit-profile.component';
+import { EditProfileComponent as userEdit } from './Components/user/edit-profile/edit-profile.component';
 const routes: Routes = [
   {path:'',component:NoLoginComponent},
   {path:'user',component:UserOptionsComponent,children:[
@@ -39,7 +41,8 @@ const routes: Routes = [
   {path:'userPanel',component:UserPanelComponent,canActivate:[UserGuard],canActivateChild:[UserGuard],children:[
     {path:'select',component:SelectItemComponent},
     {path:'viewCart',component:ViewCartComponent},
-    {path:'viewOrderStatus',component:ViewOrderStatusComponent}
+    {path:'viewOrderStatus',component:ViewOrderStatusComponent},
+    {path:'edit',component:userEdit}
 
   ]},
   {path:"adminPanel",component:AdminPanelComponent,canActivate:[AdminGuard],canActivateChild:[AdminGuard],children:[
