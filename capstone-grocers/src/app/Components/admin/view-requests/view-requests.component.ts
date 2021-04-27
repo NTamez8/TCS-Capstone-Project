@@ -19,7 +19,7 @@ export class ViewRequestsComponent implements OnInit {
 
   getAllRequests(){
     //probably returning an observable for .subscribe
-    //this.requestService.getAllRequests().subscribe(result=>this.requests=result,error=>console.log(error));
-    this.requests=[new Request("emp1",9,5,"10/05/2021","In Progress")];
+    this.requestService.getAllRequests().subscribe(result=>this.requests=result,error=>console.log(error));
+    //this.requests=[new Request("emp1",9,5,"10/05/2021","In Progress")];
   }
 }

@@ -42,7 +42,7 @@ const routes: Routes = [
     {path:'viewOrderStatus',component:ViewOrderStatusComponent}
 
   ]},
-  {path:'adminPanel',component:AdminPanelComponent,canActivate:[AdminGuard],canActivateChild:[AdminGuard],children:[
+  {path:"adminPanel",component:AdminPanelComponent,canActivate:[AdminGuard],canActivateChild:[AdminGuard],children:[
     {path:'addEmployee',component:AddEmployeeComponent},
     {path:'deleteEmployee',component:DeleteEmployeeComponent},
     {path:'generateReport',component:ReportComponent},
