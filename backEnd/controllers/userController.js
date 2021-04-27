@@ -1,4 +1,4 @@
-
+const Order = require('../models/orderModel');
 const User = require('../models/userModel');
 const Order = require('../models/orderModel');
 const validationHandler = require('../validators/validationHandler');
@@ -142,19 +142,19 @@ let getMe = async(req,res,next)=>
 // --------------------------------Adding changes to the Cart-----------------------------------//
 // can you test this and see if it works?
 let addItemstoCart = async (req, res, next) => {
-    const product_id = req.body.product_id;
-    const quantity = req.body.quantity;
-    const name = req.body.name;
+    const pname = req.body.name;
+    const description = req.body.description;
     const price = req.body.price;
-    const user_id = req.body.user_id ;
+    const quantity = req.body.quantity;
+    const user_id = req.body.user_id;
   
     try {
-      let userOrder = await User.findOne({user_id });
+      let userOrder = await User.findOne({_id:user_id});
       userCart = userOrder.currentCart;
   
       if (userCart) {
         //if the cart is existing for the user
-        let item_idx = userCart.product.findIndex(p => p.product_id == product_id);
+        let item_idx = userCart.product.findIndex(p => p.pname == pname);
         // if product is existing in the cart update the quantity
         if (item_idx > -1) {
           let product_item = userCart.product[item_idx];
@@ -162,15 +162,15 @@ let addItemstoCart = async (req, res, next) => {
           userCart.product[item_idx] = product_item;
         // if product is not in the cart, add the new item
         } else {
-            userCart.product.push({product_id, quantity, name, price });// when adding to the cart like this is takes in a cartItem not a whole product
+            userCart.product.push({pname, description, price, quantity });// when adding to the cart like this is takes in a cartItem not a whole product
         }
-        userCart = await userCart.save();// I think you can just do the userOrder.save() if you tested this and it works let me know
-        return res.send(userCart);
+        userOrder.save();// I think you can just do the userOrder.save() if you tested this and it works let me know
+        return res.send(userOrder);
         // if the cart doesn't exist create a new cart for the user
       } else {
         let new_Cart = await User.currentCart.create({
-          user_id ,
-          product: [{ product_id, quantity, name, price }]// the cart item model does not need an id just a reference to a product and a quantity
+          quantity:Number,
+          product:{type:schema.Types.ObjectId, ref:'Product'}// the cart item model does not need an id just a reference to a product and a quantity
         });
         return res.send(new_Cart);
       }
@@ -180,10 +180,11 @@ let addItemstoCart = async (req, res, next) => {
     }
   };
 
+
   let deleteItemsfromCart = async (req, res, next) => {
-    let userOrder= await User.findOne({user_id});
+    let userOrder= await User.findOne({_id:user_id});
     userOrder.currentCart.updateMany({user_id  : req.params.user_id }, 
-        { $pull: { product : {product_id: req.params.product_id }}}, {multi: true}, (err, result)=> {
+        { $pull: { product : {pname: req.params.pname }}}, {multi: true}, (err, result)=> {
             if (!err){
                 res.send("Items in cart deleted successfully" + result)
             } 
@@ -194,7 +195,7 @@ let addItemstoCart = async (req, res, next) => {
     };
 
   let viewItemsfromCart = async(req,res)=> {
-        let userOrder= await User.findOne({user_id});
+        let userOrder= await User.findOne({_id:user_id});
         userOrder.currentCart.find({},(err,result)=> {
             if(!err){
                 res.json(result);
@@ -206,6 +207,7 @@ let addItemstoCart = async (req, res, next) => {
 let checkoutCart = async(req,res,next)=>{
     try
     {
+   
         let user_id = req.body.user_id;
         let userOrder = new Order();
         let user = await User.findOne({_id:user_id});

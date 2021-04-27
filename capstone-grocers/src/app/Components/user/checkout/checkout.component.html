@@ -1,7 +1,9 @@
-<app-user-panel></app-user-panel>
+<!-- <app-user-panel></app-user-panel> -->
 <div>
     <form #cartRef="ngForm" (ngSubmit)="checkoutToCart(cartRef)">
         <h3>Checkout Cart</h3><hr/>
-        <input type="button" value="Checkout" [disabled]="!cartRef.valid"/>
+        <input type="button" value="Checkout" />
+        <!-- [disabled]="!cartRef.valid"/> -->
     </form>
+    {{msg}}
 </div>
