@@ -319,7 +319,7 @@ let orderstatusToUser=(req,res)=>{
     
 }
 
-module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe ,checkFunds,editPassword,updateFunds}
+module.exports = {signIn,signUp, addItemstoCart, checkoutCart,deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe ,checkFunds,editPassword,updateFunds}
 
 
 

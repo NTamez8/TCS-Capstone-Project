@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Request } from '../../../Classes/request';
+import { productRequest } from 'src/app/Classes/request';
 import { RequestService } from 'src/app/Services/request.service';
+
 
 @Component({
   selector: 'app-view-requests',
@@ -9,7 +10,7 @@ import { RequestService } from 'src/app/Services/request.service';
 })
 export class ViewRequestsComponent implements OnInit {
 
-  public requests:Array<Request> = [];
+  public requests:Array<productRequest> = [];
 
   constructor(private requestService:RequestService) { }
 
