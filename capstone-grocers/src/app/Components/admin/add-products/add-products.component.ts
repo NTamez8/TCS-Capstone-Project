@@ -24,7 +24,7 @@ export class AddProductsComponent implements OnInit {
       console.log(data.token);
       //sessionStorage.setItem('token',data.token);
     });
-    this.viewProductComponent.getAllProducts();
+    await this.viewProductComponent.getAllProducts();
   }
 
 }
