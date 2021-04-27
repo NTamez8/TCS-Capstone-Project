@@ -32,7 +32,7 @@ details?:Array<Ticket>
 
   unlockUser(userRef:any){
     console.log(userRef)
-    this.userSer.updatestatusToUser(userRef).subscribe((result:string)=>{})
+    this.userSer.unlockLockUser(userRef).subscribe((result:string)=>{})
 
 }
 }
