@@ -19,10 +19,13 @@ let sendRequest=(req,res)=>{
         });
     productdetails.save((err,result)=>{
         if(!err){
-            res.send("request send  successfully"+result)
+            // commented out sending back json instead
+           // res.send({"msg":"request send  successfully"+result})
+           res.send("request send  successfully"+result)
             //res.json("msg":"Record Stored successfully")
         }else{
-            res.send("request Didn't send ,check again"+err)
+           // res.send({"msg":"request Didn't send ,check again"+err})
+           res.send("request Didn't send ,check again"+err)
         }
 
     
