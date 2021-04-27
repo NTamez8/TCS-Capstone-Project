@@ -26,6 +26,7 @@ import { SelectItemComponent } from './Components/user/select-item/select-item.c
 import { ViewCartComponent } from './Components/user/view-cart/view-cart.component';
 import { ViewOrderStatusComponent } from './Components/user/view-order-status/view-order-status.component';
 import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component';
+
 const routes: Routes = [
   {path:'',component:NoLoginComponent},
   {path:'user',component:UserOptionsComponent,children:[

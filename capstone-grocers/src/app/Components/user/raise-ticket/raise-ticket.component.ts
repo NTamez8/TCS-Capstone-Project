@@ -9,16 +9,19 @@ import { TicketService } from 'src/app/Services/ticket.service';
   styleUrls: ['./raise-ticket.component.css']
 })
 export class RaiseTicketComponent implements OnInit {
+  msg: any;
 
   constructor(private ticketServ:TicketService,private router:Router) { }
 
   ngOnInit(): void {
   }
-
+  
   raiseTicket(userRef:any){
       this.ticketServ.raiseTicket(userRef)
       console.log(userRef.data)
-      this.router.navigateByUrl('/userPanel');
+      this.msg = "Ticket raised succesfully!"
+      this.router.navigate(['user'])
+  
   }
   
 

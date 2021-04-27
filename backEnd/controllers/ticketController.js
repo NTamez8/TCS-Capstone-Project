@@ -9,16 +9,23 @@ let getDetailOfUser=(req,res)=>{
     })
 }
 
-let addTicketInfo = (req,res)=>{
+let addTicketInfo = async(req,res)=>{
+    let user = await User.findOne({u_username:req.body.user});
+
+
     let newTicket = ticket({
-        u_username: req.params.u_username,
-        datetime_raised : req.params.datetime_raised
+        user_ID: user._id,
+        reason:req.body.ticket,
+        datetime_raised : Date.now(),
+        status:'unviewed',
+        datetime_resolved:null
     })
+    
     newTicket.save((err,result)=> {
         if(!err){
-            res.send("Ticket raised successfully! "+result)
+            res.send({"message":"Ticket raised successfully! "+result})
         }else {
-            res.send("Ticket unable to raise! "+err);
+            res.send({"message":"Ticket unable to raise! "+err});
         }
     })
   
