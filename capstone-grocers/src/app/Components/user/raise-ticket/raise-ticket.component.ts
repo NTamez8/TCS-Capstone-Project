@@ -17,8 +17,8 @@ export class RaiseTicketComponent implements OnInit {
 
   raiseTicket(userRef:any){
       this.ticketServ.raiseTicket(userRef)
-      console.log(userRef.data)
-      this.router.navigateByUrl('/userPanel');
+     // console.log(userRef.data)
+     // this.router.navigateByUrl('/userPanel');
   }
   
 

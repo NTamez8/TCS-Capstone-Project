@@ -4,6 +4,6 @@ const routes = express.Router();
 
 
 routes.get("/getDetailOfUser",ticketController.getDetailOfUser)
-routes.get("/addTicketInfo",ticketController.addTicketInfo)
+routes.post("/addTicketInfo",ticketController.addTicketInfo)
 
 module.exports = routes;

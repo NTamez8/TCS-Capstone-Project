@@ -11,7 +11,6 @@ import {
   User
 } from '../Classes/user';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -61,19 +60,46 @@ public getAllUsers():Observable<User[]>
 
 
   // ------------------------------------------Adding changes to cart-----------------------------------
-  addProductDetailsInfo(productRef: any) {
-    this.http.post("http://localhost:8080/user/addProductDetailsInfo",
-      productRef).subscribe(result => console.log(result), error => console.log(error))
+  public addProductsToCartInfo(product: any) {
+    this.http.post("http://localhost:8080/user/addProductsToCartInfo",
+      product).subscribe(result => console.log(result), error => console.log(error))
   }
 
-
-
+  public deleteProductfromCart(product_id:String){
+    return this.http.delete<{token:string}>("http://localhost:8080/product/deleteProductfromCart/"+product_id);
+  }
+  
+  public viewAllProductsinCart():Observable<User[]>{
+    return this.http.get<User[]>("http://localhost:8080/product/viewAllProductsinCart");
+  }
+  // public viewCartCheckout():
 
   public updatestatusToUser(userRef: any): any {
     return this.http.put("http://localhost:8080/user/updatestatusToUser", userRef, {
       responseType: 'text'
     })
 
+  }
+  public editPassword(passwordRef:any):any{
+    return this.http.put("http://localhost:8080/user/editPassword",passwordRef,{responseType:'text'})
+  }
+  public loadFunds(fundsRef: any){
+    console.log(fundsRef);
+    return this.http.put("http://localhost:8080/user/loadFunds",fundsRef,{responseType:"text"})
+  }
+  checkFunds(id:string, cost:number){
+
+    let newobj = {
+      id,
+      cost
+    }
+    let funds: any;
+    this.http.post("http://localhost:8080/user/checkFunds", newobj, {responseType:'text'}).
+    subscribe((res:any) => {
+      console.log("Funds", res);
+      funds = res;
+    }, err => console.log(err));
+    return funds;
   }
 
 

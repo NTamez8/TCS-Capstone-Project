@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Employee } from 'src/app/Classes/employee';
 import { EmployeeService } from 'src/app/Services/employee.service';
 
@@ -9,6 +10,7 @@ import { EmployeeService } from 'src/app/Services/employee.service';
 })
 export class AddEmployeeComponent implements OnInit {
 
+  message:String='';
   constructor(private empService:EmployeeService) { }
 
   ngOnInit(): void {
@@ -16,15 +18,31 @@ export class AddEmployeeComponent implements OnInit {
 
 
 
-  formSubmit(newEmpData:any)
+  formSubmit(empForm:NgForm)
   {
-    
+    let newEmpData = empForm.value;
     let fname = newEmpData.firstName;
     let lname = newEmpData.lastName;
     let email = newEmpData.email;
     let emp = new Employee(fname,lname,email);
     
-    this.empService.addEmployee(emp).subscribe(data=>console.log(data));
+    this.empService.addEmployee(emp).subscribe(data=>
+      {
+        this.message = 'Employee added'
+        empForm.resetForm();
+        setTimeout(() => {
+          this.message = '';
+        }, 1000);
+      },
+      err=>{
+        this.message = 'Error'
+        empForm.resetForm();
+        setTimeout(() => {
+          this.message = '';
+        }, 1000);
+      }
+      );
   }
+ 
 
 }

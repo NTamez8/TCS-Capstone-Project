@@ -12,12 +12,10 @@ export class SelectItemComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  addProduct(productRef:any){
+  addProductCart(productRef:any){
     console.log(productRef)
-    this.userServ.addProductDetailsInfo(productRef)
+    this.userServ.addProductsToCartInfo(productRef)
   }
 
-  deleteProduct(productRef:any){
-    
-  }
+  
 }

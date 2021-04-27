@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeeService } from 'src/app/Services/employee.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -8,7 +8,7 @@ import { EmployeeService } from 'src/app/Services/employee.service';
 })
 export class SignInComponent implements OnInit {
 
-  constructor(private empServ:EmployeeService) { }
+  constructor(private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -20,6 +20,8 @@ export class SignInComponent implements OnInit {
       console.log(data.token);
       sessionStorage.setItem('token',data.token);
     })*/
+    //this is a quick fix until frontend Employee authentication works \/\/\/
+    this.router.navigateByUrl("employeePanel");
   }
 
 }

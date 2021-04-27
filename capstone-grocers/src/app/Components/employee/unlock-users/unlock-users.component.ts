@@ -17,13 +17,13 @@ export class UnlockUsersComponent implements OnInit {
 
 
 
-
+  userMsg?:String
 details?:Array<Ticket>
   constructor(public detailSer:TicketService,public userSer:UserService) { }
-userMsg?:String
+
 
   ngOnInit(): void {
-    this.detailSer.getDetailOfUser().subscribe(result=>this.details=result)
+    this.detailSer.getDetailOfUser().subscribe(result=>{this.details=result; console.log(result)})
   }
 
 
@@ -32,11 +32,7 @@ userMsg?:String
 
   unlockUser(userRef:any){
     console.log(userRef)
-    this.userSer.updatestatusToUser(userRef).subscribe((result:string)=>{
-
-     this.userMsg=result;
-  })
+    this.userSer.updatestatusToUser(userRef).subscribe((result:string)=>{})
 
 }
-
 }

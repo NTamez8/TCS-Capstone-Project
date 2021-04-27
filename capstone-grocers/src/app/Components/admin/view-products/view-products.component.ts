@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Product } from 'src/app/Classes/product';
 import { ProductService } from 'src/app/Services/product.service';
 
@@ -9,20 +10,24 @@ import { ProductService } from 'src/app/Services/product.service';
 })
 export class ViewProductsComponent implements OnInit {
 
-  public products:Array<Product> = [];
-  constructor(private productService:ProductService) { }
+  constructor(public productService:ProductService) { }
 
   ngOnInit(): void {
+    this.getAllProducts();
   }
 
-  getAllProducts(){
+  async getAllProducts(){
     //console.log("Getting products");
-    this.productService.getAllProducts().subscribe(result=>this.products=result,error=>console.log(error));
+    await this.productService.getAllProducts().subscribe(result=>this.productService.currentProducts=result,error=>console.log(error));
   }
 
-  getProductById(){
+  async getProductById(productRef:NgForm){
     //console.log("Getting product by ID");
-    const test_id = "608331bf4e5c0b3488695b40";
-    this.productService.getProductById(test_id).subscribe(result=>this.products=result,error=>console.log(error));
+    await this.productService.getProductById(productRef.value.product_id).subscribe(result=>this.productService.currentProducts=result,error=>console.log(error));
   }
+
+  async deleteProduct(product:Product){
+    await this.productService.deleteProductById(product._id as string).subscribe(data=>console.log(data.token));
+    this.getAllProducts();
+  };
 }

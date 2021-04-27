@@ -1,10 +1,11 @@
-<app-admin-panel></app-admin-panel>
-<div>
-    <form #productRef="ngForm" (ngSubmit)="updateProduct(productRef)">
-        <h3>Product Updating</h3><hr/>
-        <label>Product ID: </label><input type="text" name="product_id" id="product_id" required ngModel/><br>
-        <label>New Quantity: </label><input type="number" name="product_newQuantity" id="product_newQuantity" required ngModel/><br>
-        <input type="submit" value="Update" [disabled]="!productRef.valid"/>
-        <input type="reset" value="Clear"/>
-    </form>
+<div class="text-center row" style="border:1px solid black;">
+    <div>
+        <form #productRef="ngForm" (ngSubmit)="updateProduct()">
+            <h3>Product Updating</h3><hr/>
+            <label>Product ID: </label><input type="text" name="product_id" required [(ngModel)]="product_id"/><br>
+            <label>New Quantity: </label><input type="number" name="new_quantity" required [(ngModel)]="new_quantity"/><br>
+            <input type="submit" value="Update" [disabled]="!productRef.valid" class="btn btn-primary"/>
+            <input type="reset" value="Clear" class="btn btn-secondary"/>
+        </form>
+    </div>
 </div>
