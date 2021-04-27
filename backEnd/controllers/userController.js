@@ -1,5 +1,6 @@
 
 const User = require('../models/userModel');
+const Order = require('../models/orderModel');
 const validationHandler = require('../validators/validationHandler');
 const userConfig = require('../config/userConfig');
 const jwt = require('jwt-simple');
@@ -205,16 +206,27 @@ let addItemstoCart = async (req, res, next) => {
 let checkoutCart = async(req,res,next)=>{
     try
     {
-        let userOrder= await User.findOne({user_id});
-        let funds = await User.findById(userOrder.funds)
-        let cart = userOrder.currentCart;
-       
-        for(let i = 0; i < cart.length; i++){
+        let user_id = req.body.user_id;
+        let userOrder = new Order();
+        let user = await User.findOne({_id:user_id});
+        userOrder.cart = user.currentCart;
+        userOrder.user_ID = user._id;
+        userOrder.status="in progress";
+        //let funds = await User.findById(userOrder.funds);
+        //let cart = userOrder.currentCart;
+        let total_amount = 0;
+        for(let i = 0; i < userOrder.cart.length; i++){
                 total_amount += cart[i].product.price * cart[i].quantity;
-            }
-        userOrder.funds = funds - total_amount;
-        userOrder.save();
-        res.send({"msg":"Cart checkout successful"});
+        }
+        if(user.funds >= total_amount){
+            user.funds = user.funds - total_amount;
+            user.save();
+            //get current date/time for userOrder.date_requested
+            //then save the userOrder.
+            res.send({"msg":"Cart checkout successful"});
+        }else{
+            res.send("Insufficient funds to checkout");
+        }
     }
     catch(err)
     {
