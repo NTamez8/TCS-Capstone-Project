@@ -13,14 +13,14 @@ let getAllRequests = async(req,res)=>{
 
 let sendRequest=(req,res)=>{
     let productdetails = new request({
-        product_id:req.body.pid,
-        e_username:req.body.uname,
+        product_id:req.body.product_id,
+        user_ID:req.body.user_ID,
         new_quantity:req.body.nquantity
         });
     productdetails.save((err,result)=>{
         if(!err){
-            res.send("request send  successfully"+result)
-            //res.json("msg":"Record Stored successfully")
+            // res.send("request send  successfully"+result)
+             res.json({"msg":"Record Stored successfully"})
         }else{
             res.send("request Didn't send ,check again"+err)
         }

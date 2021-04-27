@@ -74,8 +74,8 @@ public getAllUsers():Observable<User[]>
   }
   // public viewCartCheckout():
 
-  public updatestatusToUser(userRef: any): any {
-    return this.http.put("http://localhost:8080/user/updatestatusToUser", userRef, {
+  public unlockLockUser(userRef: any): any {
+    return this.http.put("http://localhost:8080/user/unlockLockUser", userRef, {
       responseType: 'text'
     })
 
