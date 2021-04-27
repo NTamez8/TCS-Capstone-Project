@@ -13,16 +13,54 @@ chai.use(http);
 
 describe('Admin',()=>{
 
+    let adminToken = '';
+    let empID = '';
     it('Should sign in',(done)=>{
         let adminCredentials = {
             "a_username":"admin",
             "a_password":"AdminCapstone"
         }
-        chai.request(server).post('/admin/signIn',adminCredentials).end((err,result)=>{
+        chai.request(server).post('/admin/signIn').send(adminCredentials).end((err,result)=>{
+          
             result.should.have.status(200);
-            console.log(result);
+            adminToken = result.body.token;
+            console.log();
+            done();
         })
     })
+
+    it('Should validate',done=>{
+        chai.request(server).get('/admin/getMe').set('Authorization','bearer ' + adminToken).end((err,result)=>{
+
+            result.should.have.status(200);
+            
+
+            done();
+        })
+    })
+
+    it('Should add employee',done=>{
+        let emp = {
+            firstName:"Dave",
+            lastName:"david",
+            email_address:"email@dave.com"
+        }
+        chai.request(server).post('/employee/add').send(emp).set('Authorization','bearer ' + adminToken).end((err,result)=>{
+            result.should.have.status(200);
+            empID = result.body.newEmp._id;
+            done();
+        })
+    })
+
+ 
+    it('Should delete employee',done=>{
+       
+        chai.request(server).delete('/employee/delete/'+empID).set('Authorization','bearer ' + adminToken).end((err,result)=>{
+            result.should.have.status(200);
+            done();
+        })
+    })
+   
 
 
 })
