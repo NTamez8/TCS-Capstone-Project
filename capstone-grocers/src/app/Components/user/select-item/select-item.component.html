@@ -1,13 +1,17 @@
 <div>
     <form #productRef = "ngForm" (ngSubmit) = "addProductCart(productRef.value)">
-        <h3>Add Items to Cart</h3><hr/>
-        <label>Product Id</label>
-        <input type = "text" name = "pid" ngModel><br/>
         <label>Product Name</label>
         <input type = "text" name = "pname" ngModel><br/>
         <label>Product Price</label>
         <input type = "text" name = "price" ngModel><br/>
+        <label>Product Description</label>
+        <input type = "text" name = "pdesc" ngModel><br/>
+        <label>Quantity</label>
+        <input type = "text" name = "p" ngModel><br/>
         <input type = "submit" value = "store"/>
         <input type = "reset" value = "reset"/>
     </form>
 </div>
+
+
+

@@ -141,20 +141,19 @@ let getMe = async(req,res,next)=>
 // --------------------------------Adding changes to the Cart-----------------------------------//
 // can you test this and see if it works?
 let addItemstoCart = async (req, res, next) => {
-    const product_id = req.body.product_id;
-    const name = req.body.name;
+    const pname = req.body.name;
     const description = req.body.description;
     const price = req.body.price;
     const quantity = req.body.quantity;
     const user_id = req.body.user_id ;
   
     try {
-      let userOrder = await User.findOne({user_id });
+      let userOrder = await User.findOne({user_id});
       userCart = userOrder.currentCart;
   
       if (userCart) {
         //if the cart is existing for the user
-        let item_idx = userCart.product.findIndex(p => p.product_id == product_id);
+        let item_idx = userCart.product.findIndex(p => p.pname == pname);
         // if product is existing in the cart update the quantity
         if (item_idx > -1) {
           let product_item = userCart.product[item_idx];
@@ -162,7 +161,7 @@ let addItemstoCart = async (req, res, next) => {
           userCart.product[item_idx] = product_item;
         // if product is not in the cart, add the new item
         } else {
-            userCart.product.push({name, description, price, quantity });// when adding to the cart like this is takes in a cartItem not a whole product
+            userCart.product.push({pname, description, price, quantity });// when adding to the cart like this is takes in a cartItem not a whole product
         }
         userOrder.save();// I think you can just do the userOrder.save() if you tested this and it works let me know
         return res.send(userOrder);
@@ -180,10 +179,12 @@ let addItemstoCart = async (req, res, next) => {
     }
   };
 
+  
+
   let deleteItemsfromCart = async (req, res, next) => {
     let userOrder= await User.findOne({user_id});
     userOrder.currentCart.updateMany({user_id  : req.params.user_id }, 
-        { $pull: { product : {product_id: req.params.product_id }}}, {multi: true}, (err, result)=> {
+        { $pull: { product : {pname: req.params.pname }}}, {multi: true}, (err, result)=> {
             if (!err){
                 res.send("Items in cart deleted successfully" + result)
             } 

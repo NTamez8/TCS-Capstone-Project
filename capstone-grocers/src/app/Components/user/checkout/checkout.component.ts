@@ -8,6 +8,7 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class CheckoutComponent implements OnInit {
   msg: any;
+  router: any;
 
   constructor(private userServ:UserService) { }
 
@@ -17,6 +18,7 @@ export class CheckoutComponent implements OnInit {
     console.log(cartRef)
     this.userServ.viewCheckoutCart(cartRef).subscribe((result:any)=>{
       this.msg=result.Message;
+      this.router.navigate(['viewOrderStatus'])
     })
   }
 

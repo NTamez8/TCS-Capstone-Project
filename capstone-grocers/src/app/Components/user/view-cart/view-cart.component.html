@@ -1,17 +1,17 @@
 <div style="text-align:center;">
     <button (click)="viewAllProducts()" class ="btn btn-primary">View Cart </button>
     <table style="border:1px solid black;margin:auto;">
-        <!-- <thead>
-            <th>Product ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
+        <thead>
+            <th>Product Name</th>
+            <th>Product Price</th>
+            <th>Prodcut Description</th>
+            <th>Product Quantity</th>
         </thead>
-        <tr *ngFor="let product of products">
-            <td>{{product._id}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.description}}</td>
-            <td>{{product.quantity}}</td>
-        </tr> -->
+        <tr *ngFor="let item of products">
+            <td>{{item.pname}}</td>
+            <td>{{item.price}}</td>
+            <td>{{item.pdesc}}</td>
+            <td>{{item.pqty}}</td>
+        </tr>
     </table>
 </div>

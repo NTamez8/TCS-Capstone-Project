@@ -72,8 +72,8 @@ public getAllUsers():Observable<User[]>
   public viewAllProductsinCart():Observable<User[]>{
     return this.http.get<User[]>("http://localhost:8080/user/viewAllProductsinCart");
   }
-  public viewCheckoutCart(user_id:String):Observable<User[]>{
-    return this.http.get<User[]>('http://localhost:8080/user/checkoutCart/' + user_id);
+  public viewCheckoutCart(user:any){
+    return this.http.post('http://localhost:8080/user/checkoutCart/',user);
   }
 
   public updatestatusToUser(userRef: any): any {
