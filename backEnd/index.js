@@ -10,20 +10,18 @@ const ticketRoutes = require('./routes/ticketRoute');
 const userRoutes = require('./routes/userRoute');
 
 const errorHandler = require('./middleware/errorHandler');
-const adminAuth = require('./middleware/adminPassport')();
-const userAuth = require('./middleware/userPassport')();
+
 
 //for deault admin creation
 const AdminModel = require('./models/adminModel');
-
+const multiPassport = require('./middleware/multiPassport')();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const express = require('express');
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(adminAuth.initialize());
-app.use(userAuth.initialize());
+app.use(multiPassport.initialize());
 
 mongoose.Promise = global.Promise;
 
