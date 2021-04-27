@@ -16,7 +16,7 @@ export class SignOutComponent implements OnInit {
   logOut()
   {
     sessionStorage.clear();
-    this.router.navigateByUrl('admin/signIn');
+    this.router.navigateByUrl('');
   }
 
 }
