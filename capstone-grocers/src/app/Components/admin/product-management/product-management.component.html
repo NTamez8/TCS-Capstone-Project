@@ -22,24 +22,29 @@
 
     </div>
 </nav> -->
+
 <div>
     <div class='row'>
         <div class='col-8 m-auto'>
             <div class='form-group'>
                 <label>Product Management</label> <select #selectedType (change)='changedValue(selectedType.value)' class='form-control'>
-                    <option value='1'>Add Products</option>
-                    <option value='2'>Update Products</option>
-                    <option value='3'>Delete Products</option>
+                    <option value='1'>View Products</option>
+                    <option value='2'>Add Products</option>
+                    <option value='3'>Update Products</option>
+                    <option value='4'>Delete Products</option>
                     </select>
             </div><br/>
             
             <div *ngIf='productSelector == "1"' class='form-group'>
-                <app-add-products></app-add-products>
+
             </div>
             <div *ngIf='productSelector == "2"'  class='form-group'>
-                <app-update-products></app-update-products>
+                <app-add-products></app-add-products>
             </div>
             <div *ngIf='productSelector == "3"'  class='form-group'>
+                <app-update-products></app-update-products>
+            </div>
+            <div *ngIf='productSelector == "4"'  class='form-group'>
                 <app-delete-products></app-delete-products>
             </div>
         </div>
