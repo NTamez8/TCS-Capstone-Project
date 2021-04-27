@@ -63,6 +63,7 @@ import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticke
 import { FundsComponent } from './Components/user/funds/funds.component';
 import { DeleteItemComponent } from './Components/user/delete-item/delete-item.component';
 import { FormsModule } from '@angular/forms';
+import { EmployeePanelComponent } from './Components/employee/employee-panel/employee-panel.component';
 @NgModule({
   declarations: [
     //==COMPONENTS==\\
@@ -128,7 +129,8 @@ import { FormsModule } from '@angular/forms';
     ReportComponent,
     FundsComponent,
         
-          DeleteItemComponent,
+    DeleteItemComponent,
+              EmployeePanelComponent
   
   ],
   imports: [

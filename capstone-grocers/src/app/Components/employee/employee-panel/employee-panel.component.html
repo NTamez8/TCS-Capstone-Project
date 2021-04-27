@@ -1,0 +1,40 @@
+<nav class="navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+  
+      <div class='row'>
+        <div class='col-9'>
+          <ul class="navbar-nav justify-content-begin">
+            <li class="nav-item">
+              <a routerLink='' class="nav-link "></a>
+            </li>
+            <li class="nav-item">
+              <a routerLink='orderStatus' class="nav-link ">Order Status</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink='sendRequest' class="nav-link ">Send Request</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink='unlockUsers' class="nav-link ">Unlock User</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink='editProfile' class="nav-link ">Edit Profile</a>
+            </li>
+      
+          </ul>
+        </div>
+        <div class='col'> 
+          <ul class= 'navbar-nav justify-content-end'>
+            <li class='nav-item'>
+              <app-log-out></app-log-out>
+            </li>
+           </ul>
+        </div>
+      </div>
+      
+    </div>
+  </nav>
+  
+  
+  <div>
+    <router-outlet></router-outlet>
+  </div>

@@ -28,6 +28,11 @@ import { ViewOrderStatusComponent } from './Components/user/view-order-status/vi
 import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component'
 import { EditProfileComponent as employeeEdit } from './Components/employee/edit-profile/edit-profile.component';
 import { EditProfileComponent as userEdit } from './Components/user/edit-profile/edit-profile.component';
+import { EmployeePanelComponent } from 'src/app/Components/employee/employee-panel/employee-panel.component';
+import { OrderStatusComponent } from 'src/app/Components/employee/order-status/order-status.component';
+import { SendRequestComponent } from 'src/app/Components/employee/send-request/send-request.component';
+import { UnlockUsersComponent } from 'src/app/Components/employee/unlock-users/unlock-users.component';
+import { SignInComponent as EmpSignInComponent} from 'src/app/Components/employee/sign-in/sign-in.component';
 const routes: Routes = [
   {path:'',component:NoLoginComponent},
   {path:'user',component:UserOptionsComponent,children:[
@@ -44,6 +49,15 @@ const routes: Routes = [
     {path:'viewOrderStatus',component:ViewOrderStatusComponent},
     {path:'edit',component:userEdit}
 
+  ]},
+  {path:"employee",children:[
+    {path:"signIn",component:EmpSignInComponent}
+  ]},
+  {path:"employeePanel",component:EmployeePanelComponent,children:[
+    {path:"editProfile",component:employeeEdit},
+    {path:"orderStatus",component:OrderStatusComponent},
+    {path:"sendRequest",component:SendRequestComponent},
+    {path:"unlockUsers",component:UnlockUsersComponent}
   ]},
   {path:"adminPanel",component:AdminPanelComponent,canActivate:[AdminGuard],canActivateChild:[AdminGuard],children:[
     {path:'addEmployee',component:AddEmployeeComponent},
