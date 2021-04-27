@@ -21,8 +21,8 @@ let signIn = async (req,res,next)=>{
             error.statusCode = 401;
             throw error;
         };
-
-        const token = jwt.encode({id:AdminModel._id},adminConfig.secret);
+      
+        const token = jwt.encode({id:admin._id},adminConfig.secret);
         res.send({token});
     }catch(error){
         next(error);

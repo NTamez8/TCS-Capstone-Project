@@ -1,6 +1,6 @@
 const express = require('express');
 const productController = require('../controllers/productController');
-const adminAuth = require('../middleware/adminPassport')();
+const adminAuth = require('../middleware/multiPassport')()
 const routes = express.Router();
 
 routes.get("/getProductById/:product_id",productController.getProductById);
