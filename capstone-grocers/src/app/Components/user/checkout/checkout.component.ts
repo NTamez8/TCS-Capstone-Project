@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-checkout',
@@ -6,13 +7,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
+  msg: any;
 
-  constructor() { }
+  constructor(private userServ:UserService) { }
 
   ngOnInit(): void {
   }
-  checkoutToCart(cart:any){
-
+  checkoutToCart(cartRef:any){
+    console.log(cartRef)
+    this.userServ.viewCheckoutCart(cartRef).subscribe((result:any)=>{
+      this.msg=result.Message;
+    })
   }
 
 }

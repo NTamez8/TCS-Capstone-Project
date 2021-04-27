@@ -67,13 +67,15 @@ public getAllUsers():Observable<User[]>
   }
 
   public deleteProductfromCart(product_id:String){
-    return this.http.delete<{token:string}>("http://localhost:8080/product/deleteProductfromCart/"+product_id);
+    return this.http.delete<{token:string}>("http://localhost:8080/user/deleteProductfromCart/"+product_id);
   }
   
   public viewAllProductsinCart():Observable<User[]>{
-    return this.http.get<User[]>("http://localhost:8080/product/viewAllProductsinCart");
+    return this.http.get<User[]>("http://localhost:8080/user/viewAllProductsinCart");
   }
-  // public viewCartCheckout():
+  public viewCheckoutCart(user_id:String):Observable<User[]>{
+    return this.http.get<User[]>('http://localhost:8080/user/checkoutCart/' + user_id);
+  }
 
   public updatestatusToUser(userRef: any): any {
     return this.http.put("http://localhost:8080/user/updatestatusToUser", userRef, {
