@@ -201,7 +201,12 @@ let checkoutCart = async(req,res,next)=>{
         for(let i = 0; i < cart.length; i++){
                 total_amount += cart[i].product.price * cart[i].quantity;
             }
-        userOrder.funds = funds - total_amount;
+        if(funds > total_amount){
+            userOrder.funds = funds - total_amount;
+        }
+        else{
+            res.send({"msg":"Insufficient funds"});
+        }
         userOrder.save();
         res.send({"msg":"Cart checkout successful"});
     }
