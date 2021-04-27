@@ -25,8 +25,8 @@ let addProduct = async (req,res)=>{
     //console.log("In Backend");
     //console.log(req.body);
 
-    const product = req.body;
-    
+    const product = req.body.product;
+    console.log(req.body);
     //new ProductModel
     let new_product = new ProductModel();
     new_product.name = product.name;
