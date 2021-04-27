@@ -22,6 +22,9 @@
                 <td *ngIf="request.status != 'resolved'">
                     <button type="submit" class="btn btn-secondary" value="Resolve" (click)="resolveRequest(request)">Resolve</button>
                 </td>
+                <!--We also need the following cell because the table bordering is part of a cell.
+                Hence if a cell does not load because it is a resolved request, we need
+                an empty dumby-cell.-->
                 <td *ngIf="request.status == 'resolved'"></td>
             </tr>
         </table>
