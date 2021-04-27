@@ -40,10 +40,10 @@ const routes: Routes = [
     //{path:'raiseTicket',component:}
   ]},
   {path:'userPanel',component:UserPanelComponent,canActivate:[UserGuard],canActivateChild:[UserGuard],children:[
-    {path:'checkout', component:CheckoutComponent},
     {path:'selectItem',component:SelectItemComponent},
     {path:'deleteItem',component:DeleteItemComponent},
     {path:'viewCart',component:ViewCartComponent},
+    {path:'checkout', component:CheckoutComponent},
     {path:'viewOrderStatus',component:ViewOrderStatusComponent}
 
   ]},
