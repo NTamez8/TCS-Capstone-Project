@@ -46,6 +46,7 @@ export class ReportTableComponent implements OnInit {
     console.log(this.tableRowDate);
   }*/
 
+  // get the user for this order to list in table
   parentBuildTable(parentOrders:Order[])
   {
    
