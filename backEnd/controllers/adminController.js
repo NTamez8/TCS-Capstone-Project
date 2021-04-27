@@ -33,7 +33,7 @@ let signIn = async (req,res,next)=>{
 let getMe = async (req,res,next) =>{
     try{
         let me = await AdminModel.findById(req.user);
-        console.log(req.user);
+       
         return res.send(me);
     }catch(error){
         next(error);
