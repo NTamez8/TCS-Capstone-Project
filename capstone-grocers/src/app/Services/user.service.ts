@@ -7,6 +7,7 @@ import {
 import {
   Observable
 } from 'rxjs';
+import { Product } from '../Classes/product';
 import {
   User
 } from '../Classes/user';
@@ -60,9 +61,9 @@ public getAllUsers():Observable<User[]>
 
 
   // ------------------------------------------Adding changes to cart-----------------------------------
-  public addProductsToCartInfo(product: any) {
+  public addProductsToCartInfo(product: Product) {
     this.http.post("http://localhost:8080/user/addProductsToCartInfo",
-      product).subscribe(result => console.log(result), error => console.log(error))
+      {product}).subscribe(result => console.log(result), error => console.log(error))
   }
 
   public deleteProductfromCart(product_id:String){
@@ -72,7 +73,7 @@ public getAllUsers():Observable<User[]>
   public viewAllProductsinCart():Observable<User[]>{
     return this.http.get<User[]>("http://localhost:8080/user/viewAllProductsinCart");
   }
-  public viewCheckoutCart(user:any){
+  public viewCheckoutCart(user:User){
     return this.http.post('http://localhost:8080/user/checkoutCart/',user);
   }
 
