@@ -1,5 +1,5 @@
-import { RequestService } from './../../../Services/request.service';
 import { Component, OnInit } from '@angular/core';
+import { RequestService } from 'src/app/Services/request.service';
 
 @Component({
   selector: 'app-send-request',
@@ -8,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SendRequestComponent implements OnInit {
 
-  constructor(public productSer:RequestService) { }
 
+
+  constructor(public productSer:RequestService) { }
   ngOnInit(): void {
   }
   addProductQuntity(productRef:any){

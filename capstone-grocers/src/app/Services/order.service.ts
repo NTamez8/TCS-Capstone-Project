@@ -16,9 +16,6 @@ import {
   providedIn: 'root'
 })
 export class OrderService {
-  OrderStatus() {
-    throw new Error('Method not implemented.');
-  }
 
 
   constructor(public http: HttpClient) {}

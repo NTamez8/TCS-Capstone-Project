@@ -103,7 +103,7 @@ let signUp = async (req,res,next)=>{
         user.order_history = null;
         user.failedAttempts = 0;
         user.currentCart = [];
-        
+        user.accountN = 1001;
         await user.save();
         const token = jwt.encode({id:user._id},userConfig.secret);
         res.send({token});
@@ -233,30 +233,76 @@ let addItemstoCart = async (req, res, next) => {
     
     }
 
-let updatestatusToUser=async(req,res)=>{
-    let u_username=req.body.u_username;
-    let locked=req.body.locked;
-    User.updateOne({u_username:u_username},{"$set":{locked:locked}},(err,result)=> {
+let checkFunds =(req,res) =>{
+    let id =   req.body.id;
+    let cost = req.body.cost;
+    user.find({u_username:id},(err,result)=>{
         if(!err){
-                if(result.nModified>0){
-                    res.send("User Account is Unlocked Succesfully")
-                }else {
-                    res.send("Check the UserName");
-                }
-        }else {
-            res.send("Error generated "+err);
+            console.log(result.funds);
+            if(result.funds > cost){
+                let newFunds ={};
+                newFunds.fund = cost - result.funds;
+                newFunds.approved = true;
+                newFunds.error="";
+                res.json(newFunds);
+            }else{
+                let errorObj = {fund:0,error: "funds are not sufficient",approved: false};
+                res.json(errorObj);
+            }
+        }else{
+            res.send("Record not found");
         }
     })
 }
 
-//Retrive order staus
-let orderstatusToUser=(req,res)=>{
-    let orderdetails = neworder ({
-        status:req.body.order_history,
-    });
-    
+let editPassword=(req,res)=>{
+    let u_username=req.body.u_username;
+    let u_password=req.body.u_password
+    user.updateMany({u_username:u_username},{$set:{u_password:u_password}},(err,result)=>{
+        if(!err){
+            if(result.nModified>0){
+            res.send("Password updated succesfully"+result)
+            }
+            else{
+                res.send("Email is not available")
+            }
+        }
+        else{
+            res.send("Error  "+err);
+        }
+    })
 }
 
 
-module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe}
+module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe ,checkFunds,editPassword,updateFunds}
+let updateFunds =(req,res) =>{
+    let account =req.body.account;
+    let amount =req.body.amount;
+    user.find({u_username: id , accountN:account},(err1,result)=>{
+        if(!err1){
+            if(result1.balance > amount){
+                let newBalance =result1.balance - amount ;
+                let newFunds = result1.balance + amount;
+                user.updateOne(
+                    {u_username:id , accountN:account},
+                    {$set:{balance: newBalance, funds: newFunds}},
+                    (err2,result) =>{
+                        if(!err2){
+                            if(result2.nModified > 0){
+                                res.send("Funds and balance is updated");
+                            }else{
+                                res.send("account is not available");
+                            }
+                        }else{
+                            res.send("chcek account number");
+                        }
+                    }
+                )
+            }else{
+                res.send("Amount not sufficient for transfer");
+            }
+        }
+    })
+}
+
 

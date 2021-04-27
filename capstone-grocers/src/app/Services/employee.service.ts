@@ -13,7 +13,6 @@ export class EmployeeService {
   {
     return this.http.post<{token:string}>('http://localhost:8080/employee/signIn',{email,pass});
   }
-
   public getAllEmployees():Observable<Employee[]>
   {
    return this.http.get<Employee[]>('http://localhost:8080/employee/getAll');

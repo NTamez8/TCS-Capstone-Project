@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Request} from '../Classes/request';
-import { Subscriber, Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })

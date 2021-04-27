@@ -19,4 +19,7 @@ routes.get("/viewItemsfromCart",userController.viewItemsfromCart)
 
 routes.put('/updatestatusToUser',userController.updatestatusToUser)
 
+routes.get("/checkFunds",userController.checkFunds)
+routes.put('/editPassword',userController.editPassword)
+routes.put("/updateFunds",userController.updateFunds)
 module.exports = routes;

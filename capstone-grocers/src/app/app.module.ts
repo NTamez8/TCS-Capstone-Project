@@ -23,8 +23,8 @@ import { CheckoutComponent } from './Components/user/checkout/checkout.component
 //EMPLOYEE
 import { OrderStatusComponent } from './Components/employee/order-status/order-status.component';
 import { SendRequestComponent } from './Components/employee/send-request/send-request.component';
-import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-users.component';
 import { EditProfileComponent } from './Components/employee/edit-profile/edit-profile.component';
+import { UnlockUsersComponent } from './Components/employee/unlock-users/unlock-users.component';
 import { LogOutComponent } from './Components/employee/log-out/log-out.component';
 
 
@@ -59,6 +59,7 @@ import { ReportTableComponent } from './Components/admin/report-table/report-tab
 import { NoLoginComponent } from './Components/no-login/no-login.component';
 import { UserOptionsComponent } from './Components/user/user-options/user-options.component';
 import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component';
+import { FundsComponent } from './Components/user/funds/funds.component';
 @NgModule({
   declarations: [
     //==COMPONENTS==\\
@@ -78,12 +79,7 @@ import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticke
 
    // EmployeeComponent,
 
-    // EmployeeComponent,
-    OrderStatusComponent,
-    SendRequestComponent,
-    UnlockUsersComponent,
-    EditProfileComponent,
-    LogOutComponent,
+    
 
     // EmployeeComponent,
    
@@ -118,7 +114,16 @@ import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticke
 
 
     AdminSignOutComponent,
-    RaiseTicketComponent
+    RaiseTicketComponent,
+    // EmployeeComponent,
+    OrderStatusComponent,
+    SendRequestComponent,
+    EditProfileComponent,
+    UnlockUsersComponent,
+    LogOutComponent,
+    SignOutComponent,
+    ReportComponent,
+    FundsComponent,
   ],
   imports: [
     BrowserModule,

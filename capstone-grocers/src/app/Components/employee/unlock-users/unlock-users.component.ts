@@ -34,8 +34,7 @@ userMsg?:String
     console.log(userRef)
     this.userSer.updatestatusToUser(userRef).subscribe((result:string)=>{
 
-     this.userMsg=result;
-  })
+ 
 
 }
 
