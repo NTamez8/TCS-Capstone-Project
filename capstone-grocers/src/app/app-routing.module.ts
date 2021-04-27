@@ -33,6 +33,7 @@ import { OrderStatusComponent } from 'src/app/Components/employee/order-status/o
 import { SendRequestComponent } from 'src/app/Components/employee/send-request/send-request.component';
 import { UnlockUsersComponent } from 'src/app/Components/employee/unlock-users/unlock-users.component';
 import { SignInComponent as EmpSignInComponent} from 'src/app/Components/employee/sign-in/sign-in.component';
+import { ProductManagementComponent } from 'src/app/Components/admin/product-management/product-management.component';
 const routes: Routes = [
   {path:'',component:NoLoginComponent},
   {path:'user',component:UserOptionsComponent,children:[
@@ -63,10 +64,12 @@ const routes: Routes = [
     {path:'addEmployee',component:AddEmployeeComponent},
     {path:'deleteEmployee',component:DeleteEmployeeComponent},
     {path:'generateReport',component:ReportComponent},
-    {path:"addProducts",component:AddProductsComponent},
-    {path:"viewProducts",component:ViewProductsComponent},
-    {path:"updateProducts",component:UpdateProductsComponent},
-    {path:"deleteProducts",component:DeleteProductsComponent},
+    {path:"productManagement",component:ProductManagementComponent,canActivate:[AdminGuard],canActivateChild:[AdminGuard],children:[
+      //{path:"addProducts",component:AddProductsComponent},
+      //{path:"viewProducts",component:ViewProductsComponent},
+      //{path:"updateProducts",component:UpdateProductsComponent},
+      //{path:"deleteProducts",component:DeleteProductsComponent}
+    ]},
     {path:"viewRequests",component:ViewRequestsComponent}
   ]},
   {path:"admin",children:[

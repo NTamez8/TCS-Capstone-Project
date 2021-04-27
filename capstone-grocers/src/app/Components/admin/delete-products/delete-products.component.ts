@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ViewProductsComponent } from 'src/app/Components/admin/view-products/view-products.component';
 import { ProductService } from 'src/app/Services/product.service';
 
 @Component({
@@ -9,14 +10,15 @@ import { ProductService } from 'src/app/Services/product.service';
 })
 export class DeleteProductsComponent implements OnInit {
 
-  constructor(private productService:ProductService) { }
+  constructor(private viewProductComponent:ViewProductsComponent,private productService:ProductService) { }
 
   ngOnInit(): void {
   }
 
-  deleteProduct(productRef:NgForm){
+  async deleteProduct(productRef:NgForm){
     const formValues = productRef.value;
     //console.log("Deleting Product");
-    this.productService.deleteProductById(formValues.product_id).subscribe(data=>console.log(data.token));
+    await this.productService.deleteProductById(formValues.product_id).subscribe(data=>console.log(data.token));
+    this.viewProductComponent.getAllProducts();
   }
 }

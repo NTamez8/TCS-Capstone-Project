@@ -1,5 +1,5 @@
-<div class="text-center row">
-    <div class="col-7 m-auto">
+<div class="text-center row" style="border:1px solid black;">
+    <div class="col-10 m-auto">
         <form #productRef="ngForm" (ngSubmit)="getProductById(productRef)">
             <h3>Product Viewing</h3><hr/>
             <label>Product ID: </label><input type="text" name="product_id" id="product_id" required ngModel/><br>
@@ -17,7 +17,7 @@
                 <th>Quantity</th>
                 <th>Delete</th>
             </thead>
-            <tr *ngFor="let product of products">
+            <tr *ngFor="let product of productService.currentProducts">
                 <td>{{product._id}}</td>
                 <td>{{product.name}}</td>
                 <td>{{product.description}}</td>

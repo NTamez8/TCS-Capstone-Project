@@ -10,6 +10,8 @@ export class ProductService {
 
   constructor(private http:HttpClient) { }
 
+  currentProducts:Array<Product>=[];
+
   getAllProducts():Observable<Product[]>{
     return this.http.get<Product[]>("http://localhost:8080/product/getAllProducts");
   }

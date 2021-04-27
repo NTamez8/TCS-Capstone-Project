@@ -1,0 +1,55 @@
+<!-- <nav class="navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+  
+        <div class='row'>
+            <div class="col-11">
+                <ul class="navbar-nav justify-content-begin">
+                    <li class="nav-item">
+                        <a routerLink='addProducts' class="nav-link ">Add Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink='viewProducts' class="nav-link ">View Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink='updateProducts' class="nav-link ">Update Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink='deleteProducts' class="nav-link ">Delete Products</a>
+                    </li>
+                </ul>
+            </div>      
+        </div>
+
+    </div>
+</nav> -->
+<div>
+    <div class='row'>
+        <div class='col-8 m-auto'>
+            <div class='form-group'>
+                <label>Product Management</label> <select #selectedType (change)='changedValue(selectedType.value)' class='form-control'>
+                    <option value='1'>Add Products</option>
+                    <option value='2'>Update Products</option>
+                    <option value='3'>Delete Products</option>
+                    </select>
+            </div><br/>
+            
+            <div *ngIf='productSelector == "1"' class='form-group'>
+                <app-add-products></app-add-products>
+            </div>
+            <div *ngIf='productSelector == "2"'  class='form-group'>
+                <app-update-products></app-update-products>
+            </div>
+            <div *ngIf='productSelector == "3"'  class='form-group'>
+                <app-delete-products></app-delete-products>
+            </div>
+        </div>
+    
+    </div><br/>
+
+
+    
+    <div>
+        <app-view-products></app-view-products>
+        <!-- <router-outlet></router-outlet> -->
+    </div>
+</div>

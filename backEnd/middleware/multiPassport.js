@@ -31,7 +31,7 @@ const empParams = {
 
 module.exports = ()=>{
     const adminStrategy = new Stratagy(adminParams, async (payload, done) => {
-        console.log('in admin auth');
+        //console.log('in admin auth');
         const admin = await Admin.findById(payload.id);
         if (!admin) {
             return done(new Error("Admin not found"), null);

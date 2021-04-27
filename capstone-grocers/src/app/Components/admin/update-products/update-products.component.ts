@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/Services/product.service';
 import { RequestService } from 'src/app/Services/request.service';
+import { ViewProductsComponent } from 'src/app/Components/admin/view-products/view-products.component';
+
 
 @Component({
   selector: 'app-update-products',
@@ -15,7 +16,7 @@ export class UpdateProductsComponent implements OnInit {
   public new_quantity:any;
   public fromViewRequest:any;
 
-  constructor(private productService:ProductService, private requestService:RequestService, private router:Router) { }
+  constructor(private viewProductComponent:ViewProductsComponent,private productService:ProductService, private requestService:RequestService, private router:Router) { }
 
   ngOnInit(): void {
     if(this.requestService.currentRequest){
@@ -26,15 +27,16 @@ export class UpdateProductsComponent implements OnInit {
     //console.log(this.product_id);
   }
 
-  updateProduct(){
+  async updateProduct(){
     //const formValues = productRef.value;
     console.log("Updating Product");
-    this.productService.updateProduct(this.product_id,this.new_quantity).subscribe(data=>console.log(data.token));
+    await this.productService.updateProduct(this.product_id,this.new_quantity).subscribe(data=>console.log(data.token));
     if(this.fromViewRequest){
       if(this.product_id == this.requestService.currentRequest.product_id && this.new_quantity == this.requestService.currentRequest.new_quantity){
         this.backToViewingRequests();
       }
     }
+    this.viewProductComponent.getAllProducts();
   }
 
   async backToViewingRequests(){
