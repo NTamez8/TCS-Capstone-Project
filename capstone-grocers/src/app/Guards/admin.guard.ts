@@ -11,21 +11,21 @@ export class AdminGuard implements CanActivateChild, CanActivate {
   constructor(private http:HttpClient,private adminService:AdminService){}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    if(sessionStorage.getItem('adminToken') == null)
+    if(sessionStorage.getItem("adminToken") == null){
       return false;
-    return true;
+    }
+
+    let token = "bearer " + sessionStorage.getItem("adminToken");
+    return this.adminService.validate(token);
   }
 
-  canActivateChild(
-    childRoute: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if(sessionStorage.getItem('adminToken') == null){
-        return false;
-      }
-      return true;
-      
-      //let token = "bearer " + sessionStorage.getItem("adminToken");
-      //return this.adminService.validate(token);
+  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    if(sessionStorage.getItem("adminToken") == null){
+      return false;
+    }
+
+    let token = "bearer " + sessionStorage.getItem("adminToken");
+    return this.adminService.validate(token);
   }
   
 }
