@@ -14,7 +14,8 @@ export class TicketService {
   constructor(private http:HttpClient) { }
   
   public raiseTicket(user:any){
-    this.http.post("http://localhost:8080/ticket/raiseTicket",user).
+    console.log(user);
+    this.http.post("http://localhost:8080/ticket/addTicketInfo",user).
     subscribe(result=>console.log(result),error=>console.log(error))
   }
 
