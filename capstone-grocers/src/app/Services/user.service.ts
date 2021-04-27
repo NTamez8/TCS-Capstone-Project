@@ -60,13 +60,19 @@ public getAllUsers():Observable<User[]>
 
 
   // ------------------------------------------Adding changes to cart-----------------------------------
-  addProductDetailsInfo(productRef: any) {
-    this.http.post("http://localhost:8080/user/addProductDetailsInfo",
-      productRef).subscribe(result => console.log(result), error => console.log(error))
+  public addProductsToCartInfo(product: any) {
+    this.http.post("http://localhost:8080/user/addProductsToCartInfo",
+      product).subscribe(result => console.log(result), error => console.log(error))
   }
 
-
-
+  public deleteProductfromCart(product_id:String){
+    return this.http.delete<{token:string}>("http://localhost:8080/product/deleteProductfromCart/"+product_id);
+  }
+  
+  public viewAllProductsinCart():Observable<User[]>{
+    return this.http.get<User[]>("http://localhost:8080/product/viewAllProductsinCart");
+  }
+  // public viewCartCheckout():
 
   public updatestatusToUser(userRef: any): any {
     return this.http.put("http://localhost:8080/user/updatestatusToUser", userRef, {
@@ -96,10 +102,7 @@ public getAllUsers():Observable<User[]>
     return funds;
   }
 
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> pruthvi
 }

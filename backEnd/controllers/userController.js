@@ -137,70 +137,39 @@ let getMe = async(req,res,next)=>
     }
 }
 
-/*
-let selectItemsfromCart = async(req,res)=>{
-    let userCart = new User({
-
-        _id:req.body.item_id,
-        u_username: req.body.u_username    
-    });
-    userCart.save((err,result)=> {
-        if(!err){
-            res.send("Selected items stored in cart successfully "+ result)
-        }else {
-            res.send("Cart items didn't store "+err);
-        }
-    })
-}
-
-let deleteItemsfromCart = async(req,res)=>{
-    
-    User.deleteOne({_id:item_id},(err,result)=> {
-        if(!err){
-                if(result.deletedCount>0){
-                    res.send("Items in cart deleted successfully")
-                }else {
-                    res.send("Item not present");
-                }
-        }else {
-            res.send("Error generated "+err);
-        }
-    })
-    
-
-}*/
 
 // --------------------------------Adding changes to the Cart-----------------------------------//
-
+// can you test this and see if it works?
 let addItemstoCart = async (req, res, next) => {
     const product_id = req.body.product_id;
     const quantity = req.body.quantity;
     const name = req.body.name;
     const price = req.body.price;
-    const user_id = req.body.user_id;
+    const user_id = req.body.user_id ;
   
     try {
-      let cart = await User.findOne({user_id});
+      let userOrder = await User.findOne({user_id });
+      userCart = userOrder.currentCart;
   
-      if (cart) {
+      if (userCart) {
         //if the cart is existing for the user
-        let item_idx = cart.product.findIndex(p => p.product_id == product_id);
+        let item_idx = userCart.product.findIndex(p => p.product_id == product_id);
         // if product is existing in the cart update the quantity
         if (item_idx > -1) {
-          let product_item = cart.product[item_idx];
+          let product_item = userCart.product[item_idx];
           product_item.quantity = quantity;
-          cart.product[item_idx] = product_item;
+          userCart.product[item_idx] = product_item;
         // if product is not in the cart, add the new item
         } else {
-          cart.product.push({product_id, quantity, name, price });
+            userCart.product.push({product_id, quantity, name, price });// when adding to the cart like this is takes in a cartItem not a whole product
         }
-        cart = await cart.save();
-        return res.send(cart);
+        userCart = await userCart.save();// I think you can just do the userOrder.save() if you tested this and it works let me know
+        return res.send(userCart);
         // if the cart doesn't exist create a new cart for the user
       } else {
-        let new_Cart = await Cart.create({
-          user_id,
-          product: [{ product_id, quantity, name, price }]
+        let new_Cart = await User.currentCart.create({
+          user_id ,
+          product: [{ product_id, quantity, name, price }]// the cart item model does not need an id just a reference to a product and a quantity
         });
         return res.send(new_Cart);
       }
@@ -211,8 +180,8 @@ let addItemstoCart = async (req, res, next) => {
   };
 
   let deleteItemsfromCart = async (req, res, next) => {
-    let cart = await User.findOne({user_id});
-    cart.updateMany({user_id : req.params.user_id}, 
+    let userOrder= await User.findOne({user_id});
+    userOrder.currentCart.updateMany({user_id  : req.params.user_id }, 
         { $pull: { product : {product_id: req.params.product_id }}}, {multi: true}, (err, result)=> {
             if (!err){
                 res.send("Items in cart deleted successfully" + result)
@@ -223,9 +192,9 @@ let addItemstoCart = async (req, res, next) => {
         })
     };
 
-  let viewItemsfromCart =(req,res)=> {
-
-        User.find({},(err,result)=> {
+  let viewItemsfromCart = async(req,res)=> {
+        let userOrder= await User.findOne({user_id});
+        userOrder.currentCart.find({},(err,result)=> {
             if(!err){
                 res.json(result);
             }
@@ -233,10 +202,31 @@ let addItemstoCart = async (req, res, next) => {
     
     }
 
-let checkFunds =(req,res) =>{
-    let id =   req.body.id;
-    let cost = req.body.cost;
-    user.find({u_username:id},(err,result)=>{
+let checkoutCart = async(req,res,next)=>{
+    try
+    {
+        let userOrder= await User.findOne({user_id});
+        let funds = await User.findById(userOrder.funds)
+        let cart = userOrder.currentCart;
+       
+        for(let i = 0; i < cart.length; i++){
+                total_amount += cart[i].product.price * cart[i].quantity;
+            }
+        userOrder.funds = funds - total_amount;
+        userOrder.save();
+        res.send({"msg":"Cart checkout successful"});
+    }
+    catch(err)
+    {
+        next(err);
+    }
+
+}
+
+let updatestatusToUser=async(req,res)=>{
+    let u_username=req.body.u_username;
+    let locked=req.body.locked;
+    User.updateOne({u_username:u_username},{"$set":{locked:locked}},(err,result)=> {
         if(!err){
             console.log(result.funds);
             if(result.funds > cost){
@@ -254,27 +244,6 @@ let checkFunds =(req,res) =>{
         }
     })
 }
-
-let editPassword=(req,res)=>{
-    let u_username=req.body.u_username;
-    let u_password=req.body.u_password
-    user.updateMany({u_username:u_username},{$set:{u_password:u_password}},(err,result)=>{
-        if(!err){
-            if(result.nModified>0){
-            res.send("Password updated succesfully"+result)
-            }
-            else{
-                res.send("Email is not available")
-            }
-        }
-        else{
-            res.send("Error  "+err);
-        }
-    })
-}
-
-
-module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe ,checkFunds,editPassword,updateFunds}
 let updateFunds =(req,res) =>{
     let account =req.body.account;
     let amount =req.body.amount;
@@ -304,5 +273,53 @@ let updateFunds =(req,res) =>{
         }
     })
 }
+let checkFunds =(req,res) =>{
+    let id =   req.body.id;
+    let cost = req.body.cost;
+    user.find({u_username:id},(err,result)=>{
+        if(!err){
+            console.log(result.funds);
+            if(result.funds > cost){
+                let newFunds ={};
+                newFunds.fund = cost - result.funds;
+                newFunds.approved = true;
+                newFunds.error="";
+                res.json(newFunds);
+            }else{
+                let errorObj = {fund:0,error: "funds are not sufficient",approved: false};
+                res.json(errorObj);
+            }
+        }else{
+            res.send("Record not found");
+        }
+    })
+}
+let editPassword=(req,res)=>{
+    let u_username=req.body.u_username;
+    let u_password=req.body.u_password
+    user.updateMany({u_username:u_username},{$set:{u_password:u_password}},(err,result)=>{
+        if(!err){
+            if(result.nModified>0){
+            res.send("Password updated succesfully"+result)
+            }
+            else{
+                res.send("Email is not available")
+            }
+        }
+        else{
+            res.send("Error  "+err);
+        }
+    })
+}
+//Retrive order staus
+let orderstatusToUser=(req,res)=>{
+    let orderdetails = neworder ({
+        status:req.body.order_history,
+    });
+    
+}
+
+module.exports = {signIn,signUp, addItemstoCart, deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe ,checkFunds,editPassword,updateFunds}
+
 
 

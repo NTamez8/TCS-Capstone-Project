@@ -60,6 +60,7 @@ import { NoLoginComponent } from './Components/no-login/no-login.component';
 import { UserOptionsComponent } from './Components/user/user-options/user-options.component';
 import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component';
 import { FundsComponent } from './Components/user/funds/funds.component';
+import { DeleteItemComponent } from './Components/user/delete-item/delete-item.component';
 @NgModule({
   declarations: [
     //==COMPONENTS==\\
@@ -124,6 +125,9 @@ import { FundsComponent } from './Components/user/funds/funds.component';
     SignOutComponent,
     ReportComponent,
     FundsComponent,
+        
+          DeleteItemComponent,
+  
   ],
   imports: [
     BrowserModule,
