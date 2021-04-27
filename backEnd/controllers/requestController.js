@@ -29,4 +29,20 @@ let sendRequest=(req,res)=>{
     })
 
 }
-module.exports = {getAllRequests, sendRequest}
+
+let resolveRequest = async(req,res)=>{
+
+    await request.updateOne({_id:req.body.request_id},{$set:{status:"resolved"}},(error,data)=>{
+        if(!error){
+            if(data.modifiedCount>0){
+                res.send("Request successfully resolved!");
+            }else{
+                res.send("Request was not able to be resolved");
+            }
+        }else{
+            res.send(`Error during request resolving: ${error}`);
+        }
+    });
+};
+
+module.exports = {getAllRequests, sendRequest, resolveRequest};

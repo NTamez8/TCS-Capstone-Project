@@ -14,6 +14,7 @@ export class ViewProductsComponent implements OnInit {
   constructor(private productService:ProductService) { }
 
   ngOnInit(): void {
+    this.getAllProducts();
   }
 
   getAllProducts(){
@@ -25,4 +26,9 @@ export class ViewProductsComponent implements OnInit {
     //console.log("Getting product by ID");
     this.productService.getProductById(productRef.value.product_id).subscribe(result=>this.products=result,error=>console.log(error));
   }
+
+  async deleteProduct(product:Product){
+    await this.productService.deleteProductById(product._id as string).subscribe(data=>console.log(data.token));
+    this.getAllProducts();
+  };
 }

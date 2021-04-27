@@ -5,8 +5,9 @@
             <label>Product ID: </label><input type="text" name="product_id" id="product_id" required ngModel/><br>
             <input type="submit" value="View Product" [disabled]="!productRef.valid" class="btn btn-primary"/>
             <input type="reset" value="Clear" class="btn btn-secondary"/>
-        </form><hr/>
+        </form>
         <button class="btn btn-primary" (click)="getAllProducts()">View All Products</button>
+        <hr/>
         <table style="border:1px solid black;margin:auto;">
             <thead>
                 <th>Product ID</th>
@@ -14,6 +15,7 @@
                 <th>Description</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Delete</th>
             </thead>
             <tr *ngFor="let product of products">
                 <td>{{product._id}}</td>
@@ -21,6 +23,9 @@
                 <td>{{product.description}}</td>
                 <td>{{product.price}}</td>
                 <td>{{product.quantity}}</td>
+                <td>
+                    <button type="submit" class="btn btn-danger" value="X" (click)="deleteProduct(product)">X</button>
+                </td>
             </tr>
         </table>
     </div>
