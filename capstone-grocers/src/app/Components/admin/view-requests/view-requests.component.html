@@ -10,6 +10,7 @@
                 <th>Time Requested</th>
                 <th>Time Resolved</th>
                 <th>Status</th>
+                <th>Resolve Request</th>
             </thead>
             <tr *ngFor="let request of requests">
                 <td>{{request.e_username}}</td>
@@ -18,6 +19,13 @@
                 <td>{{request.datetime_requested}}</td>
                 <td>{{request.datetime_resolved}}</td>
                 <td>{{request.status}}</td>
+                <td *ngIf="request.status != 'resolved'">
+                    <button type="submit" class="btn btn-secondary" value="Resolve" (click)="resolveRequest(request)">Resolve</button>
+                </td>
+                <!--We also need the following cell because the table bordering is part of a cell.
+                Hence if a cell does not load because it is a resolved request, we need
+                an empty dumby-cell.-->
+                <td *ngIf="request.status == 'resolved'"></td>
             </tr>
         </table>
         </div>

@@ -8,6 +8,9 @@ import { productRequest } from '../Classes/request';
 })
 export class RequestService {
 
+  public currentRequest:any;
+  public viewRequestURL:any;
+
   constructor(private http:HttpClient) { }
 
  public getAllRequests():Observable<productRequest[]>{
@@ -20,7 +23,12 @@ export class RequestService {
 
 
   sendRequest(productRef:any){
-    this.http.post("http://localhost:8080/request/sendRequest",productRef).
+    // changed response type
+    this.http.post("http://localhost:8080/request/sendRequest",productRef,{responseType:"text"}).
     subscribe(result=>console.log(result),error=>console.log(error));
+  }
+
+  resolveRequest(request_id:string){
+    return this.http.post<{token:string}>("http://localhost:8080/request/resolveRequest",{request_id});
   }
 }
