@@ -1,5 +1,5 @@
-<div class="text-center row">
-    <div class="col-4 m-auto">
+<div class="text-center row" style="border:1px solid black;">
+    <div>
         <form #productRef="ngForm" (ngSubmit)="deleteProduct(productRef)">
             <h3>Product Deletion</h3><hr/>
             <label>Product ID: </label><input type="text" name="product_id" id="product_id" required ngModel/><br>

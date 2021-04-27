@@ -64,6 +64,7 @@ import { FundsComponent } from './Components/user/funds/funds.component';
 import { DeleteItemComponent } from './Components/user/delete-item/delete-item.component';
 import { FormsModule } from '@angular/forms';
 import { EmployeePanelComponent } from './Components/employee/employee-panel/employee-panel.component';
+import { ProductManagementComponent } from './Components/admin/product-management/product-management.component';
 @NgModule({
   declarations: [
     //==COMPONENTS==\\
@@ -130,7 +131,8 @@ import { EmployeePanelComponent } from './Components/employee/employee-panel/emp
     FundsComponent,
         
     DeleteItemComponent,
-              EmployeePanelComponent
+    EmployeePanelComponent,
+    ProductManagementComponent
   
   ],
   imports: [
@@ -140,7 +142,7 @@ import { EmployeePanelComponent } from './Components/employee/employee-panel/emp
     HttpClientModule,
 
   ],
-  providers: [],
+  providers: [ViewProductsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
