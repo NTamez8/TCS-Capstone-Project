@@ -16,9 +16,9 @@ export class RaiseTicketComponent implements OnInit {
   ngOnInit(): void {
   }
   
-  raiseTicket(userRef:any){
-      this.ticketServ.raiseTicket(userRef)
-      console.log(userRef.data)
+  raiseTicket(userIDRef:any){
+      this.ticketServ.raiseTicket(userIDRef)
+      console.log(userIDRef.data)
       this.msg = "Ticket raised succesfully!"
       this.router.navigate(['user'])
   

@@ -130,9 +130,10 @@ let isValid = async (req,res,next) =>{
 // can you test this and see if it works?
 let addItemstoCart = async (req, res, next) => {
     const product_id = req.body.product_id;
-    const quantity = req.body.quantity;
     const name = req.body.name;
+    const description = req.body.description;
     const price = req.body.price;
+    const quantity = req.body.quantity;
     const user_id = req.body.user_id ;
   
     try {
@@ -149,7 +150,7 @@ let addItemstoCart = async (req, res, next) => {
           userCart.product[item_idx] = product_item;
         // if product is not in the cart, add the new item
         } else {
-            userCart.product.push({product_id, quantity, name, price });// when adding to the cart like this is takes in a cartItem not a whole product
+            userCart.product.push({name, description, price, quantity });// when adding to the cart like this is takes in a cartItem not a whole product
         }
         userOrder.save();// I think you can just do the userOrder.save() if you tested this and it works let me know
         return res.send(userOrder);

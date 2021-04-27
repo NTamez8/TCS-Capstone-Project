@@ -26,6 +26,8 @@ import { SelectItemComponent } from './Components/user/select-item/select-item.c
 import { ViewCartComponent } from './Components/user/view-cart/view-cart.component';
 import { ViewOrderStatusComponent } from './Components/user/view-order-status/view-order-status.component';
 import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component';
+import { CheckoutComponent } from './Components/user/checkout/checkout.component';
+import { DeleteItemComponent } from './Components/user/delete-item/delete-item.component';
 
 const routes: Routes = [
   {path:'',component:NoLoginComponent},
@@ -38,7 +40,9 @@ const routes: Routes = [
     //{path:'raiseTicket',component:}
   ]},
   {path:'userPanel',component:UserPanelComponent,canActivate:[UserGuard],canActivateChild:[UserGuard],children:[
-    {path:'select',component:SelectItemComponent},
+    {path:'checkout', component:CheckoutComponent},
+    {path:'selectItem',component:SelectItemComponent},
+    {path:'deleteItem',component:DeleteItemComponent},
     {path:'viewCart',component:ViewCartComponent},
     {path:'viewOrderStatus',component:ViewOrderStatusComponent}
 
