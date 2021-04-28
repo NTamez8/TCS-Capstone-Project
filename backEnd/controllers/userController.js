@@ -188,14 +188,14 @@ let addItemstoCart = async (req, res, next) => {
        // let user = User.findOne({_id:req.user});
        let user = req.user;
         let product_ID = req.body.product_ID
-      console.log(product_ID)
+     
         let quantity = req.body.quantityDesired;
      
         for(let x = 0; x < user.currentCart.length; x++)
         {
             if(user.currentCart[x].product == product_ID)
             {
-                user.currentCart[x].quantity = quantity;
+                user.currentCart[x].quantity += eval(quantity);
                 wasFound = true;
                 break;
             }
