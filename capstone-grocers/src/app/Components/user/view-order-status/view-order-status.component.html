@@ -1,1 +1,11 @@
-<p></p>
+<div>
+    <h2>Order Details</h2>
+
+     <form #vieworderRef="ngForm" (ngSubmit)="viewStatus(vieworderRef.value)">
+        <label>OrderId</label>
+        <input type="text" name="id" ngModel><br/>
+        <input type="submit" value="viewStatus "/>
+        
+     </form>
+    {{orderStatus}}
+</div>

@@ -1,19 +1,46 @@
+const Order = require('../models/orderModel');
 const User = require('../models/userModel');
 const validationHandler = require('../validators/validationHandler');
 const userConfig = require('../config/userConfig');
 const jwt = require('jwt-simple');
+
+
+let getAll = async (req,res,next)=>{
+    try
+    {
+        let users = await User.find({});
+        res.send(users);
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
+
 let signIn = async (req,res,next)=>{
+    let user;
+  
     try{
         
         let u_username = req.body.email;
         let pass = req.body.pass;
-        let user = await User.findOne({u_username});
+         user = await User.findOne({u_username});
         
         if(!user)
         {
-            const error = new Error("Wrong credentials");
+            const error = new Error("Wrong credentials: not a valid user");
             error.statusCode = 401;
             throw error;
+        }
+        if(user.failedAttempts >= 3)
+        {
+           
+           
+            const error = new Error("Exceeded max login");
+            error.statusCode = 401;
+            throw error;
+
+           
         }
         const validPassword = await user.validPassword(pass);
        
@@ -23,13 +50,38 @@ let signIn = async (req,res,next)=>{
             error.statusCode = 401;
             throw error;
         }
+        user.failedAttempts = 0;
+        await user.save();
         const token = jwt.encode({id:user._id},userConfig.secret);
         res.send({token});
     }
     catch(err)
     {
+    
+        if(err.message == 'Wrong credentials')
+            {
+                increaseUserFailedAttempts(user);
+            }
+      
         next(err);
     }
+}
+
+
+async function increaseUserFailedAttempts(user)
+{
+    let numFailed = user.failedAttempts;
+    if(!numFailed)
+    {
+        user.failedAttempts = 1;
+    }
+    else
+    {
+        user.failedAttempts = numFailed + 1;
+    }
+   
+
+    await user.save();
 }
 
 
@@ -48,8 +100,10 @@ let signUp = async (req,res,next)=>{
         user.date_of_birth = req.body.date_of_birth;
         user.locked = false;
         user.funds = 1000;
-        user.order_history = '';
-        
+        user.order_history = null;
+        user.failedAttempts = 0;
+        user.currentCart = [];
+        user.accountN = 1001;
         await user.save();
         const token = jwt.encode({id:user._id},userConfig.secret);
         res.send({token});
@@ -60,51 +114,132 @@ let signUp = async (req,res,next)=>{
     }
 }
 
-let selectItemsfromCart = async(req,res)=>{
-    let userCart = new User({
-        _id:req.body.item_id,
-        u_username: req.body.u_username    
-    });
-    userCart.save((err,result)=> {
-        if(!err){
-            res.send("Selected items stored in cart successfully "+ result)
-        }else {
-            res.send("Cart items didn't store "+err);
-        }
-    })
+let isValid = async (req,res,next) =>{
+    try{
+      
+        res.send("Authorized");
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
+let getMe = async(req,res,next)=>
+{
+    try{
+      
+       let me = await User.findById(req.user);
+       return res.send(me);
+    }
+    catch(err)
+    {
+        next(err);
+    }
 }
 
-let deleteItemsfromCart = async(_req,res)=>{
+
+// --------------------------------Adding changes to the Cart-----------------------------------//
+// can you test this and see if it works?
+let addItemstoCart = async (req, res, next) => {
+    const pname = req.body.name;
+    const description = req.body.description;
+    const price = req.body.price;
+    const quantity = req.body.quantity;
+    const user_id = req.body.user_id;
+  
+    try {
+      let userOrder = await User.findOne({_id:user_id});
+      userCart = userOrder.currentCart;
+  
+      if (userCart) {
+        //if the cart is existing for the user
+        let item_idx = userCart.product.findIndex(p => p.pname == pname);
+        // if product is existing in the cart update the quantity
+        if (item_idx > -1) {
+          let product_item = userCart.product[item_idx];
+          product_item.quantity = quantity;
+          userCart.product[item_idx] = product_item;
+        // if product is not in the cart, add the new item
+        } else {
+            userCart.product.push({pname, description, price, quantity });// when adding to the cart like this is takes in a cartItem not a whole product
+        }
+        userOrder.save();// I think you can just do the userOrder.save() if you tested this and it works let me know
+        return res.send(userOrder);
+        // if the cart doesn't exist create a new cart for the user
+      } else {
+        let new_Cart = await User.currentCart.create({
+          quantity:Number,
+          product:{type:schema.Types.ObjectId, ref:'Product'}// the cart item model does not need an id just a reference to a product and a quantity
+        });
+        return res.send(new_Cart);
+      }
+    } catch (err) {
+      next(err);
+      res.send("Error loading the page");
+    }
+  };
+
+
+  let deleteItemsfromCart = async (req, res, next) => {
+    let userOrder= await User.findOne({_id:user_id});
+    userOrder.currentCart.updateMany({user_id  : req.params.user_id }, 
+        { $pull: { product : {pname: req.params.pname }}}, {multi: true}, (err, result)=> {
+            if (!err){
+                res.send("Items in cart deleted successfully" + result)
+            } 
+            else{
+             res.send("Error generated "+err)
+            }
+        })
+    };
+
+  let viewItemsfromCart = async(req,res)=> {
+        let userOrder= await User.findOne({_id:user_id});
+        userOrder.currentCart.find({},(err,result)=> {
+            if(!err){
+                res.json(result);
+            }
+        })
     
-    User.deleteOne({_id:item_id},(err,result)=> {
-        if(!err){
-                if(result.deletedCount>0){
-                    res.send("Items in cart deleted successfully")
-                }else {
-                    res.send("Item not present");
-                }
-        }else {
-            res.send("Error generated "+err);
+    }
+
+let checkoutCart = async(req,res,next)=>{
+    try
+    {
+   
+        let user_id = req.body.user_id;
+        let userOrder = new Order();
+        let user = await User.findOne({_id:user_id});
+        userOrder.cart = user.currentCart;
+        userOrder.user_ID = user._id;
+        userOrder.status="in progress";
+        //let funds = await User.findById(userOrder.funds);
+        //let cart = userOrder.currentCart;
+        let total_amount = 0;
+        for(let i = 0; i < userOrder.cart.length; i++){
+                total_amount += cart[i].product.price * cart[i].quantity;
         }
-    })
-    
+        if(user.funds >= total_amount){
+            user.funds = user.funds - total_amount;
+            user.save();
+            //get current date/time for userOrder.date_requested
+            //then save the userOrder.
+            res.send({"msg":"Cart checkout successful"});
+        }else{
+            res.send("Insufficient funds to checkout");
+        }
+    }
+    catch(err)
+    {
+        next(err);
+    }
 
 }
 
-let viewItemsfromCart = async(_req,res)=> {
-
-    User.find({},(err,result)=> {
-        if(!err){
-            res.json(result);
-        }
-    })
-
-}
-
-let checkFunds =(req,res) =>{
-    let id =   req.body.id;
-    let cost = req.body.cost;
-    user.find({u_username:id},(err,result)=>{
+let updatestatusToUser=async(req,res)=>{
+    let u_username=req.body.u_username;
+    let locked=req.body.locked;
+    User.updateOne({u_username:u_username},{"$set":{locked:locked}},(err,result)=> {
         if(!err){
             console.log(result.funds);
             if(result.funds > cost){
@@ -121,6 +256,39 @@ let checkFunds =(req,res) =>{
             res.send("Record not found");
         }
     })
+}
+
+let unlockLockUser=async(req,res,next)=>{
+    try{
+        let u_username = req.body.u_username;
+        let locked = req.body.locked;
+        //console.log(User.findOne({u_username:u_username}));
+        //if locked, unlock the account
+        if(locked){
+            locked = false;
+            User.updateOne({u_username:u_username},{"$set":{locked:locked}},(error,result)=>{
+                if(!error){
+                    //res.send(`${u_username is now unlocked!}`);
+                }else{
+                    res.send(`Error during User unlock: ${{"user":u_username,error}}`);
+                }
+            });
+        //if unlocked, lock the account
+        }else{
+            locked = true;
+            User.updateOne({u_username:u_username},{"$set":{locked:locked}},(error,result)=>{
+                if(!error){
+                    //res.send(`${u_username} is now locked!`)
+                }else{
+                    res.send(`Error during User lock: ${{"user":u_username,error}}`);
+                }
+            });
+        }
+    }
+    catch(err)
+    {
+        next(err)
+    }
 }
 let updateProfile=(req,res)=>{
     let u_username=req.body.user
@@ -159,7 +327,7 @@ let updatePassword=(req,res)=>{
 let updateFunds =(req,res) =>{
     let account =req.body.account;
     let amount =req.body.amount;
-    user.find({u_username: id , accountN:account},(err1,_result)=>{
+    user.find({u_username: id , accountN:account},(err1,result)=>{
         if(!err1){
             if(result1.balance > amount){
                 let newBalance =result1.balance - amount ;
@@ -167,7 +335,7 @@ let updateFunds =(req,res) =>{
                 user.updateOne(
                     {u_username:id , accountN:account},
                     {$set:{balance: newBalance, funds: newFunds}},
-                    (err2,_result) =>{
+                    (err2,result) =>{
                         if(!err2){
                             if(result2.nModified > 0){
                                 res.send("Funds and balance is updated");
@@ -185,5 +353,55 @@ let updateFunds =(req,res) =>{
         }
     })
 }
-module.exports = {signIn,signUp, selectItemsfromCart, deleteItemsfromCart, viewItemsfromCart,checkFunds,updateProfile,updatePassword,updateFunds}
+let checkFunds =(req,res) =>{
+    let id =   req.body.id;
+    let cost = req.body.cost;
+    user.find({u_username:id},(err,result)=>{
+        if(!err){
+            console.log(result.funds);
+            if(result.funds > cost){
+                let newFunds ={};
+                newFunds.fund = cost - result.funds;
+                newFunds.approved = true;
+                newFunds.error="";
+                res.json(newFunds);
+            }else{
+                let errorObj = {fund:0,error: "funds are not sufficient",approved: false};
+                res.json(errorObj);
+            }
+        }else{
+            res.send("Record not found");
+        }
+    })
+}
+let editPassword=(req,res)=>{
+    let u_username=req.body.u_username;
+    let u_password=req.body.u_password
+    user.updateMany({u_username:u_username},{$set:{u_password:u_password}},(err,result)=>{
+        if(!err){
+            if(result.nModified>0){
+            res.send("Password updated succesfully"+result)
+            }
+            else{
+                res.send("Email is not available")
+            }
+        }
+        else{
+            res.send("Error  "+err);
+        }
+    })
+}
+//Retrive order staus
+let viewStatus=(req,res)=>{
+    ({
+        status:req.body.order_history,
+    });
+ 
+let     
+}
+
+module.exports = {signIn,signUp, 
+    //selectItemsfromCart,
+    unlockLockUser,addItemstoCart, checkoutCart,deleteItemsfromCart,updateProfile,updatePassword, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe ,checkFunds,editPassword,updateFunds,viewStatus}
+
 
