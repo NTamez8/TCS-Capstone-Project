@@ -75,6 +75,12 @@ public getAllUsers():Observable<User[]>
     let token = 'bearer ' + sessionStorage.getItem('token');
     return this.http.post<{token:string}>("http://localhost:8080/user/deleteItemsfromCart",{product},{headers:{'Authorization':token}});
   }
+
+  public deleteCartItemById(id:String)
+  {
+    let token = 'bearer ' + sessionStorage.getItem('token');
+    return this.http.delete("http://localhost:8080/user/deleteItemsfromCart/"+id,{headers:{'Authorization':token}});
+  }
   public viewItemsfromCart():Observable<{product:Product,quantity:number}[]>{
     let token = 'bearer ' + sessionStorage.getItem('token');
     return this.http.get<{product:Product,quantity:number}[]>("http://localhost:8080/user/viewItemsfromCart",{headers:{'Authorization':token}});

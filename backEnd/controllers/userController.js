@@ -287,7 +287,7 @@ let addItemstoCart = async(req,res)=>{
     });
 }*/
 
-  let deleteItemsfromCart = async (req, res, next) => {
+let deleteItemsfromCart = async (req, res, next) => {
     let userOrder= await User.findOne({_id:user_id});
     userOrder.currentCart.updateMany({user_id  : req.params.user_id }, 
         { $pull: { product : {pname: req.params.pname }}}, {multi: true}, (err, result)=> {
@@ -299,8 +299,28 @@ let addItemstoCart = async(req,res)=>{
             }
         })
     };
-
-  let viewItemsfromCart = async(req,res)=> {
+let deleteItemById = async (req,res,next)=>{
+    try
+    {
+        let userOrder = req.user;
+        let Prod_id = req.params.id;
+        for(let x = 0; x < userOrder.currentCart.length; x++)
+        {
+            if(userOrder.currentCart[x].product == Prod_id)
+            {
+                userOrder.currentCart.splice(x,x+1);
+            }
+        }
+        await userOrder.save();
+        res.send({"message":"success"});
+    }
+    catch(err)
+    {
+        next(err);
+    }
+   
+}
+let viewItemsfromCart = async(req,res)=> {
        // let userOrder= req.user;
        //console.log(req.user);
         let userOrder = await User.findOne({_id:req.user._id}).populate('currentCart.product');
@@ -521,7 +541,7 @@ let orderstatusToUser=(req,res)=>{
     
 }
 
-module.exports = {signIn,signUp, 
+module.exports = {signIn,signUp, deleteItemById,
     //selectItemsfromCart,
     unlockLockUser,addItemstoCart, checkoutCart,deleteItemsfromCart,updateProfile,updatePassword, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe ,checkFunds,editPassword,updateFunds}
 
