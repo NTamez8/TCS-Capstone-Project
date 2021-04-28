@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { productRequest } from 'src/app/Classes/request';
 import { ProductService } from 'src/app/Services/product.service';
 import { RequestService } from 'src/app/Services/request.service';
-import { ViewProductsComponent } from 'src/app/Components/admin/view-products/view-products.component';
-
 
 @Component({
   selector: 'app-view-requests',
