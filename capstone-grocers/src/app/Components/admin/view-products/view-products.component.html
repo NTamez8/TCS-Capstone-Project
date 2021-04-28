@@ -1,6 +1,6 @@
 <div class="row border border-dark p-1">
     <div class="col-10 m-auto">
-        <form #productRef="ngForm" (ngSubmit)="getProductById(productRef)">
+        <form #productRef="ngForm" (ngSubmit)="getProductById(productRef.value.product_id)">
             <h3 class="text-center">Product Viewing</h3><hr/>
             <div class="form-group">
                 <label>Product ID</label>
@@ -22,7 +22,7 @@
                         <th scope="col">Product ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Price</th>
+                        <th scope="col">Price Per</th>
                         <th scope="col">Quantity</th>
                         <th scope="col">Delete</th>
                     </tr>
@@ -33,7 +33,7 @@
                         <td>{{product._id}}</td>
                         <td>{{product.name}}</td>
                         <td>{{product.description}}</td>
-                        <td>{{product.price}}</td>
+                        <td>${{product.price}}</td>
                         <td>{{product.quantity}}</td>
                         <td>
                             <button type="submit" class="btn btn-danger" value="X" (click)="deleteProduct(product)">X</button>

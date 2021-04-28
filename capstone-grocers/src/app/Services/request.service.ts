@@ -13,12 +13,14 @@ export class RequestService {
 
   constructor(private http:HttpClient) { }
 
-  getRequestById(request_id:any):Observable<productRequest[]>{
-    return this.http.get<productRequest[]>("http://localhost:8080/request/getRequestById/"+request_id);
+  getAllRequests():Observable<productRequest[]>{
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    return this.http.get<productRequest[]>("http://localhost:8080/request/getAllRequests",{headers:{'Authorization':token}});
   }
 
-  getAllRequests():Observable<productRequest[]>{
-    return this.http.get<productRequest[]>("http://localhost:8080/request/getAllRequests");
+  getRequestById(request_id:any):Observable<productRequest[]>{
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    return this.http.get<productRequest[]>("http://localhost:8080/request/getRequestById/"+request_id,{headers:{'Authorization':token}});
   }
 
   addRequest(){}
@@ -32,6 +34,12 @@ export class RequestService {
   }
 
   resolveRequest(request_id:string){
-    return this.http.post<{token:string}>("http://localhost:8080/request/resolveRequest",{request_id});
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    return this.http.post<{token:string}>("http://localhost:8080/request/resolveRequest",{request_id},{headers:{'Authorization':token}});
+  }
+
+  deleteRequestById(request_id:String){
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    return this.http.post<{token:string}>("http://localhost:8080/request/deleteRequestById",{request_id},{headers:{'Authorization':token}});
   }
 }

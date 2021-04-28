@@ -2,6 +2,7 @@ import { Component, OnInit, ɵɵsetComponentScope } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { productRequest } from 'src/app/Classes/request';
+import { ProductService } from 'src/app/Services/product.service';
 import { RequestService } from 'src/app/Services/request.service';
 
 
@@ -14,7 +15,7 @@ export class ViewRequestsComponent implements OnInit {
 
   public requests:Array<productRequest> = [];
 
-  constructor(private requestService:RequestService, private router:Router) { }
+  constructor(private requestService:RequestService, public productService:ProductService, private router:Router) { }
 
   ngOnInit(): void {
     this.getAllRequests();
@@ -32,12 +33,36 @@ export class ViewRequestsComponent implements OnInit {
   };
 
   async resolveRequest(request:productRequest){
-    console.log("Resolving request!");
-    await this.requestService.resolveRequest(request._id as string).subscribe(result=>console.log(result.token),error=>console.log(error));
-    this.getAllRequests();
+    //console.log("Resolving request!");
+    let productService = this.productService;
+    let requestService = this.requestService;
+    let curComponent = this;
+    await productService.getProductById(request.product_id as string).subscribe(
+      function (result){
+        productService.currentProducts=result;
+        if(productService.currentProducts[0].quantity != request.new_quantity){
+          alert(`Please change product quantity! Current quantity: ${productService.currentProducts[0].quantity}`);
+          //console.log(productService.currentProducts);
+        //otherwise we can automatically resolve the request
+        }else{
+          requestService.resolveRequest(request._id as string).subscribe(result=>console.log(result.token),error=>console.log(error));
+          curComponent.getAllRequests();
+        }
+      },error=>console.log(error));
+    //if current product quantity is not the same as the request, 
+    //we need to update the quantity first
     ////request.status="resolved";
     // this.requestService.currentRequest = request;
     // this.requestService.viewRequestURL = this.router.url.split("/")[2];
     // this.router.navigateByUrl("/" + this.router.url.split("/")[1] + "/updateProducts");
+  };
+
+  async deleteRequest(request:productRequest){
+    if(request.status=="resolved"){
+      await this.requestService.deleteRequestById(request._id as string).subscribe(data=>console.log(data.token));
+      this.getAllRequests();
+    }else{
+      alert("You cannot remove a request until it is resolved!");
+    }
   };
 }

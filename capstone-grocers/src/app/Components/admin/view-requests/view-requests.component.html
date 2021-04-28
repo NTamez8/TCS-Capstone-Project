@@ -32,6 +32,7 @@
                     <th scope="col">Time Resolved</th>
                     <th scope="col">Status</th>
                     <th scope="col">Resolve Request</th>
+                    <th scope="col">Remove Request</th>
                 </tr>
             </thead>
             <tbody>
@@ -51,6 +52,10 @@
                     Hence if a cell does not load because it is a resolved request, we need
                     an empty dumby-cell.-->
                     <td *ngIf="request.status == 'resolved'"></td>
+                    <td *ngIf="request.status == 'resolved'">
+                        <button type="submit" class="btn btn-danger" value="X" (click)="deleteRequest(request)">X</button>
+                    </td>
+                    <td *ngIf="request.status != 'resolved'"></td>              
                 </tr>
             </tbody>
         </table>

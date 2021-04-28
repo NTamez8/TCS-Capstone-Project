@@ -17,7 +17,7 @@ export class ProductService {
     return this.http.get<Product[]>("http://localhost:8080/product/getAllProducts",{headers:{'Authorization':token}});
   }
 
-  getProductById(product_id:String):Observable<Product[]>{
+  getProductById(product_id:any):Observable<Product[]>{
     let token = 'bearer ' + sessionStorage.getItem('adminToken');
     return this.http.get<Product[]>("http://localhost:8080/product/getProductById/"+product_id,{headers:{'Authorization':token}});
   }

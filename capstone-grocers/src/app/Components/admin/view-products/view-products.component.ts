@@ -21,9 +21,9 @@ export class ViewProductsComponent implements OnInit {
     await this.productService.getAllProducts().subscribe(result=>this.productService.currentProducts=result,error=>console.log(error));
   }
 
-  async getProductById(productRef:NgForm){
+  async getProductById(product_id:String){
     //console.log("Getting product by ID");
-    await this.productService.getProductById(productRef.value.product_id).subscribe(result=>this.productService.currentProducts=result,error=>console.log(error));
+    await this.productService.getProductById(product_id).subscribe(result=>this.productService.currentProducts=result,error=>console.log(error));
   }
 
   async deleteProduct(product:Product){
