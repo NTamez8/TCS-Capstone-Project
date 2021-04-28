@@ -8,10 +8,25 @@ import { productRequest } from '../Classes/request';
 })
 export class RequestService {
 
-  public currentRequest:any;
+  public currentRequest:Array<productRequest> = [];
   public viewRequestURL:any;
+  public currentRequests:Array<productRequest> = [];
 
   constructor(private http:HttpClient) { }
+
+  requestExists(request_id:String):Boolean{
+    if(request_id){
+      let requestExists = false;
+      this.currentRequests.forEach(function(request){
+        if(request._id == request_id){
+          requestExists =  true;
+        }
+      });
+      return requestExists;
+    }else{
+      return false;
+    }
+  };
 
   getAllRequests():Observable<productRequest[]>{
     let token = 'bearer ' + sessionStorage.getItem('adminToken');

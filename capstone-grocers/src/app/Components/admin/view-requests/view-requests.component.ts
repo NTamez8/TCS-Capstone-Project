@@ -1,4 +1,4 @@
-import { Component, OnInit, ɵɵsetComponentScope } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { productRequest } from 'src/app/Classes/request';
@@ -13,21 +13,36 @@ import { RequestService } from 'src/app/Services/request.service';
 })
 export class ViewRequestsComponent implements OnInit {
 
-  public requests:Array<productRequest> = [];
+  constructor(public requestService:RequestService, public productService:ProductService, private router:Router) { }
 
-  constructor(private requestService:RequestService, public productService:ProductService, private router:Router) { }
-
+  public single:any;
   ngOnInit(): void {
     this.getAllRequests();
   }
 
+  getRequestIndex(request:productRequest){
+    return this.requestService.currentRequests.findIndex((request)=>this.requestService.currentRequest[0]._id == request._id);
+  }
+
   async getRequestById(requestRef:NgForm){
-    await this.requestService.getRequestById(requestRef.value.request_id).subscribe(result=>this.requests=result,error=>console.log(error));
+    //update Requests before checking for valid ID
+    this.getAllRequests();
+    let request_order = requestRef.value.request_order;
+    let request_id = this.requestService.currentRequests[request_order-1]?._id;
+    //check for valid Request ID
+    if(this.requestService.requestExists(request_id as String)){
+      await this.requestService.getRequestById(request_id).subscribe(result=>this.requestService.currentRequest=result,error=>console.log(error));
+      this.single = true;
+      console.log(this.requestService)
+    }else{
+      alert("Request does not exist. Please use a valid request ID!");
+    }
   };
 
   async getAllRequests(){
     //probably returning an observable for .subscribe
-    await this.requestService.getAllRequests().subscribe(result=>this.requests=result,error=>console.log(error));
+    this.single = false;
+    await this.requestService.getAllRequests().subscribe(result=>this.requestService.currentRequests=result,error=>console.log(error));
     //this.requests=[{e_username:"darrixo",product_id:99,new_quantity:23,datetime_requested:"today",status:"in progress"},{e_username:"darrixo2",product_id:99,new_quantity:23,datetime_requested:"today",status:"resolved"}];
     //this.requests=[new Request("emp1",9,5,"10/05/2021","In Progress")];
   };

@@ -19,9 +19,9 @@ export class UpdateProductsComponent implements OnInit {
   constructor(public viewProductComponent:ViewProductsComponent,private productService:ProductService, private requestService:RequestService, private router:Router) { }
 
   ngOnInit(): void {
-    if(this.requestService.currentRequest){
-      this.product_id = this.requestService.currentRequest.product_id;
-      this.new_quantity = this.requestService.currentRequest.new_quantity;
+    if(this.requestService.currentRequest[0]){
+      this.product_id = this.requestService.currentRequest[0].product_id;
+      this.new_quantity = this.requestService.currentRequest[0].new_quantity;
       this.fromViewRequest = true;
     }
     //console.log(this.product_id);
@@ -32,7 +32,7 @@ export class UpdateProductsComponent implements OnInit {
     console.log("Updating Product");
     await this.productService.updateProduct(this.product_id,this.new_quantity).subscribe(data=>console.log(data.token));
     if(this.fromViewRequest){
-      if(this.product_id == this.requestService.currentRequest.product_id && this.new_quantity == this.requestService.currentRequest.new_quantity){
+      if(this.product_id == this.requestService.currentRequest[0].product_id && this.new_quantity == this.requestService.currentRequest[0].new_quantity){
         this.backToViewingRequests();
       }
     }
@@ -40,8 +40,8 @@ export class UpdateProductsComponent implements OnInit {
   }
 
   async backToViewingRequests(){
-    const request_id = this.requestService.currentRequest._id;
-    await this.requestService.resolveRequest(request_id).subscribe(
+    const request_id = this.requestService.currentRequest[0]._id;
+    await this.requestService.resolveRequest(request_id as string).subscribe(
       result=>console.log(result.token),error=>console.log(error));
     this.router.navigateByUrl("adminPanel/viewRequests");
   }
