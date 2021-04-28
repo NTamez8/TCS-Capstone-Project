@@ -18,12 +18,12 @@ export class SignInComponent implements OnInit {
   {
     
     this.empServ.signIn(empRef.userName,empRef.password).subscribe(data=>{
-      console.log(data.token);
+      
       sessionStorage.setItem('token',data.token);
-        this.router.navigateByUrl("employeePanel");
+      this.router.navigateByUrl("employeePanel");
     })
     //this is a quick fix until frontend Employee authentication works \/\/\/
-  
+    
   }
 
 }
