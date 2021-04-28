@@ -29,6 +29,24 @@ export class EmployeeService {
     let token = 'bearer ' + sessionStorage.getItem('adminToken');
    return this.http.delete('http://localhost:8080/employee/delete/'+idToDelete,{headers:{"Authorization":token}});
   }
+
+  validate(token:string):Promise<boolean>{
+    return new Promise<boolean>((resolve, reject) => {
+
+      // try changing the response type to text and seeing how that effects the response
+      this.http.get('http://localhost:8080/employee/isValid', {
+        headers: {
+          "Authorization": token
+        },
+        responseType:'text'
+      }).subscribe((data)=>{
+        resolve(true);
+      },error=>{
+        reject(error);
+      });
+
+    });
+  };
   // public editPassword(productRef:any):any{
   //   return this.http.delete("http://localhost:8080/employee/editPassword",productRef,{responseType:'text'});
 

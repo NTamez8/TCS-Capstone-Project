@@ -130,6 +130,4 @@ let editPassword= async (req,res)=>{
 
 
 
-
-
-module.exports = {addEmployee,deleteEmployee,getAll,editPassword,signIn}
+module.exports = {addEmployee,deleteEmployee,getAll,editPassword,signIn,isValid}
