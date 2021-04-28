@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import {
   Injectable
 } from '@angular/core';
@@ -12,12 +11,6 @@ import {
   Subscriber,
   Observable
 } from 'rxjs';
-=======
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Order} from '../Classes/order';
-import {Subscriber,Observable} from 'rxjs';
->>>>>>> pruthvi
 
 @Injectable({
   providedIn: 'root'

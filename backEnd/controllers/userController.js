@@ -1,8 +1,5 @@
 const Order = require('../models/orderModel');
-<<<<<<< HEAD
 const ProductController = require('../controllers/productController')
-=======
->>>>>>> pruthvi
 const User = require('../models/userModel');
 const validationHandler = require('../validators/validationHandler');
 const userConfig = require('../config/userConfig');
