@@ -43,8 +43,6 @@ export class ViewRequestsComponent implements OnInit {
     //probably returning an observable for .subscribe
     this.single = false;
     await this.requestService.getAllRequests().subscribe(result=>this.requestService.currentRequests=result,error=>console.log(error));
-    //this.requests=[{e_username:"darrixo",product_id:99,new_quantity:23,datetime_requested:"today",status:"in progress"},{e_username:"darrixo2",product_id:99,new_quantity:23,datetime_requested:"today",status:"resolved"}];
-    //this.requests=[new Request("emp1",9,5,"10/05/2021","In Progress")];
   };
 
   async resolveRequest(request:productRequest){
@@ -75,15 +73,26 @@ export class ViewRequestsComponent implements OnInit {
     }
   };
 
+  //Remove only resolved requests
   async deleteRequest(request:productRequest){
-    if(request.status=="resolved"){
-      await this.requestService.deleteRequestById(request._id as string).subscribe(data=>console.log(data.token));
-      this.getAllRequests();
+    if(this.productService.productExists(request.product_id)){
+      if(request.status=="resolved"){
+        await this.requestService.deleteRequestById(request._id as string).subscribe(data=>console.log(data.token));
+        this.getAllRequests();
+      }else{
+        alert("You cannot remove a request until it is resolved!");
+      }
     }else{
-      alert("You cannot remove a request until it is resolved!");
+      alert("The request must be removed because the product ID no longer exists!\nNow will delete all requests with invalid product ID's.");
+      let thisReference = this;
+      this.requestService.currentRequests.forEach(
+        function(request){
+          thisReference.deleteRequestForce(request);
+        });
     }
   };
 
+  //Force-delte requests (ones that have an invalid product_id)
   async deleteRequestForce(request:productRequest){
     await this.requestService.deleteRequestById(request._id as string).subscribe(data=>console.log(data.token));
     this.getAllRequests();
