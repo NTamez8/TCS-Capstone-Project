@@ -13,7 +13,11 @@ export class RequestService {
 
   constructor(private http:HttpClient) { }
 
- public getAllRequests():Observable<productRequest[]>{
+  getRequestById(request_id:any):Observable<productRequest[]>{
+    return this.http.get<productRequest[]>("http://localhost:8080/request/getRequestById/"+request_id);
+  }
+
+  getAllRequests():Observable<productRequest[]>{
     return this.http.get<productRequest[]>("http://localhost:8080/request/getAllRequests");
   }
 
@@ -24,8 +28,7 @@ export class RequestService {
 
   sendRequest(productRef:any){
     // changed response type
-    this.http.post("http://localhost:8080/request/sendRequest",productRef,{responseType:"text"}).
-    subscribe(result=>console.log(result),error=>console.log(error));
+    return this.http.post("http://localhost:8080/request/sendRequest",productRef,{responseType:"text"});
   }
 
   resolveRequest(request_id:string){

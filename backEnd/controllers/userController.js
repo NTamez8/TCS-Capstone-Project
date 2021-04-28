@@ -1,6 +1,5 @@
 const Order = require('../models/orderModel');
 const User = require('../models/userModel');
-const Order = require('../models/orderModel');
 const validationHandler = require('../validators/validationHandler');
 const userConfig = require('../config/userConfig');
 const jwt = require('jwt-simple');

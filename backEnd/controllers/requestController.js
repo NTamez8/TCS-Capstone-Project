@@ -1,5 +1,17 @@
 const request = require('../models/requestModel');
 
+let getRequestById = async(req,res)=>{
+    //console.log(req.params.request_id);
+    await request.find({_id:req.params.request_id},(error,data)=>{
+        if(!error){
+            //console.log(data);
+            res.json(data);
+        }else{
+            res.send(`Error during request retrieval: ${error}`);
+        };
+    });
+}
+
 let getAllRequests = async(req,res)=>{
     //console.log("Retrieving Requests");
     await request.find({},(error,data)=>{
@@ -40,7 +52,7 @@ let sendRequest=(req,res)=>{
 
 let resolveRequest = async(req,res)=>{
 
-    await request.updateOne({_id:req.body.request_id},{$set:{status:"resolved"}},(error,data)=>{
+    await request.updateOne({_id:req.body.request_id},{$set:{status:"resolved",datetime_resolved:Date.now()}},(error,data)=>{
         if(!error){
             if(data.modifiedCount>0){
                 res.send("Request successfully resolved!");
@@ -53,4 +65,4 @@ let resolveRequest = async(req,res)=>{
     });
 };
 
-module.exports = {getAllRequests, sendRequest, resolveRequest};
+module.exports = {getRequestById, getAllRequests, sendRequest, resolveRequest};
