@@ -33,7 +33,7 @@ export class ViewRequestsComponent implements OnInit {
     if(this.requestService.requestExists(request_id as String)){
       await this.requestService.getRequestById(request_id).subscribe(result=>this.requestService.currentRequest=result,error=>console.log(error));
       this.single = true;
-      console.log(this.requestService)
+      //console.log(this.requestService)
     }else{
       alert("Request does not exist. Please use a valid request ID!");
     }

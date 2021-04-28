@@ -1,11 +1,11 @@
 <div class="row border border-dark p-1">
     <div class="col-10 m-auto">
-        <form #productRef="ngForm" (ngSubmit)="getProductById(productRef.value.product_id)">
+        <form #productRef="ngForm" (ngSubmit)="getProductById(productRef)">
             <h3 class="text-center">Product Viewing</h3><hr/>
             <div class="form-group">
-                <label>Product ID</label>
+                <label>Product</label>
                 <br/>
-                <input type="text" name="product_id" id="product_id" class="form-control" required ngModel/>
+                <input type="number" name="product_order" id="product_order" class="form-control" required ngModel/>
             </div>
             <div class="text-center">
                 <input type="submit" value="View Product" [disabled]="!productRef.valid" class="btn btn-primary m-1"/>
@@ -18,8 +18,8 @@
             <table class="border border-dark table">
                 <thead>
                     <tr>
-                        <th scope="col">Product Order</th>
-                        <th scope="col">Product ID</th>
+                        <th scope="col">Product</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Price Per</th>
@@ -27,7 +27,7 @@
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *ngIf="!single">
                     <tr *ngFor="let product of productService.currentProducts;let pIndex=index;">
                         <th scope="row">{{pIndex+1}}</th>
                         <td>{{product._id}}</td>
@@ -38,6 +38,19 @@
                         <td>
                             <button type="submit" class="btn btn-danger" value="X" (click)="deleteProduct(product)">X</button>
                         </td>
+                    </tr>
+                </tbody>
+                <tbody *ngIf="single;">
+                    <tr *ngFor="let product of productService.currentProduct;index as i;">
+                        <th scope="row">{{getProductIndex(product)+1}}</th>
+                        <td>{{product._id}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.description}}</td>
+                        <td>${{product.price}}</td>
+                        <td>{{product.quantity}}</td>
+                        <td>
+                            <button type="submit" class="btn btn-danger" value="X" (click)="deleteProduct(product)">X</button>
+                        </td>            
                     </tr>
                 </tbody>
             </table>

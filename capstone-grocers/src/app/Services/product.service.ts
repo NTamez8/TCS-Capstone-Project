@@ -9,8 +9,22 @@ import { Product } from 'src/app/Classes/product';
 export class ProductService {
 
   constructor(private http:HttpClient) { }
-
+  currentProduct:Array<Product>=[];
   currentProducts:Array<Product>=[];
+
+  productExists(product_id:String):Boolean{
+    if(product_id){
+      let productExists = false;
+      this.currentProducts.forEach(function(product){
+        if(product._id == product_id){
+          productExists =  true;
+        }
+      });
+      return productExists;
+    }else{
+      return false;
+    }
+  };
 
   getAllProducts():Observable<Product[]>{
     let token = 'bearer ' + sessionStorage.getItem('adminToken');
