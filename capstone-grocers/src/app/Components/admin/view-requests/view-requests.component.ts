@@ -74,7 +74,7 @@ export class ViewRequestsComponent implements OnInit {
 
   async deleteRequest(request:productRequest){
     if(request.status=="resolved"){
-      await this.requestService.deleteRequestById(request._id as string).subscribe(data=>console.log(data.token));
+      await this.requestService.deleteRequestById(request._id as string).subscribe(data=>console.log(data));
       this.getAllRequests();
     }else{
       alert("You cannot remove a request until it is resolved!");

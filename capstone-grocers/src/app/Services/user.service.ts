@@ -91,7 +91,8 @@ public getAllUsers():Observable<User[]>
     return this.http.get('http://localhost:8080/user/checkoutCart',{headers:{'Authorization':token}});
   }
 
-  public unlockLockUser(userRef: any): any {
+  public unlockLockUser(userRef: any) {
+ 
     return this.http.put("http://localhost:8080/user/unlockLockUser", userRef, {
       responseType: 'text'
     })

@@ -13,8 +13,9 @@ let getDetailOfUser=(req,res)=>{
 let getLockedUsers = async (req,res,next)=>{
     try
     {
-        let tickets = ticket.find({status:'unviewed'}).populate('user_ID');
-        res.send(tickets.user_ID);
+        let tickets = await ticket.find({status:'unviewed'}).populate('user_ID');
+        console.log(tickets);
+        res.send(tickets);
     }
     catch(err)
     {
@@ -45,4 +46,8 @@ let raiseTicket = async (req,res)=>{
     })
   
 }
-module.exports = {getDetailOfUser, raiseTicket,getLockedUsers}
+
+let deleteTicket = async (id)=>{
+    await ticket.deleteOne({_id:id})
+}
+module.exports = {getDetailOfUser, raiseTicket,getLockedUsers,deleteTicket}
