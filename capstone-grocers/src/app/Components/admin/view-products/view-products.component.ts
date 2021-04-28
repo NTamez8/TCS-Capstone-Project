@@ -35,7 +35,7 @@ export class ViewProductsComponent implements OnInit {
     let product_id = this.productService.currentProducts[product_order-1]?._id;
     //check for valid Product ID
     if(this.productService.productExists(product_id as String)){
-      await this.productService.getProductById(product_id).subscribe(result=>this.productService.currentProduct=result,error=>console.log(error));
+      await this.productService.getProductById(product_id as String).subscribe(result=>this.productService.currentProduct=result,error=>console.log(error));
       this.single = true;
       //console.log(this.productService)
     }else{

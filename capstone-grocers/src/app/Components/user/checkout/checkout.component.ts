@@ -16,7 +16,7 @@ export class CheckoutComponent implements OnInit {
   }
   checkoutToCart(cartRef:any){
     console.log(cartRef)
-    this.userServ.viewCheckoutCart(cartRef).subscribe((result:any)=>{
+    this.userServ.checkoutCart(cartRef).subscribe((result:any)=>{
       this.msg=result.Message;
       this.router.navigate(['viewOrderStatus'])
     })
