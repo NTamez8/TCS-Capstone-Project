@@ -231,13 +231,13 @@ let addItemstoCart = async (req, res, next) => {
        //console.log(req.user);
         let userOrder = await User.findOne({_id:req.user._id}).populate('currentCart.product');
        // userOrder.currentCart.populate('Product').exec();
-        console.log(userOrder)
+       
         let total_amount = 0;
         
         for(let i = 0; i < userOrder.currentCart.length; i++){
                 total_amount += userOrder.currentCart[i].product.price * userOrder.currentCart[i].quantity;
         }
-        console.log(total_amount)
+      
         /*
         userOrder.currentCart.find({},(err,result)=> {
             if(!err){

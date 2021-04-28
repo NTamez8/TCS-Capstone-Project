@@ -17,11 +17,11 @@ export class ViewCartComponent implements OnInit {
   }
 
   viewAllProducts(){
-    console.log("View products in Cart");
+  
     this.userServ.viewItemsfromCart().subscribe(result=>{
-      console.log(result);
+     
       this.products=result
-    console.log(this.products)},error=>console.log(error));
+   },error=>console.log(error));
   }
 
 }
