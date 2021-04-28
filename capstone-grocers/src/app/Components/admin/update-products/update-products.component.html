@@ -1,0 +1,21 @@
+<div class="row border border-dark p-1">
+    <div>
+        <form #productRef="ngForm" (ngSubmit)="updateProduct()">
+            <h3 class="text-center">Product Updating</h3><hr/>
+            <div class="form-group">
+                <label>Product ID</label>
+                <br/>
+                <input type="text" name="product_id" id="product_id" required [(ngModel)]="product_id" class="form-control"/>
+            </div>
+            <div class="form-group">
+                <label>New Quantity</label>
+                <br/>
+                <input type="number" name="new_quantity" id="new_quantity" required min="0" [(ngModel)]="new_quantity" class="form-control"/>
+            </div>
+            <div class="text-center">
+                <input type="submit" value="Update" [disabled]="!productRef.valid" class="btn btn-primary m-1"/>
+                <input type="reset" value="Clear" class="btn btn-secondary m-1 ms-0"/>
+            </div>
+        </form>
+    </div>
+</div>

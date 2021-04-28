@@ -1,4 +1,11 @@
+
+import { UserService } from 'src/app/Services/user.service';
+import { TicketService } from './../../../Services/ticket.service';
 import { Component, OnInit } from '@angular/core';
+import { Ticket } from 'src/app/Classes/ticket';
+
+
+
 
 @Component({
   selector: 'app-unlock-users',
@@ -7,9 +14,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UnlockUsersComponent implements OnInit {
 
-  constructor() { }
+
+
+
+  userMsg?:String
+details?:Array<Ticket>
+  constructor(public detailSer:TicketService,public userSer:UserService) { }
+
 
   ngOnInit(): void {
+    this.detailSer.getDetailOfUser().subscribe(result=>{this.details=result; console.log(result)})
   }
 
+
+
+
+
+  unlockUser(userRef:any){
+    console.log(userRef)
+    this.userSer.unlockLockUser(userRef).subscribe((result:string)=>{})
+
+}
 }

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { EmployeeService } from 'src/app/Services/employee.service';
 
 
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -18,9 +19,10 @@ export class SignInComponent implements OnInit {
 
   e_signIn(e_loginRef:NgForm){
     const e_credentials = e_loginRef.value;
-    this.employeeService.signIn(e_credentials.email_address,e_credentials.e_password).subscribe(data=>{
-      sessionStorage.setItem('employeeToken',data.token);
-      sessionStorage.setItem('employeeUser',e_credentials.email_address);
+    console.log(e_credentials);
+    this.employeeService.signIn(e_credentials.userName,e_credentials.password).subscribe(data=>{
+      sessionStorage.setItem('token',data.token);
+     // sessionStorage.setItem('employeeUser',e_credentials.email_address);
       this.router.navigateByUrl('employeePanel');
     });
   }

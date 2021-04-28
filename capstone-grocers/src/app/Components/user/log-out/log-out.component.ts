@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router'
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-log-out',
+  selector: 'app-user-log-out',
   templateUrl: './log-out.component.html',
   styleUrls: ['./log-out.component.css']
 })

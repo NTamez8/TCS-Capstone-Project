@@ -1,12 +1,13 @@
-export class Request {
+export class productRequest {
     constructor(
-        public e_username:String,              //employee who requested the change
-        public product_id:Number,              //_id in "productModel.js"
+        public employee_id:String,              //employee who requested the change
+        public product_id:String,              //_id in "productModel.js"
         public new_quantity:Number,
         public datetime_requested:String,
-        public datetime_resolved:String,
-        public status:String,                   //can be either "in-progress" or "resolved"
+        public status:string,                   //can be either "in-progress" or "resolved"
+        public datetime_resolved?:String,
         public _id?:String
         ){}
 
 }
+

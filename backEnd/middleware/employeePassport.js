@@ -17,8 +17,8 @@ const params = {
 
 module.exports = ()=>{
     const strategy = new Stratagy(params, async (payload, done) => {
-        const Emp = await User.findById(payload.id);
-        if (!Emp) {
+        const emp = await Emp.findById(payload.id);
+        if (!emp) {
             return done(new Error("Employee not found"), null);
         } else
             return done(null, user);

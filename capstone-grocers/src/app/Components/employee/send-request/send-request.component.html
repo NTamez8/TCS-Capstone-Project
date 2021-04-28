@@ -1,1 +1,43 @@
-<p>send-request works!</p>
+<!-- <div>
+    <h2>Send-Request to Admin</h2>
+    <form #productRef="ngForm" (ngSubmit)="addProductQuntity(productRef.value)">
+        <label>Employee Name</label>
+        <input type="text" name="e_user" ngModel><br/>
+        <label>Product Id</label>
+        <input type="text" name="product_id" ngModel><br/>
+        <label>New Quntity</label>
+        <input type="text" name="new_quantity" ngModel ><br/>
+        <input type="submit" value="store" class="btn btn-primary m-1"/>
+        <input type="submit" value="reset" class="btn btn-secondary m-1 ms-0"/>
+
+    </form>
+</div>
+
+<p>send-request works!</p> -->
+
+
+
+<div class='row'>
+    <div class='col-4 offset-4'>
+        <form #productRef = 'ngForm' (ngSubmit) = 'addProductQuntity(productRef.value)'>
+            <div>
+                <!-- {{msg}} -->
+            </div>
+            <div class='form-group'>
+                <label >Employee Name: </label><input type="text" name='e_user' required ngModel class="form-control">
+            </div>
+            <div class='form-group'>
+                <label >Product Id</label><input type="text" name='product_id' required ngModel class="form-control">
+            </div>
+
+            <div class='form-group'>
+                <label >New Quntity</label><input type="text" name='new_quantity' required ngModel class="form-control">
+            </div>
+            <input type="submit" value='store' />
+            <!-- [disabled] = "!userRef.valid"> -->
+        </form>
+    </div>
+   
+</div>
+
+

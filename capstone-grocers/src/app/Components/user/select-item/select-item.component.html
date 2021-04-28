@@ -1,1 +1,24 @@
-<p>select-item works!</p>
+<hr/>
+<table border = "1">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th class="th-qty">Quantity</th>
+        <th>Quantity desired</th>
+        <th>Add to Cart</th>
+        
+    </tr>
+    
+    <tr *ngFor="let product of products; let cur = index" >
+        <td>{{product.name}}</td>
+        <td>{{product.description}}</td>
+        <td>{{product.price}}</td>
+        <td>{{product.quantity}}</td>
+        <td><select #SelectedQuant>
+            <option *ngFor='let _ of getCounter(product.quantity); let i = index' value='{{i}}'>{{i}}</option>
+        </select></td>
+        <td ><button (click)='addProductCart(product,SelectedQuant.value)'>Buy</button></td>
+        
+    </tr>
+</table>
