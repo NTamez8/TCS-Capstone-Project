@@ -74,7 +74,7 @@ let selectItemsfromCart = async(req,res)=>{
     })
 }
 
-let deleteItemsfromCart = async(req,res)=>{
+let deleteItemsfromCart = async(_req,res)=>{
     
     User.deleteOne({_id:item_id},(err,result)=> {
         if(!err){
@@ -91,7 +91,7 @@ let deleteItemsfromCart = async(req,res)=>{
 
 }
 
-let viewItemsfromCart = async(req,res)=> {
+let viewItemsfromCart = async(_req,res)=> {
 
     User.find({},(err,result)=> {
         if(!err){
@@ -159,7 +159,7 @@ let updatePassword=(req,res)=>{
 let updateFunds =(req,res) =>{
     let account =req.body.account;
     let amount =req.body.amount;
-    user.find({u_username: id , accountN:account},(err1,result)=>{
+    user.find({u_username: id , accountN:account},(err1,_result)=>{
         if(!err1){
             if(result1.balance > amount){
                 let newBalance =result1.balance - amount ;
@@ -167,7 +167,7 @@ let updateFunds =(req,res) =>{
                 user.updateOne(
                     {u_username:id , accountN:account},
                     {$set:{balance: newBalance, funds: newFunds}},
-                    (err2,result) =>{
+                    (err2,_result) =>{
                         if(!err2){
                             if(result2.nModified > 0){
                                 res.send("Funds and balance is updated");

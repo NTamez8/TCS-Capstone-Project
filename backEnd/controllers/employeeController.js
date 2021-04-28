@@ -1,5 +1,53 @@
-const employee = require('../models/employeeModel');
+const EmployeeModel = require('../models/employeeModel');
 const validationHandler = require('../validators/validationHandler');
+const jwt = require('jwt-simple');
+
+let signIn = async (req,res,next)=>{
+    try{
+       
+        const email_address = req.body.email_address;
+        const e_password = req.body.e_password;
+        const employee = await EMployeeModel.findOne({email_address});
+        
+        if(!employee){
+            const error = new Error("Wrong employee credentials");
+            error.statusCode = 401;
+            throw error;
+        };
+
+        const e_validPassword = await employee.validPassword(e_password);
+       
+        if(!e_validPassword){
+            const error = new Error("Wrong employee credentials");
+            error.statusCode = 401;
+            throw error;
+        };
+      
+        const token = jwt.encode({id:employee._id},employeeConfig.secret);
+        res.send({token});
+    }catch(error){
+        next(error);
+    };
+};
+
+let getEmp = async (req,res,next) =>{
+    try{
+        let gemp = await EmployeeModel.findById(req.user);
+       
+        return res.send(gemp);
+    }catch(error){
+        next(error);
+    };
+};
+
+let isValid = async (req,res,next) =>{
+    try{      
+        res.send("Authorized");
+    }catch(error){
+        next(error);
+    };
+};
+
 
 let getAll = async (req,res,next) =>{
     try{
@@ -60,4 +108,4 @@ let deleteEmployee = async (req,res,next)=>{
 
 
 
-module.exports = {addEmployee,deleteEmployee,getAll}
+module.exports = {signIn,getEmp,isValid,addEmployee,deleteEmployee,getAll}

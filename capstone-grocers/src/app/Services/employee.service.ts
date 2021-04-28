@@ -9,6 +9,27 @@ import { Employee } from '../Classes/employee';
 export class EmployeeService {
 
   constructor(private http:HttpClient) { }
+  
+  signIn(email_address:String,e_password:String){
+    return this.http.post<{token:string}>('http://localhost:8080/employee/signIn',{email_address,e_password});
+  };
+  validate(token:string):Promise<boolean>{
+    return new Promise<boolean>((resolve, reject) => {
+
+      // try changing the response type to text and seeing how that effects the response
+      this.http.get('http://localhost:8080/employee/isValid', {
+        headers: {
+          "Authorization": token
+        },
+        responseType:'text'
+      }).subscribe((data)=>{
+        resolve(true);
+      },error=>{
+        reject(error);
+      });
+
+    });
+  };
 
   public getAllEmployees():Observable<Employee[]>
   {
