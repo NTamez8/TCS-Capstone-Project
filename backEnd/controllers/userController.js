@@ -308,6 +308,7 @@ let deleteItemById = async (req,res,next)=>{
         {
             if(userOrder.currentCart[x].product == Prod_id)
             {
+                ProductController.userAddBackProduct(userOrder.currentCart[x].product,userOrder.currentCart[x].quantity)
                 userOrder.currentCart.splice(x,x+1);
             }
         }
