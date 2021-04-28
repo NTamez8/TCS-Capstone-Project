@@ -80,6 +80,7 @@ export class ViewRequestsComponent implements OnInit {
       //if the product does not exist, notify the user 
       //and delete all requests with nonexistent products
       }else{
+        alert("The request must be removed because the product ID no longer exists!\nNow will delete all requests with invalid product ID's.");
         curComponent.deleteRequestsWithNonExistentProducts(curComponent);
       }
     });
@@ -107,13 +108,13 @@ export class ViewRequestsComponent implements OnInit {
       //if the product does not exist, notify the user 
       //and delete all requests with nonexistent products
       }else{
+        alert("The request must be removed because the product ID no longer exists!\nNow will delete all requests with invalid product ID's.");
         curComponent.deleteRequestsWithNonExistentProducts(curComponent);
       };
     });
   };
 
   deleteRequestsWithNonExistentProducts(curComponent:ViewRequestsComponent){
-    alert("The request must be removed because the product ID no longer exists!\nNow will delete all requests with invalid product ID's.");
     this.requestService.currentRequests.forEach(
       function(request){
         if(!curComponent.productService.productExists(request.product_id)){
