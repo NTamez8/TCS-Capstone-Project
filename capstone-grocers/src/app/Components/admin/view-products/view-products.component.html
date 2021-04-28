@@ -1,6 +1,6 @@
 <div class="row border border-dark p-1">
     <div class="col-10 m-auto">
-        <form #productRef="ngForm" (ngSubmit)="getProductById(productRef)">
+        <form #productViewRef="ngForm" (ngSubmit)="getProductById(productViewRef)">
             <h3 class="text-center">Product Viewing</h3><hr/>
             <div class="form-group">
                 <label>Product</label>
@@ -8,7 +8,7 @@
                 <input type="number" name="product_order" id="product_order" class="form-control" required ngModel/>
             </div>
             <div class="text-center">
-                <input type="submit" value="View Product" [disabled]="!productRef.valid" class="btn btn-primary m-1"/>
+                <input type="submit" value="View Product" [disabled]="!productViewRef.valid" class="btn btn-primary m-1"/>
                 <input type="reset" value="Clear" class="btn btn-secondary m-1 ms-0"/>
                 <input type="button" class="btn btn-primary m-1 ms-0" value="View All Products"(click)="getAllProducts()"/>
             </div>
