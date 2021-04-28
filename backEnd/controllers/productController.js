@@ -1,24 +1,32 @@
 const ProductModel = require('../models/productModel');
 
 let getProductById = async(req,res)=>{
-    const product_id = req.params.product_id;
-    await ProductModel.find({_id:product_id},(error,data)=>{
-        if(!error){
-            res.json(data);
-        }else{
-            res.send(`Error during product retrieval: ${error}`);
-        };
-    });
+    try{
+        const product_id = req.params.product_id;
+        await ProductModel.find({_id:product_id},(error,data)=>{
+            if(!error){
+                res.json(data);
+            }else{
+                res.send(`Error during product retrieval: ${error}`);
+            };
+        });
+    }catch(tryError){
+        res.send(`Error during product retrieval: ${tryError}`);
+    }
 };
 
 let getAllProducts = async(req,res)=>{
-    await ProductModel.find({},(error,data)=>{
-        if(!error){
-            res.json(data);
-        }else{
-            res.send(`Error during product retrieval: ${error}`);
-        };
-    });
+    try{
+        await ProductModel.find({},(error,data)=>{
+            if(!error){
+                res.json(data);
+            }else{
+                res.write(`Error during product retrieval: ${error}`);
+            };
+        });
+    }catch(tryError){
+        res.write(`Error during product retrieval: ${tryError}`);
+    }
 };
 
 let addProduct = async (req,res)=>{

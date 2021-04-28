@@ -24,7 +24,6 @@
             <thead>
                 <tr>
                     <th scope="col">Request Order</th>
-                    <th scope="col">Request ID</th>
                     <th scope="col">Employee</th>
                     <th scope="col">Product ID</th>
                     <th scope="col">Quantity Requested</th>
@@ -38,8 +37,7 @@
             <tbody>
                 <tr *ngFor="let request of requests;let cindex = index;">
                     <th scope="row">{{cindex+1}}</th>
-                    <td>{{request._id}}</td>
-                    <td>{{request.e_username}}</td>
+                    <td>{{request.employee_id}}</td>
                     <td>{{request.product_id}}</td>
                     <td>{{request.new_quantity}}</td>
                     <td>{{request.datetime_requested}}</td>
