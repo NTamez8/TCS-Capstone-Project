@@ -95,7 +95,8 @@ let deleteEmployee = async (req,res,next)=>{
 }
 
 
-let editPassword=(req,res)=>{
+let editPassword= async (req,res)=>{
+    /*
     let email_address=req.body.email_address;
     let e_password=req.body.e_password
     employee.updateMany({email_address:email_address},{$set:{e_password:e_password}},(err,result)=>{
@@ -110,7 +111,19 @@ let editPassword=(req,res)=>{
         else{
             res.send("Error  "+err);
         }
-    })
+    })*/
+    try
+    {
+        let emp = req.user;
+         emp.e_password = await emp.encryptPassword(req.body.e_password);
+        await emp.save();
+        res.send('success');
+    }
+    catch(err)
+    {
+        next(err)
+    }
+   
 }
 
 

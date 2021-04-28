@@ -5,8 +5,6 @@
         Forgot Password</button> -->
     
     <form #passwordRef="ngForm" (ngSubmit)="updatePassword(passwordRef.value)">
-    <label>Email</label>
-    <input type ="text" name="email_address" ngModel><br/>
     <label>Password</label>
     <input type ="text" name="e_password" ngModel><br/>
     <input type ="submit" name="Forgot Password!!" [disabled] = '!passwordRef.valid'><input type="reset" value = "Clear"><br/>

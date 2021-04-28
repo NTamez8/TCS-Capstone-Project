@@ -35,6 +35,7 @@ export class EmployeeService {
 
   // }
   editPassword(passwordRef:any):any{
-    return this.http.put("http://localhost:8080/employee/editPassword",passwordRef,{responseType:'text'})
+    let token = 'bearer ' + sessionStorage.getItem('token');
+    return this.http.put("http://localhost:8080/employee/editPassword",passwordRef,{headers:{"Authorization":token} ,responseType:'text'} )
   }
 }
