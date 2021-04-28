@@ -32,7 +32,7 @@ export class UpdateProductsComponent implements OnInit {
       if(this.productService.productExists(this.product_id as String)){
         //const formValues = productRef.value;
         //console.log("Updating Product");
-        await this.productService.updateProduct(this.product_id,this.new_quantity).subscribe(data=>console.log(data.token));
+        await this.productService.updateProduct(this.product_id,this.new_quantity).subscribe(data=>{alert(data.message)});
         // if(this.fromViewRequest){
         //   if(this.product_id == this.requestService.currentRequest[0].product_id && this.new_quantity == this.requestService.currentRequest[0].new_quantity){
         //     this.backToViewingRequests();

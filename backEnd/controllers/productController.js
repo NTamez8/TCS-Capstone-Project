@@ -62,13 +62,15 @@ let updateProductQuantityById = (req,res,next)=>{
         //HTTP error code 200 from this point forward...
         ProductModel.updateOne({_id:product_id},{$set:{quantity:new_quantity}},(error,data)=>{
             if(!error){
-                if(data.modifiedCount>0){
-                    //res.write(`Product quantity updated succesfully: ${data}`);
+                console.log(data);
+                if(data.nModified>0){
+                    let response = {data:data,message:"Product quantity updated succesfully!"};
+                    res.json(response);
                 }else{
-                    //res.write("Product was not updated.");
+                    res.json({message:"Product was not updated."});
                 };
             }else{
-                //res.write(`Error during product update: ${error}`);
+                res.json({message:`Error during product update: ${error}`});
             };
         });
     }catch(tryError){

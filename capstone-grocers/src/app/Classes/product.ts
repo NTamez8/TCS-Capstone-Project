@@ -9,3 +9,10 @@ export class Product {
 
 }
 
+export class ProductMessage {
+    constructor(
+        public data:Product,
+        public message:String
+    ){}
+}
+

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from 'src/app/Classes/product';
+import { Product, ProductMessage } from 'src/app/Classes/product';
 
 @Injectable({
   providedIn: 'root'
@@ -41,9 +41,9 @@ export class ProductService {
     return this.http.post<{token:string}>("http://localhost:8080/product/addProduct",{product},{headers:{'Authorization':token}});
   };
 
-  updateProduct(product_id:String,new_quantity:Number){
+  updateProduct(product_id:String,new_quantity:Number):Observable<ProductMessage>{
     let token = 'bearer ' + sessionStorage.getItem('adminToken');
-    return this.http.post<{token:string}>("http://localhost:8080/product/updateProductQuantityById",{product_id,new_quantity},{headers:{'Authorization':token}});
+    return this.http.post<ProductMessage>("http://localhost:8080/product/updateProductQuantityById",{product_id,new_quantity},{headers:{'Authorization':token}});
   };
 
   deleteProductById(product_id:String){
