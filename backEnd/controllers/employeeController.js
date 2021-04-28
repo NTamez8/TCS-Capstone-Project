@@ -47,6 +47,14 @@ let signIn = async (req,res,next)=>{
         next(err);
     }
 }
+
+let isValid = async (req,res,next)=>{
+    try{      
+        res.send("Authorized");
+    }catch(error){
+        next(error);
+    };
+}
 let addEmployee = async (req,res,next) =>
 {
     try{
