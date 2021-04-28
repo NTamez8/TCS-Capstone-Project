@@ -139,45 +139,78 @@ let getMe = async(req,res,next)=>
 
 
 // --------------------------------Adding changes to the Cart-----------------------------------//
-let addItemstoCart = async (req, res, next) => {
-    const product_id = req.body.product_id;
-    const pname = req.body.name;
-    const description = req.body.description;
-    const price = req.body.price;
-    const quantity = req.body.quantity;
-    const user_id = req.body.user_id;
+// let addItemstoCart = async (req, res, next) => {
+//     const product_id = req.body.product_id;
+//     const pname = req.body.name;
+//     const description = req.body.description;
+//     const price = req.body.price;
+//     const quantity = req.body.quantity;
+//     const user_id = req.body.user_id;
   
-    try {
-      let userOrder = await User.findOne({_id:user_id});
-      userCart = userOrder.currentCart;
+    // try {
+    //   let userOrder = await User.findOne({_id:user_id});
+    //   userCart = userOrder.currentCart;
   
-      if (userCart) {
-        //if the cart is existing for the user
-        let item_idx = userCart.product.findIndex(p => p.pname == pname);
-        // if product is existing in the cart update the quantity
-        if (item_idx > -1) {
-          let product_item = userCart.product[item_idx];
-          product_item.quantity = quantity;
-          userCart.product[item_idx] = product_item;
-        // if product is not in the cart, add the new item
-        } else {
-            userCart.product.push({_id, pname, description, price, quantity });// when adding to the cart like this is takes in a cartItem not a whole product
-        }
-        userOrder.save();
-        return res.send(userOrder);
-        // if the cart doesn't exist create a new cart for the user
-      } else {
-        let new_Cart = await User.currentCart.create({
-          quantity:Number,
-          product:{type:schema.Types.ObjectId, ref:'Product'}
-        });
-        return res.send(new_Cart);
-      }
-    } catch (err) {
-      next(err);
-      res.send("Error loading the page");
-    }
-  };
+    //   if (userCart) {
+    //     //if the cart is existing for the user
+    //     let item_idx = userCart.product.findIndex(p => p.pname == pname);
+    //     // if product is existing in the cart update the quantity
+    //     if (item_idx > -1) {
+    //       let product_item = userCart.product[item_idx];
+    //       product_item.quantity = quantity;
+    //       userCart.product[item_idx] = product_item;
+    //     // if product is not in the cart, add the new item
+    //     } else {
+    //         userCart.product.push({_id, pname, description, price, quantity });// when adding to the cart like this is takes in a cartItem not a whole product
+    //     }
+    //     userOrder.save();
+    //     return res.send(userOrder);
+    //     // if the cart doesn't exist create a new cart for the user
+    //   } else {
+    //     let new_Cart = await User.currentCart.create({
+    //       quantity:Number,
+    //       product:{type:schema.Types.ObjectId, ref:'Product'}
+    //     });
+    //     return res.send(new_Cart);
+    //   }
+    // } catch (err) {
+    //   next(err);
+    //   res.send("Error loading the page");
+    // }
+
+//   };
+
+let addItemstoCart = async(req,res)=>{
+    let userOrder = await User.findOne({_id:user_id});
+    userCart = userOrder.currentCart;
+    userCart.product.findById({_id : req.params.product_id}).then( item => 
+    {
+        if (!item) {res.status(400).send({message : "item not found"})}
+        userCart.findByIdAndUpdate(req.params.userId,
+        {
+            total_quantity : 0,
+            total_price : 0,
+            final_price : 0,
+            "$push": {"product": {
+                    name : item.name,
+                    description: item.description,
+                    price:item.price,
+                    quantity: item.quantity
+                }
+            },
+            userid : req.params._id   
+        },
+            { upsert: true, returnNewDocument : true}
+        ).then(() => {
+            res.status(200).send({message: "Product added to cart"});
+            userOrder.save();
+            }).catch(err => {
+                res.status(500).send(err);
+            });
+    }).catch (err => {
+        res.status(500).send("Unable to fetch item", err);
+    });
+}
 
   let deleteItemsfromCart = async (req, res, next) => {
     let userOrder= await User.findOne({_id:user_id});
