@@ -12,7 +12,7 @@ let getDetailOfUser=(req,res)=>{
 
 let addTicketInfo = async (req,res)=>{
 
-  
+  console.log(req.body);
     let user = await User.findOne({u_username:req.body.user});
 
 
