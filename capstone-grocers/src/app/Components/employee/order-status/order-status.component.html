@@ -28,13 +28,13 @@
     {{resultMsg}}
 
 
-    <form #orderRef="ngForm" (ngSubmit)="updateStatus(orderRef.value)">
+    <!-- <form #orderRef="ngForm" (ngSubmit)="updateStatus(orderRef.value)">
         <label>OrderId</label>
 
         <input type="text" name="id" ngModel><br/>
 
         <label for ="status">Status</label>
-         <input list="browsers" name="status"  ngModel><br/>
+         <input list="browsers" name="status"  ngModel><br/> -->
        
             <!-- <select id="status" name="status" ng-model>
             <option  value="shipped">Shipped</option>
@@ -42,7 +42,7 @@
             <option value="delivered">Delivered</option>
           <option value="cancelled">cancelled</option>
             </select> -->
-            <datalist id="browsers">
+            <!-- <datalist id="browsers">
                 <option value="shipped">
                 <option value="outForDelivery">
                 <option value="delivered">
@@ -51,12 +51,48 @@
               </datalist>
 
         
-     <br>
-    <label>Reason for Cancelled Order</label>
+     <br> -->
+    <!-- <label>Reason for Cancelled Order</label>
         <input type="text" name="User"  ngModel/> <br/>
 
         <input type="submit" value="upadate status" class="btn btn-primary m-1"/>
         
      </form>
     {{updateMsg}}
+</div> -->
+
+
+<div class='row'>
+    <div class='col-4 offset-4'>
+        <form #orderRef = 'ngForm' (ngSubmit) = 'updateStatus(orderRef.value)'>
+            <div>
+                <!-- {{msg}} -->
+            </div>
+            <div class='form-group'>
+                <label >OrderId: </label><input type="text" name="id" required ngModel class="form-control">
+            </div>
+            <div class='form-group'>
+                <label >status</label><input list="browsers" name='status' required ngModel class="form-control">
+                <datalist id="browsers">
+                    <option value="shipped">
+                    <option value="outForDelivery">
+                    <option value="delivered">
+                    <option value="cancelled">
+                    <option value="Safari">
+                  </datalist>
+            </div>
+
+            <div class='form-group'>
+                <label >Reason for Cancelled Order</label><input type="text" name="User" required ngModel class="form-control">
+            </div>
+            <input type="submit" value='upadate status' class="btn btn-primary m-1"/>
+            <!-- [disabled] = "!orderRef.valid"> -->
+        </form>
+
+    </div>
+
+    <div>
+        {{updateMsg}}
+    </div>
+   
 </div>

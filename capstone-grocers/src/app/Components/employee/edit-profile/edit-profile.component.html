@@ -1,8 +1,7 @@
 
-<div>
+<!-- <div>
     <h2>Edit Password-Employee</h2>
-    <!-- <button  (click)="updatePassword(!passwordRef.value)" >
-        Forgot Password</button> -->
+    
     
     <form #passwordRef="ngForm" (ngSubmit)="updatePassword(passwordRef.value)">
     <label>Id</label>
@@ -16,4 +15,19 @@
     {{updateMsg}}
 </div>
 
+ -->
+
+ <p>edit-profile works!</p>
+<div>
+    <h2>Edit Password-Employee</h2>
+    <!-- <button  (click)="updatePassword(passwordRef.value)" >
+        Forgot Password</button> -->
+    
+    <form #passwordRef="ngForm" (ngSubmit)="updatePassword(passwordRef.value)">
+    <label>Password</label>
+    <input type ="text" name="e_password" ngModel><br/>
+    <input type ="submit" name="Forgot Password!!" [disabled] = '!passwordRef.valid'><input type="reset" value = "Clear"><br/>
+    </form>
+    {{updateMsg}}
+</div>
 

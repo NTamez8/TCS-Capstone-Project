@@ -1,4 +1,5 @@
 const Order = require('../models/orderModel');
+const ProductController = require('../controllers/productController')
 const User = require('../models/userModel');
 const validationHandler = require('../validators/validationHandler');
 const userConfig = require('../config/userConfig');
@@ -139,16 +140,19 @@ let getMe = async(req,res,next)=>
 
 
 // --------------------------------Adding changes to the Cart-----------------------------------//
-// can you test this and see if it works?
 let addItemstoCart = async (req, res, next) => {
+    /*
+    const product_id = req.body.product_id;
     const pname = req.body.name;
     const description = req.body.description;
     const price = req.body.price;
     const quantity = req.body.quantity;
-    const user_id = req.body.user_id;
+    const desired = req.body.quantityDesired
+   // const user_id = req.body.user_id;
   
     try {
-      let userOrder = await User.findOne({_id:user_id});
+    //  let userOrder = await User.findOne({_id:user_id});
+    let userOrder = await User.findById(req.user);
       userCart = userOrder.currentCart;
   
       if (userCart) {
@@ -161,24 +165,127 @@ let addItemstoCart = async (req, res, next) => {
           userCart.product[item_idx] = product_item;
         // if product is not in the cart, add the new item
         } else {
-            userCart.product.push({pname, description, price, quantity });// when adding to the cart like this is takes in a cartItem not a whole product
+            userCart.product.push({_id, pname, description, price, quantity });// when adding to the cart like this is takes in a cartItem not a whole product
         }
-        userOrder.save();// I think you can just do the userOrder.save() if you tested this and it works let me know
+        userOrder.save();
         return res.send(userOrder);
         // if the cart doesn't exist create a new cart for the user
       } else {
+          
         let new_Cart = await User.currentCart.create({
           quantity:Number,
-          product:{type:schema.Types.ObjectId, ref:'Product'}// the cart item model does not need an id just a reference to a product and a quantity
+          product:{type:schema.Types.ObjectId, ref:'Product'}
+         
         });
         return res.send(new_Cart);
       }
     } catch (err) {
       next(err);
       res.send("Error loading the page");
+    }*/
+    try
+    {
+        let wasFound = false;
+       // let user = User.findOne({_id:req.user});
+       let user = req.user;
+        let product_ID = req.body.product_ID
+     
+        let quantity = req.body.quantityDesired;
+     
+        for(let x = 0; x < user.currentCart.length; x++)
+        {
+            if(user.currentCart[x].product == product_ID)
+            {
+                user.currentCart[x].quantity += eval(quantity);
+                wasFound = true;
+                break;
+            }
+        }
+        if(!wasFound)
+        {
+            user.currentCart.push({product:product_ID,quantity})
+        }
+        ProductController.userUpdateProduct(product_ID,quantity);
+        await user.save();
+        res.send({"message":"Success"})
+    }
+    catch(err)
+    {
+        next(err);
     }
   };
+// let addItemstoCart = async (req, res, next) => {
+//     const product_id = req.body.product_id;
+//     const pname = req.body.name;
+//     const description = req.body.description;
+//     const price = req.body.price;
+//     const quantity = req.body.quantity;
+//     const user_id = req.body.user_id;
+  
+    // try {
+    //   let userOrder = await User.findOne({_id:user_id});
+    //   userCart = userOrder.currentCart;
+  
+    //   if (userCart) {
+    //     //if the cart is existing for the user
+    //     let item_idx = userCart.product.findIndex(p => p.pname == pname);
+    //     // if product is existing in the cart update the quantity
+    //     if (item_idx > -1) {
+    //       let product_item = userCart.product[item_idx];
+    //       product_item.quantity = quantity;
+    //       userCart.product[item_idx] = product_item;
+    //     // if product is not in the cart, add the new item
+    //     } else {
+    //         userCart.product.push({_id, pname, description, price, quantity });// when adding to the cart like this is takes in a cartItem not a whole product
+    //     }
+    //     userOrder.save();
+    //     return res.send(userOrder);
+    //     // if the cart doesn't exist create a new cart for the user
+    //   } else {
+    //     let new_Cart = await User.currentCart.create({
+    //       quantity:Number,
+    //       product:{type:schema.Types.ObjectId, ref:'Product'}
+    //     });
+    //     return res.send(new_Cart);
+    //   }
+    // } catch (err) {
+    //   next(err);
+    //   res.send("Error loading the page");
+    // }
 
+//   };
+/*
+let addItemstoCart = async(req,res)=>{
+    let userOrder = await User.findOne({_id:user_id});
+    userCart = userOrder.currentCart;
+    userCart.product.findById({_id : req.params.product_id}).then( item => 
+    {
+        if (!item) {res.status(400).send({message : "item not found"})}
+        userCart.findByIdAndUpdate(req.params.userId,
+        {
+            total_quantity : 0,
+            total_price : 0,
+            final_price : 0,
+            "$push": {"product": {
+                    name : item.name,
+                    description: item.description,
+                    price:item.price,
+                    quantity: item.quantity
+                }
+            },
+            userid : req.params._id   
+        },
+            { upsert: true, returnNewDocument : true}
+        ).then(() => {
+            res.status(200).send({message: "Product added to cart"});
+            userOrder.save();
+            }).catch(err => {
+                res.status(500).send(err);
+            });
+    }).catch (err => {
+        res.status(500).send("Unable to fetch item", err);
+    });
+}*/
 
   let deleteItemsfromCart = async (req, res, next) => {
     let userOrder= await User.findOne({_id:user_id});
@@ -194,12 +301,24 @@ let addItemstoCart = async (req, res, next) => {
     };
 
   let viewItemsfromCart = async(req,res)=> {
-        let userOrder= await User.findOne({_id:user_id});
+       // let userOrder= req.user;
+       //console.log(req.user);
+        let userOrder = await User.findOne({_id:req.user._id}).populate('currentCart.product');
+       // userOrder.currentCart.populate('Product').exec();
+       
+        let total_amount = 0;
+        
+        for(let i = 0; i < userOrder.currentCart.length; i++){
+                total_amount += userOrder.currentCart[i].product.price * userOrder.currentCart[i].quantity;
+        }
+      
+        /*
         userOrder.currentCart.find({},(err,result)=> {
             if(!err){
                 res.json(result);
             }
-        })
+        })*/
+        res.send(userOrder.currentCart);
     
     }
 
@@ -219,12 +338,15 @@ let checkoutCart = async(req,res,next)=>{
         for(let i = 0; i < userOrder.cart.length; i++){
                 total_amount += cart[i].product.price * cart[i].quantity;
         }
+        console.log(total_amount)
         if(user.funds >= total_amount){
-            user.funds = user.funds - total_amount;
-            user.save();
-            //get current date/time for userOrder.date_requested
-            //then save the userOrder.
-            res.send({"msg":"Cart checkout successful"});
+        user.funds = user.funds - total_amount;
+        user.save();
+        //get current date/time for userOrder.date_requested
+        //then save the userOrder.
+        userOrder.date_requested = Date.now();
+        userOrder.save()
+        res.send({"msg":"Cart checkout successful"});
         }else{
             res.send("Insufficient funds to checkout");
         }
