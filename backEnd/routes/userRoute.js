@@ -13,8 +13,8 @@ routes.post('/signUp',[hasAddress,hasDoB,hasEmail,hasFirstName,hasLastName,hasPa
 routes.post('/signIn',userController.signIn);
 routes.get('/isValid',userAuth.authenticate('userAuth'),userController.isValid);
 
-routes.get("/addItemstoCart",userController.addItemstoCart)
-routes.get("/deleteItemsfromCart/:product_id",userController.deleteItemsfromCart)
+routes.post("/addItemstoCart/:product_id",userController.addItemstoCart)
+routes.post("/deleteItemsfromCart/:product_id",userController.deleteItemsfromCart)
 routes.get("/viewItemsfromCart",userController.viewItemsfromCart)
 routes.get("/checkoutCart",userController.checkoutCart)
 

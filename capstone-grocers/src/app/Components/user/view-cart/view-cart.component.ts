@@ -8,7 +8,7 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./view-cart.component.css']
 })
 export class ViewCartComponent implements OnInit {
-  public products:Array<User> = [];
+  products: any[] = [];
   constructor(private userServ:UserService) { }
 
   ngOnInit(): void {

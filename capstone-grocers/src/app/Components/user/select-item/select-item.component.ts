@@ -7,11 +7,6 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./select-item.component.css']
 })
 export class SelectItemComponent implements OnInit {
-  productList = [
-    {name: 'Z900', price: 8799},
-    {name: 'shubert helmet', price: 999},
-    {name: 'sport gloves', price: 99}
-   ];
   
   constructor(private userServ:UserService) { }
 

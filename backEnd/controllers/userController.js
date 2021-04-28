@@ -139,8 +139,9 @@ let getMe = async(req,res,next)=>
 
 
 // --------------------------------Adding changes to the Cart-----------------------------------//
-// can you test this and see if it works?
+
 let addItemstoCart = async (req, res, next) => {
+    const product_id = req.body.product_id;
     const pname = req.body.name;
     const description = req.body.description;
     const price = req.body.price;
@@ -153,7 +154,7 @@ let addItemstoCart = async (req, res, next) => {
   
       if (userCart) {
         //if the cart is existing for the user
-        let item_idx = userCart.product.findIndex(p => p.pname == pname);
+        let item_idx = userCart.product.findIndex(p => p.product_id == product_id);
         // if product is existing in the cart update the quantity
         if (item_idx > -1) {
           let product_item = userCart.product[item_idx];
@@ -161,15 +162,15 @@ let addItemstoCart = async (req, res, next) => {
           userCart.product[item_idx] = product_item;
         // if product is not in the cart, add the new item
         } else {
-            userCart.product.push({pname, description, price, quantity });// when adding to the cart like this is takes in a cartItem not a whole product
+            userCart.product.push({_id, pname, description, price, quantity });// when adding to the cart like this is takes in a cartItem not a whole product
         }
-        userOrder.save();// I think you can just do the userOrder.save() if you tested this and it works let me know
+        userOrder.save();
         return res.send(userOrder);
         // if the cart doesn't exist create a new cart for the user
       } else {
         let new_Cart = await User.currentCart.create({
           quantity:Number,
-          product:{type:schema.Types.ObjectId, ref:'Product'}// the cart item model does not need an id just a reference to a product and a quantity
+          product:{type:schema.Types.ObjectId, ref:'Product'}
         });
         return res.send(new_Cart);
       }
@@ -179,11 +180,10 @@ let addItemstoCart = async (req, res, next) => {
     }
   };
 
-
   let deleteItemsfromCart = async (req, res, next) => {
     let userOrder= await User.findOne({_id:user_id});
     userOrder.currentCart.updateMany({user_id  : req.params.user_id }, 
-        { $pull: { product : {pname: req.params.pname }}}, {multi: true}, (err, result)=> {
+        { $pull: { product : {_id: req.params.product_id }}}, {multi: true}, (err, result)=> {
             if (!err){
                 res.send("Items in cart deleted successfully" + result)
             } 
@@ -222,7 +222,8 @@ let checkoutCart = async(req,res,next)=>{
         user.save();
         //get current date/time for userOrder.date_requested
         //then save the userOrder.
-        UserOrder.save()
+        userOrder.date_requested = Date.now();
+        userOrder.save()
         res.send({"msg":"Cart checkout successful"});
         }else{
             res.send("Insufficient funds to checkout");
