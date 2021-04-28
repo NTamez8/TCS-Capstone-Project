@@ -1,28 +1,19 @@
-<p>edit-profile works!</p>
+
 <div>
     <h2>Edit Password-Employee</h2>
-    <!-- <button  (click)="updatePassword(passwordRef.value)" >
+    <!-- <button  (click)="updatePassword(!passwordRef.value)" >
         Forgot Password</button> -->
     
     <form #passwordRef="ngForm" (ngSubmit)="updatePassword(passwordRef.value)">
     <label>Id</label>
-    <input type ="text" name="_id" ngModel><br/>
+    <input type ="text" name="_id" value="employees._id" ngModel><br/>
     <label>Password</label>
-    <input type ="text" name="e_password" ngModel><br/>
-    <input type ="submit" name="Forgot Password!!" [disabled] = '!passwordRef.valid'><input type="reset" value = "Clear"><br/>
+    <input type ="text" name="e_password"  value ="employees.Password"ngModel><br/>
+    <input type ="submit" name="Forgot Password!!" class="btn btn-primary m-1"[disabled] = '!passwordRef.valid'>
+    <input type="reset" value = "Clear" class="btn btn-secondary m-1 ms-0"><br/>
     </form>
+    
     {{updateMsg}}
 </div>
 
 
-<!-- <div>
-    <form #emp='ngForm' (ngSubmit)='submitDelete(emp.value)'>
-        <div class='form-group'>
-            <label>Employee to delete</label><select name='_id' class='form-control' ngModel>
-                <option *ngFor='let employee of employees' value="{{employee._id}}">{{employee.firstName}} {{employee.lastName}}</option>
-            </select>
-        </div>
-      
-        <input type="submit" value='delete'>
-    </form>
-</div> -->

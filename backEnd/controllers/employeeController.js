@@ -80,7 +80,9 @@ let deleteEmployee = async (req,res,next)=>{
 let editPassword = async (req,res,next)=>{
 
     try{
-        let id = req.params.id;
+         let id = req.params.id;
+        // let email_address = req.params.email_address;
+
         let emp = await employee.findById(id);
         if(emp == null)
         {
@@ -89,7 +91,7 @@ let editPassword = async (req,res,next)=>{
             throw error;
         }
         await emp.updateOne();
-        res.send({"message":"edited"});
+        res.send({"message":"upadated"});
     }
     catch(err)
     {

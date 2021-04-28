@@ -13,6 +13,28 @@ export class EmployeeService {
   {
     return this.http.post<{token:string}>('http://localhost:8080/employee/signIn',{email,pass});
   }
+
+  validate(token:string):Promise<boolean>{
+    return new Promise<boolean>((resolve, reject) => {
+
+      // try changing the response type to text and seeing how that effects the response
+      this.http.get('http://localhost:8080/admin/isValid', {
+        headers: {
+          "Authorization": token
+        },
+        responseType:'text'
+      }).subscribe((data)=>{
+        resolve(true);
+      },error=>{
+        reject(error);
+      });
+
+    });
+  };
+
+
+
+  
   public getAllEmployees():Observable<Employee[]>
   {
     let token = 'bearer ' + sessionStorage.getItem('adminToken');

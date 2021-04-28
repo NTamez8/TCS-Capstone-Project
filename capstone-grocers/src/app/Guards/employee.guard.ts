@@ -2,13 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AdminService } from 'src/app/Services/admin.service';
+import { EmployeeService } from 'src/app/Services/employee.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EmployeeGuard implements CanActivateChild, CanActivate {
-  constructor(private http:HttpClient,private employeeService:AdminService){}
+  constructor(private http:HttpClient,private employeeService:EmployeeService){}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
     if(sessionStorage.getItem("adminToken") == null){

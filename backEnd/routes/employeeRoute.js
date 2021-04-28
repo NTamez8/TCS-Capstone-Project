@@ -9,5 +9,5 @@ routes.get('/getAll',employeeController.getAll)
 routes.post('/add',[adminAuth.authenticate('adminAuth'),hasFirstName,hasLastName,hasEmail],employeeController.addEmployee);
 
 routes.delete('/delete/:id',adminAuth.authenticate('adminAuth'),employeeController.deleteEmployee);
-routes.put('/editPassword/:id',adminAuth.authenticate('adminAuth'),employeeController.editPassword)
+routes.put('/editPassword/:id',employeeAuth.authenticate('employeeAuth'),employeeController.editPassword)
 module.exports = routes;
