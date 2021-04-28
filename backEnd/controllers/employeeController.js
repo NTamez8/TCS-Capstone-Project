@@ -59,25 +59,43 @@ let deleteEmployee = async (req,res,next)=>{
 }
 
 
-let editPassword=(req,res)=>{
-    let email_address=req.body.email_address;
-    let e_password=req.body.e_password
-    employee.updateMany({email_address:email_address},{$set:{e_password:e_password}},(err,result)=>{
-        if(!err){
-            if(result.nModified>0){
-            res.send("Password updated succesfully"+result)
-            }
-            else{
-                res.send("Email is not available")
-            }
+// let editPassword=(req,res)=>{
+//     let email_address=req.body.email_address;
+//     let e_password=req.body.e_password
+//     employee.updateMany({email_address:email_address},{$set:{e_password:e_password}},(err,result)=>{
+//         if(!err){
+//             if(result.nModified>0){
+//             res.send("Password updated succesfully"+result)
+//             }
+//             else{
+//                 res.send("Email is not available")
+//             }
+//         }
+//         else{
+//             res.send("Error  "+err);
+//         }
+//     })
+// }
+
+let editPassword = async (req,res,next)=>{
+
+    try{
+        let id = req.params.id;
+        let emp = await employee.findById(id);
+        if(emp == null)
+        {
+            let error = new Error('Bad request');
+            error.statusCode = 400;
+            throw error;
         }
-        else{
-            res.send("Error  "+err);
-        }
-    })
+        await emp.delete();
+        res.send({"message":"edited"});
+    }
+    catch(err)
+    {
+        next(err);
+    }
 }
-
-
 
 
 
