@@ -48,28 +48,33 @@ export class ViewRequestsComponent implements OnInit {
   };
 
   async resolveRequest(request:productRequest){
-    //console.log("Resolving request!");
-    let productService = this.productService;
-    let requestService = this.requestService;
-    let curComponent = this;
-    await productService.getProductById(request.product_id as string).subscribe(
-      function (result){
-        productService.currentProducts=result;
-        if(productService.currentProducts[0].quantity != request.new_quantity){
-          alert(`Please change product quantity! Current quantity: ${productService.currentProducts[0].quantity}`);
-          //console.log(productService.currentProducts);
-        //otherwise we can automatically resolve the request
-        }else{
-          requestService.resolveRequest(request._id as string).subscribe(result=>console.log(result.token),error=>console.log(error));
-          curComponent.getAllRequests();
-        }
-      },error=>console.log(error));
-    //if current product quantity is not the same as the request, 
-    //we need to update the quantity first
-    ////request.status="resolved";
-    // this.requestService.currentRequest = request;
-    // this.requestService.viewRequestURL = this.router.url.split("/")[2];
-    // this.router.navigateByUrl("/" + this.router.url.split("/")[1] + "/updateProducts");
+    if(this.productService.productExists(request.product_id)){
+      //console.log("Resolving request!");
+      let productService = this.productService;
+      let requestService = this.requestService;
+      let curComponent = this;
+      await productService.getProductById(request.product_id as string).subscribe(
+        function (result){
+          productService.currentProducts=result;
+          if(productService.currentProducts[0].quantity != request.new_quantity){
+            alert(`Please change product quantity! Current quantity: ${productService.currentProducts[0].quantity}`);
+            //console.log(productService.currentProducts);
+          //otherwise we can automatically resolve the request
+          }else{
+            requestService.resolveRequest(request._id as string).subscribe(result=>console.log(result.token),error=>console.log(error));
+            curComponent.getAllRequests();
+          }
+        },error=>console.log(error));
+      //if current product quantity is not the same as the request, 
+      //we need to update the quantity first
+      ////request.status="resolved";
+      // this.requestService.currentRequest = request;
+      // this.requestService.viewRequestURL = this.router.url.split("/")[2];
+      // this.router.navigateByUrl("/" + this.router.url.split("/")[1] + "/updateProducts");
+    }else{
+      alert("The request must be removed because the product ID no longer exists!");
+      this.deleteRequestForce(request);
+    }
   };
 
   async deleteRequest(request:productRequest){
@@ -79,5 +84,10 @@ export class ViewRequestsComponent implements OnInit {
     }else{
       alert("You cannot remove a request until it is resolved!");
     }
+  };
+
+  async deleteRequestForce(request:productRequest){
+    await this.requestService.deleteRequestById(request._id as string).subscribe(data=>console.log(data.token));
+    this.getAllRequests();
   };
 }
