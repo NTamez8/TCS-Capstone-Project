@@ -16,7 +16,7 @@ export class AdminService {
     return new Promise<boolean>((resolve, reject) => {
 
       // try changing the response type to text and seeing how that effects the response
-      this.http.get('http://localhost:8080/employee/isValid', {
+      this.http.get('http://localhost:8080/admin/isValid', {
         headers: {
           "Authorization": token
         },

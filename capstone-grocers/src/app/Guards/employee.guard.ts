@@ -8,15 +8,15 @@ import { EmployeeService } from 'src/app/Services/employee.service';
   providedIn: 'root'
 })
 export class EmployeeGuard implements CanActivateChild, CanActivate {
-  constructor(private http:HttpClient,private employeeService:EmployeeService){}
+  constructor(private http:HttpClient,private empService:EmployeeService){}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    if(sessionStorage.getItem("adminToken") == null){
+    if(sessionStorage.getItem("employeeToken") == null){
       return false;
     }
 
-    let token = "bearer " + sessionStorage.getItem("adminToken");
-    return this.employeeService.validate(token);
+    let token = "bearer " + sessionStorage.getItem("employeeToken");
+    return this.empService.validate(token);
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -25,7 +25,7 @@ export class EmployeeGuard implements CanActivateChild, CanActivate {
     }
 
     let token = "bearer " + sessionStorage.getItem("employeeToken");
-    return this.employeeService.validate(token);
+    return this.empService.validate(token);
   }
   
 }
