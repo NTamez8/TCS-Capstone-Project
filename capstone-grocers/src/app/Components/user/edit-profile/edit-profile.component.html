@@ -1,6 +1,23 @@
 <div>
-    <h2>Edit Password-user</h2>
-    <!-- <button  (click)="updatePassword(passwordRef.value)" >
+    <h2>Edit user</h2>
+<br/>
+<div>
+    <!-- <button  (click)="updateProfile(editProfileRef.value)" >
+        Edit Profile</button> -->
+    <form #updateProfileRef = "ngForm" (ngSubmit)="updateProfile(ProfileRef.value)">
+        <label>Email</label>
+    <input type ="text" name="u_username" ngModel><br/>
+        <label>Address</label>
+        <input type ="text" name="address" ngModel><br/>
+        <label>Date of Birth</label>
+        <input type="date" name='date_of_birth' ngModel required><br>
+        <label>Phone number</label>
+        <input type="text" pattern="^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$" name = 'phone_number' ngModel required><br>
+        <input type ="submit" name="Do changes"><input type="reset" value = "Clear"><br/>
+    </form>
+</div>
+<br/>
+ <!-- <button  (click)="updatePassword(passwordRef.value)" >
         Forgot Password</button> -->
     
     <form #passwordRef="ngForm" (ngSubmit)="updatePassword(passwordRef.value)">
@@ -11,4 +28,5 @@
     <input type ="submit" name="Forgot Password!!" [disabled] = '!passwordRef.valid'><input type="reset" value = "Clear"><br/>
     </form>
     {{updateMsg}}
-</div
+</div>
+<br/>

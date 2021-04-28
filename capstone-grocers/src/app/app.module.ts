@@ -10,6 +10,7 @@ import { SelectItemComponent } from './Components/user/select-item/select-item.c
 import { ViewCartComponent } from './Components/user/view-cart/view-cart.component';
 import { ViewOrderStatusComponent } from './Components/user/view-order-status/view-order-status.component';
 import { ProfileComponent } from './Components/user/profile/profile.component';
+import { updateProfileComponent } from './Components/user/edit-profile/edit-profile.component';
 import { CheckoutComponent } from './Components/user/checkout/checkout.component';
 import { AddEmployeeComponent } from './Components/admin/add-employee/add-employee.component';
 import { FormsModule } from '@angular/forms';
@@ -37,6 +38,7 @@ import { FundsComponent } from './Components/user/funds/funds.component';
     CheckoutComponent,
     AddEmployeeComponent,
     DeleteEmployeeComponent,
+    updateProfileComponent,
     // EmployeeComponent,
     OrderStatusComponent,
     SendRequestComponent,

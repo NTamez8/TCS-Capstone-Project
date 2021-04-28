@@ -122,8 +122,23 @@ let checkFunds =(req,res) =>{
         }
     })
 }
-
-let editPassword=(req,res)=>{
+let updateProfile=(req,res)=>{
+    let u_username=req.body.user
+    let address=req.body.address;
+    let date_of_birth=req.body.date_of_birth;
+    let phone_number=req.body.phone_number;
+    user.updateMany({u_username:u_username},{$set:{address:address,date_of_birth:date_of_birth,phone_number:phone_number}},(err,result)=>{
+        if(!err){
+            if(result.nModified>0){
+            res.send("Profile updated succesfully"+result)
+            }
+            else{
+                res.send("profile is not updated successfully")
+            }
+        }
+    })
+}
+let updatePassword=(req,res)=>{
     let u_username=req.body.u_username;
     let u_password=req.body.u_password
     user.updateMany({u_username:u_username},{$set:{u_password:u_password}},(err,result)=>{
@@ -170,5 +185,5 @@ let updateFunds =(req,res) =>{
         }
     })
 }
-module.exports = {signIn,signUp, selectItemsfromCart, deleteItemsfromCart, viewItemsfromCart,checkFunds,editPassword,updateFunds}
+module.exports = {signIn,signUp, selectItemsfromCart, deleteItemsfromCart, viewItemsfromCart,checkFunds,updateProfile,updatePassword,updateFunds}
 

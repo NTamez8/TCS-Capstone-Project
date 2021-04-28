@@ -20,8 +20,11 @@ export class UserService {
   {
     return this.http.post<{token:string}>('http://localhost:8080/user/signIn',{email,pass});
   }
-  public editPassword(passwordRef:any):any{
-    return this.http.put("http://localhost:8080/user/editPassword",passwordRef,{responseType:'text'})
+  updateProfile(updateProfileRef:any):any{
+    return this.http.put("http://localhost:8080/user/updateProfile",updateProfileRef,{responseType:'text'})
+  }
+  updatePassword(passwordRef:any):any{
+    return this.http.put("http://localhost:8080/user/updatePassword",passwordRef,{responseType:'text'})
   }
   public loadFunds(fundsRef: any){
     console.log(fundsRef);
