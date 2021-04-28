@@ -8,7 +8,7 @@
             
             <th>Ticket Raised Time</th>
              
-            <th> Ticket Id </th>
+            <th> reason </th>
             <th>Status </th>
             
            
@@ -17,7 +17,7 @@
    
     <td>{{dd.datetime_raised}}</td> 
      
-    <td>{{dd._id}}</td>
+    <td>{{dd.reason}}</td>
     <td>{{dd.status}}</td>
     
     
@@ -30,12 +30,12 @@
         <label>Username</label>
         <input type="text" name="u_username"  ngModel><br/>
         <label>Profile Status </label>
-        <input list="browsers" name="locked"  ngModel><br/>
+     
         
-            <datalist id="browsers" ng-model>
+            <select id="browsers" ngModel name='locked'>
             <option  value="true">True</option>
             <option value="false">False</option>
-            </datalist>
+            </select>
         
             
 

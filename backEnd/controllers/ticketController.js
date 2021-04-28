@@ -10,6 +10,18 @@ let getDetailOfUser=(req,res)=>{
     })
 }
 
+let getLockedUsers = async (req,res,next)=>{
+    try
+    {
+        let tickets = ticket.find({status:'unviewed'}).populate('user_ID');
+        res.send(tickets.user_ID);
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
+
 let raiseTicket = async (req,res)=>{
 
   console.log(req.body);
@@ -33,4 +45,4 @@ let raiseTicket = async (req,res)=>{
     })
   
 }
-module.exports = {getDetailOfUser, raiseTicket}
+module.exports = {getDetailOfUser, raiseTicket,getLockedUsers}

@@ -544,6 +544,8 @@ let orderstatusToUser=(req,res)=>{
     
 }
 
+
+
 module.exports = {signIn,signUp, deleteItemById,
     //selectItemsfromCart,
     unlockLockUser,addItemstoCart, checkoutCart,deleteItemsfromCart,updateProfile,updatePassword, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe ,checkFunds,editPassword,updateFunds}
