@@ -1,4 +1,5 @@
 const Order = require('../models/orderModel');
+const ProductController = require('../controllers/productController')
 const User = require('../models/userModel');
 const validationHandler = require('../validators/validationHandler');
 const userConfig = require('../config/userConfig');
@@ -204,6 +205,7 @@ let addItemstoCart = async (req, res, next) => {
         {
             user.currentCart.push({product:product_ID,quantity})
         }
+        ProductController.userUpdateProduct(product_ID,quantity);
         await user.save();
         res.send({"message":"Success"})
     }
@@ -285,7 +287,7 @@ let addItemstoCart = async(req,res)=>{
     });
 }*/
 
-  let deleteItemsfromCart = async (req, res, next) => {
+let deleteItemsfromCart = async (req, res, next) => {
     let userOrder= await User.findOne({_id:user_id});
     userOrder.currentCart.updateMany({user_id  : req.params.user_id }, 
         { $pull: { product : {pname: req.params.pname }}}, {multi: true}, (err, result)=> {
@@ -297,8 +299,29 @@ let addItemstoCart = async(req,res)=>{
             }
         })
     };
-
-  let viewItemsfromCart = async(req,res)=> {
+let deleteItemById = async (req,res,next)=>{
+    try
+    {
+        let userOrder = req.user;
+        let Prod_id = req.params.id;
+        for(let x = 0; x < userOrder.currentCart.length; x++)
+        {
+            if(userOrder.currentCart[x].product == Prod_id)
+            {
+                ProductController.userAddBackProduct(userOrder.currentCart[x].product,userOrder.currentCart[x].quantity)
+                userOrder.currentCart.splice(x,x+1);
+            }
+        }
+        await userOrder.save();
+        res.send({"message":"success"});
+    }
+    catch(err)
+    {
+        next(err);
+    }
+   
+}
+let viewItemsfromCart = async(req,res)=> {
        // let userOrder= req.user;
        //console.log(req.user);
         let userOrder = await User.findOne({_id:req.user._id}).populate('currentCart.product');
@@ -324,21 +347,23 @@ let checkoutCart = async(req,res,next)=>{
     try
     {
    
-        let user_id = req.body.user_id;
+       // let user_id = req.body.user_id;
         let userOrder = new Order();
-        let user = await User.findOne({_id:user_id});
+        //let user = await User.findOne({_id:user_id});
+        let user = await User.findOne({_id:req.user._id}).populate('currentCart.product');
         userOrder.cart = user.currentCart;
         userOrder.user_ID = user._id;
         userOrder.status="in progress";
         //let funds = await User.findById(userOrder.funds);
         //let cart = userOrder.currentCart;
         let total_amount = 0;
-        for(let i = 0; i < userOrder.cart.length; i++){
-                total_amount += cart[i].product.price * cart[i].quantity;
+        for(let i = 0; i < user.currentCart.length; i++){
+                total_amount +=  user.currentCart[i].product.price *  user.currentCart[i].quantity;
         }
         console.log(total_amount)
         if(user.funds >= total_amount){
         user.funds = user.funds - total_amount;
+        user.currentCart = []
         user.save();
         //get current date/time for userOrder.date_requested
         //then save the userOrder.
@@ -519,7 +544,7 @@ let orderstatusToUser=(req,res)=>{
     
 }
 
-module.exports = {signIn,signUp, 
+module.exports = {signIn,signUp, deleteItemById,
     //selectItemsfromCart,
     unlockLockUser,addItemstoCart, checkoutCart,deleteItemsfromCart,updateProfile,updatePassword, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe ,checkFunds,editPassword,updateFunds}
 

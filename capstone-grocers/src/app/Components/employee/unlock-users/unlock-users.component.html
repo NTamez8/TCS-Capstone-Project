@@ -9,6 +9,8 @@
             <th>Ticket Raised Time</th>
              
             <th> Ticket Id </th>
+            <th>Status </th>
+            
            
         </tr>
 <tr *ngFor="let dd of details">
@@ -16,6 +18,8 @@
     <td>{{dd.datetime_raised}}</td> 
      
     <td>{{dd._id}}</td>
+    <td>{{dd.status}}</td>
+    
     
 </tr>
     </table>

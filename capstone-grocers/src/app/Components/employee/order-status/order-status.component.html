@@ -1,8 +1,30 @@
 <div>
-    <h2>Order Details</h2>
+    <!-- <h2>Order Details</h2>
     Id:<input type="text" #idRef/><br/>
     <input type ="button" value ="Click here to See Order Details"
-    (click)=serchorderDetails(idRef.value)/><br/>
+    (click)=serchorderDetails(idRef.value)/><br/> -->
+
+    <table border="1">
+        <tr>
+            
+            <th>ID</th>
+             
+            <!-- <th> Ticket Id </th> -->
+            
+            <th>Status </th>
+            
+           
+        </tr>
+<tr *ngFor="let dd of details">
+   
+    <td>{{dd._id}}</td> 
+     
+    <!-- <td>{{dd._id}}</td> -->
+    <td>{{dd.status}}</td>
+    
+    
+</tr>
+    </table>
     {{resultMsg}}
 
 
@@ -11,18 +33,27 @@
 
         <input type="text" name="id" ngModel><br/>
 
-        <label>Status</label>
-        <input list="browsers" name="status"  ngModel><br/>
+        <label for ="status">Status</label>
+         <input list="browsers" name="status"  ngModel><br/>
        
-            <datalist id="browsers" ng-model>
+            <!-- <select id="status" name="status" ng-model>
             <option  value="shipped">Shipped</option>
             <option value="OutForDelivery">Out For OutForDelivery</option>
             <option value="delivered">Delivered</option>
           <option value="cancelled">cancelled</option>
-        </datalist>
+            </select> -->
+            <datalist id="browsers">
+                <option value="shipped">
+                <option value="outForDelivery">
+                <option value="delivered">
+                <option value="cancelled">
+                <option value="Safari">
+              </datalist>
+
+        
      <br>
     <label>Reason for Cancelled Order</label>
-        <input type="text" name="User" ngModel/> <br/>
+        <input type="text" name="User"  ngModel/> <br/>
 
         <input type="submit" value="upadate status"/>
         

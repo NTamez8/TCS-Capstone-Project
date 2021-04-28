@@ -78,6 +78,18 @@ let updateProductQuantityById = (req,res,next)=>{
     }
 };
 
+let userUpdateProduct =  async (prodId,quant)=>{
+    let product = await ProductModel.findOne({_id:prodId});
+    product.quantity -= eval(quant);
+    product.save();
+}
+let userAddBackProduct =  async (prodId,quant)=>{
+    let product = await ProductModel.findOne({_id:prodId});
+    product.quantity += eval(quant);
+    product.save();
+}
+
+
 let deleteProductById = (req,res,next)=>{
     try{
         const product_id = req.body.product_id;
@@ -89,8 +101,6 @@ let deleteProductById = (req,res,next)=>{
                 }else{
                     res.json({message:"Product was not deleted."});
                 }
-            }else{
-                res.json({message:`Error during product deletion: ${error}`});
             }
         });
     }catch(tryError){
@@ -98,4 +108,4 @@ let deleteProductById = (req,res,next)=>{
     }
 };
 
-module.exports = {getProductById, getAllProducts, addProduct, updateProductQuantityById, deleteProductById};
+module.exports = {getProductById, getAllProducts, addProduct, updateProductQuantityById, deleteProductById,userUpdateProduct,userAddBackProduct};

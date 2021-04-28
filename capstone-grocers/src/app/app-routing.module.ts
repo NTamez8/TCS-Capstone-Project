@@ -38,6 +38,7 @@ import { SendRequestComponent } from 'src/app/Components/employee/send-request/s
 import { UnlockUsersComponent } from 'src/app/Components/employee/unlock-users/unlock-users.component';
 import { SignInComponent as EmpSignInComponent} from 'src/app/Components/employee/sign-in/sign-in.component';
 import { ProductManagementComponent } from 'src/app/Components/admin/product-management/product-management.component';
+import { EmployeeGuard } from './Guards/employee.guard';
 const routes: Routes = [
   {path:'',component:NoLoginComponent},
   {path:'user',component:UserOptionsComponent,children:[
@@ -61,7 +62,7 @@ const routes: Routes = [
   {path:"employee",children:[
     {path:"signIn",component:EmpSignInComponent}
   ]},
-  {path:"employeePanel",component:EmployeePanelComponent,children:[
+  {path:"employeePanel",component:EmployeePanelComponent,canActivate:[EmployeeGuard],canActivateChild:[EmployeeGuard],children:[
     {path:"editProfile",component:employeeEdit},
     {path:"orderStatus",component:OrderStatusComponent},
     {path:"sendRequest",component:SendRequestComponent},
