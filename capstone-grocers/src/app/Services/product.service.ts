@@ -48,6 +48,6 @@ export class ProductService {
 
   deleteProductById(product_id:String){
     let token = 'bearer ' + sessionStorage.getItem('adminToken');
-    return this.http.post<{token:string}>("http://localhost:8080/product/deleteProductById",{product_id},{headers:{'Authorization':token}});
+    return this.http.post<ProductMessage>("http://localhost:8080/product/deleteProductById",{product_id},{headers:{'Authorization':token}});
   };
 }

@@ -15,10 +15,23 @@ export class DeleteProductsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  async getAllProducts(){
+    //console.log("Getting products");
+    this.viewProductComponent.single = false;
+    await this.productService.getAllProducts().subscribe(result=>this.productService.currentProducts=result,error=>console.log(error));
+  }
+
   async deleteProduct(productRef:NgForm){
-    const formValues = productRef.value;
-    //console.log("Deleting Product");
-    await this.productService.deleteProductById(formValues.product_id).subscribe(data=>console.log(data.token));
-    this.viewProductComponent.getAllProducts();
+    try{
+      const formValues = productRef.value;
+      //console.log("Deleting Product");
+      await this.productService.deleteProductById(formValues.product_id as string).subscribe(data=>{
+        alert(data.message);
+        this.getAllProducts();
+      });
+      this.viewProductComponent.getAllProducts();
+    }catch(tryError){
+      alert(tryError);
+    }
   }
 }

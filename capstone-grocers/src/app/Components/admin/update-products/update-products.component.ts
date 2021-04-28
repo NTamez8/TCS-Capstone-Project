@@ -27,18 +27,17 @@ export class UpdateProductsComponent implements OnInit {
     //console.log(this.product_id);
   }
 
-  async updateProduct(){
+  updateProduct(){
     try{
       if(this.productService.productExists(this.product_id as String)){
         //const formValues = productRef.value;
         //console.log("Updating Product");
-        await this.productService.updateProduct(this.product_id,this.new_quantity).subscribe(data=>{alert(data.message)});
+        this.viewProductComponent.deleteProduct(this.product_id);
         // if(this.fromViewRequest){
         //   if(this.product_id == this.requestService.currentRequest[0].product_id && this.new_quantity == this.requestService.currentRequest[0].new_quantity){
         //     this.backToViewingRequests();
         //   }
         // }
-        this.viewProductComponent.getAllProducts();
       }else{
         alert("Please enter a valid Product ID!");
       }

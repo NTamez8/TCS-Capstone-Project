@@ -84,12 +84,13 @@ let deleteProductById = (req,res,next)=>{
         ProductModel.deleteOne({_id:product_id},(error,data)=>{
             if(!error){
                 if(data.deletedCount > 0){
-                    //res.write("Product was successfully deleted.");
+                    let response = {data:data,message:"Product deleted succesfully!"};
+                    res.json(response);
                 }else{
-                    //res.write("Product was not deleted.");
+                    res.json({message:"Product was not deleted."});
                 }
             }else{
-                //res.write(`Error during product deletion: ${error}`);
+                res.json({message:`Error during product deletion: ${error}`});
             }
         });
     }catch(tryError){

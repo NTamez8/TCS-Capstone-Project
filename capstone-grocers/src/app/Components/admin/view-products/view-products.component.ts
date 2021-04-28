@@ -44,7 +44,9 @@ export class ViewProductsComponent implements OnInit {
   };
 
   async deleteProduct(product:Product){
-    await this.productService.deleteProductById(product._id as string).subscribe(data=>console.log(data.token));
-    this.getAllProducts();
+    await this.productService.deleteProductById(product._id as string).subscribe(data=>{
+      alert(data.message);
+      this.getAllProducts();
+    });
   };
 }
