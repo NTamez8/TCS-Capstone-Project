@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { CanActivateChild, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, CanActivate } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { EmployeeService } from '../Services/employee.service';
+
+import { EmployeeService } from 'src/app/Services/employee.service';
 
 @Injectable({
   providedIn: 'root'

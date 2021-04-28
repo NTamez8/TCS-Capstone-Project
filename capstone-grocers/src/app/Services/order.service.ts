@@ -61,5 +61,8 @@ export class OrderService {
 getOrderStatus(status:any):Observable<Order[]>{
   return this.http.get<Order[]>("http://localhost:8080/order/getOrderstatus/"+status)
 }
+  viewOrderStatus(status:any):Observable<Order[]>{
+  return this.http.get<Order[]>("http://localhost:8080/order/viewOrderstatus/"+status)
+}
 
 }

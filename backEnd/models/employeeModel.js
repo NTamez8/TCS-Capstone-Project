@@ -10,7 +10,7 @@ let employee = new schema({
     e_password:String,          //must be auto-generated when employee is first added by the admin
     first_login:Boolean
 });
-//BORROWED FROM "userModel.js", thanks :) - Darren
+
 employee.methods.encryptPassword = async password =>{
   
     const salt = await bcrypt.genSalt(5);
@@ -20,9 +20,9 @@ employee.methods.encryptPassword = async password =>{
     return hash;
 };
 
-//BORROWED FROM "userModel.js", thanks :) - Darren
+
 employee.methods.validPassword = async function(candidatePassword){
-    console.log(candidatePassword);
+
     const result = await bcrypt.compare(candidatePassword,this.e_password);
     return result;
 };
