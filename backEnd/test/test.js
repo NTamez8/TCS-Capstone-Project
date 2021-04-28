@@ -8,7 +8,7 @@ let server = require('../index');
 let should = chai.should();
 chai.use(http);
 
-describe('Test',()=>{
+describe('Test',(adminDone)=>{
 
     describe('Admin',()=>{
 
@@ -195,12 +195,53 @@ describe('Test',()=>{
                 done();
             })
         })
+
+        adminDone();
        
     
     
-    }).afterAll(()=>{});
+    }).afterAll(async ()=>{
+
+        
+      await productModel.insertMany(
+            [
+                {
+                    name:"Watch",
+                    description:"a watch",
+                    price:150,
+                    quantity:10
+                },
+                {
+                    name:"Phone",
+                    description:"a phone",
+                    price:350,
+                    quantity:50
+                },
+                {
+                    name:"TV",
+                    description:"a TV",
+                    price:1500,
+                    quantity:5
+                },
+                {
+                    name:"Computer",
+                    description:"a computer",
+                    price:457.58,
+                    quantity:100
+                },
+                {
+                    name:"Calculator",
+                    description:"a caclulator",
+                    price:275,
+                    quantity:33
+                },
+            ]
+        )
+
+
+    });
     
-    describe('User',()=>{
+    describe('User',(userDone)=>{
         let userToken = '';
         it('Should sign up',done=>{
             let user = {
@@ -242,7 +283,138 @@ describe('Test',()=>{
                 done();
             })
         })
-    
+        it('Should add to cart',done=>{
+            
+            chai.request(server).post('/user/addItemstoCart').send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                    done();
+                }
+               
+                
+                
+                done();
+            })
+        })
+        it('Should add to cart',done=>{
+            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                    done();
+                }
+               
+                
+                
+                done();
+            })
+        })
+        it('Should add to cart',done=>{
+            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                    done();
+                }
+               
+                
+                
+                done();
+            })
+        })
+        it('Should have three cart product in cart',done=>{
+            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                    done();
+                }
+               
+                
+                
+                done();
+            })
+        })
+        it('Should remove from cart',done=>{
+            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                    done();
+                }
+               
+                
+                
+                done();
+            })
+        })
+        it('Should have one item in cart',done=>{
+            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                    done();
+                }
+               
+                
+                
+                done();
+            })
+        })
+        it('Should checkout out the cart',done=>{
+            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                    done();
+                }
+               
+                
+                
+                done();
+            })
+        })
+        it('Should have an order',done=>{
+            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                    done();
+                }
+               
+                
+                
+                done();
+            })
+        })
+        it('Should edit profile',done=>{
+            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                    done();
+                }
+               
+                
+                
+                done();
+            })
+        })
+        it('Should add funds',done=>{
+            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                    done();
+                }
+               
+                
+                
+                done();
+            })
+        })
+    userDone();
     
     
     })
@@ -251,9 +423,7 @@ describe('Test',()=>{
     //cleans up the test databases
 
     
-    employeeModel.deleteMany({},()=>{
-
-    })
+    employeeModel.deleteMany({},()=>{})
     productModel.deleteMany({},()=>{})
     userModel.deleteMany({},()=>{})
 
