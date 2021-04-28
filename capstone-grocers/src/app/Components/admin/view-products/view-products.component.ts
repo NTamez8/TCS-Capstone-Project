@@ -39,7 +39,7 @@ export class ViewProductsComponent implements OnInit {
       this.single = true;
       //console.log(this.productService)
     }else{
-      alert("Request does not exist. Please use a valid request ID!");
+      alert("Product does not exist!");
     }
   };
 
