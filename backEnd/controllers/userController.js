@@ -258,7 +258,7 @@ let updatestatusToUser=async(req,res)=>{
     })
 }
 
-let unlockLockUser=async(req,res)=>{
+let unlockLockUser=async(req,res,next)=>{
     try{
         let u_username = req.body.u_username;
         let locked = req.body.locked;
@@ -283,6 +283,13 @@ let unlockLockUser=async(req,res)=>{
                     res.send(`Error during User lock: ${{"user":u_username,error}}`);
                 }
             });
+        }
+    }
+    catch(err)
+    {
+        next(err)
+    }
+}
 let updateProfile=(req,res)=>{
     let u_username=req.body.user
     let address=req.body.address;
@@ -392,7 +399,9 @@ let orderstatusToUser=(req,res)=>{
     
 }
 
-module.exports = {signIn,signUp, selectItemsfromCart,unlockLockUser,addItemstoCart, checkoutCart,deleteItemsfromCart,updateProfile,updatePassword, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe ,checkFunds,editPassword,updateFunds}
+module.exports = {signIn,signUp, 
+    //selectItemsfromCart,
+    unlockLockUser,addItemstoCart, checkoutCart,deleteItemsfromCart,updateProfile,updatePassword, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe ,checkFunds,editPassword,updateFunds}
 
 
 

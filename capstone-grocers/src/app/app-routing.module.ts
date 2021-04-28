@@ -31,7 +31,7 @@ import { DeleteItemComponent } from './Components/user/delete-item/delete-item.c
 
 import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component'
 import { EditProfileComponent as employeeEdit } from './Components/employee/edit-profile/edit-profile.component';
-import { EditProfileComponent as userEdit } from './Components/user/edit-profile/edit-profile.component';
+import { updateProfileComponent as userEdit } from './Components/user/edit-profile/edit-profile.component';
 import { EmployeePanelComponent } from 'src/app/Components/employee/employee-panel/employee-panel.component';
 import { OrderStatusComponent } from 'src/app/Components/employee/order-status/order-status.component';
 import { SendRequestComponent } from 'src/app/Components/employee/send-request/send-request.component';
