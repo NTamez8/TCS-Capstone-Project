@@ -139,7 +139,8 @@ let getMe = async(req,res,next)=>
 
 
 // --------------------------------Adding changes to the Cart-----------------------------------//
-
+// this should take in the user_id and the product_id
+// it can get all the product information using the product_id instead of from the body
 let addItemstoCart = async (req, res, next) => {
     const product_id = req.body.product_id;
     const pname = req.body.name;

@@ -61,6 +61,7 @@ public getAllUsers():Observable<User[]>
 
 
   // ------------------------------------------Adding changes to cart-----------------------------------
+  //this may have to be modified to accept only the user_id and the product_id
   public addProductsToCartInfo(product: Product) {
     this.http.post("http://localhost:8080/user/addProductsToCartInfo",
       {product}).subscribe(result => console.log(result), error => console.log(error))

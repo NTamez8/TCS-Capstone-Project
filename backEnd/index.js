@@ -47,7 +47,7 @@ app.use('/employee',employeeRoutes);
 
 app.use('/order',orderRoutes);
 
-app.use('/product',multiPassport.authenticate('adminAuth'),productRoutes);
+app.use('/product',productRoutes);
 
 app.use('/request',requestRoutes);
 
