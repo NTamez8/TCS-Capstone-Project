@@ -1,126 +1,25 @@
 <hr/>
-<form #productRef="ngForm" (ngSubmit)="addProductCart(productRef.value)">
+
 <table border = "1">
     <tr>
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
         <th class="th-qty">Quantity</th>
+        <th>Quantity desired</th>
         <th>Add to Cart</th>
         
     </tr>
     
-    <tr *ngFor="let product of products" >
+    <tr *ngFor="let product of products; let cur = index" >
         <td>{{product.name}}</td>
         <td>{{product.description}}</td>
         <td>{{product.price}}</td>
         <td>{{product.quantity}}</td>
-        <td ><input type = "submit" value = "Buy" class = "btn btn-primary"/></td>
+        <td><select #SelectedQuant name = cur>
+            <option *ngFor='let _ of getCounter(product.quantity); let i = index' value='i'>{{i}}</option>
+        </select></td>
+        <td ><button (click)='addProductCart(product)'>Buy</button></td>
         
     </tr>
 </table>
-</form>
-<!-- --------------------------Dummy Page for shopping Cart----------------------------------------- -->
-<hr/>
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container bootdey">
-<div class="row bootstrap snippets">
-    <div class="col-lg-3 col-md-3 col-sm-12">
-        <!-- college jerseys -->
-        <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
-            <div class="no-padding">
-                <span class="title">College Jersey's on Sale!</span><br/> <br/>
-            </div>
-                <div class="thumbnail col-lg-12 col-md-12 col-sm-6 text-center">
-                    <a href="#" class="link-p" style="overflow: hidden; position: relative;">
-                        <img src="https://images.nittanyweb.com/scs/images/products/15/original/penn_state_long_sleeve_shirt_arching_over_lion_head_navy_nittany_lions_psu_302psu_p4958.jpg" alt="" width="300" height="300" >
-                    </a>
-                    <div class="caption prod-caption">
-                        <h4><a href="#">Penn State College T-Shirt</a></h4>
-                        <p>Penn State Long Sleeve Shirt Arching Over Lion Head Navy</p>
-                        <p>
-                            </p><div class="btn-group">
-                                <a href="#" class="btn btn-default">$ 28.96</a>
-                               <input type = "button" class="btn btn-primary" value = "Buy"/>
-                            </div>
-                        <p></p>
-                    </div>
-                </div>
-                <div class="thumbnail col-lg-12 col-md-12 col-sm-6 visible-sm text-center">
-                    <a href="#" class="link-p" style="overflow: hidden; position: relative;">
-                        <img src="https://media.kohlsimg.com/is/image/kohls/4177015?wid=1200&hei=1200&op_sharpen=1" width="300" height="300">
-                    </a>
-                    <div class="caption prod-caption">
-                        <h4><a href="#">Ohio State College T-Shirt</a></h4>
-                        <p>Men's Nike Scarlet Ohio State Buckeyes For O-HI-O Student T-Shirt</p>
-                        <p>
-                            </p><div class="btn-group">
-                                <a href="#" class="btn btn-default">$ 24.25</a>
-                                <input type = "button" class="btn btn-primary" value = "Buy"/>
-                            </div>
-                        <p></p>
-                    </div>
-                </div>
-                <div class="thumbnail col-lg-12 col-md-12 col-sm-6 text-center">
-                    <a href="#" class="link-p" style="overflow: hidden; position: relative;">
-                        <img src="https://cdn.shopify.com/s/files/1/1144/7988/products/3020_NA048744_CNA5676_CORNELL_RED_0aff5517-1973-4d40-9168-e7a20aa00989_1024x1024.jpg?v=1615343448" alt="" width="300" height="300" >
-                    </a>
-                    <div class="caption prod-caption">
-                        <h4><a href="#">Cornell College T-Shirt</a></h4>
-                        <p>Cornell Heritage Sweatshirt (Red)</p>
-                        <p>
-                            </p><div class="btn-group">
-                                <a href="#" class="btn btn-default">$ 58.96</a>
-                                <input type = "button" class="btn btn-primary" value = "Buy"/>
-                            </div>
-                        <p></p>
-                    </div>
-                </div>
-                <div class="thumbnail col-lg-12 col-md-12 col-sm-6 text-center">
-                    <a href="#" class="link-p" style="overflow: hidden; position: relative;">
-                        <img src="https://fanatics.frgimages.com/FFImage/thumb.aspx?i=/productimages/_2880000/altimages/ff_2880200alt1_full.jpg&w=900" alt="" width="300" height="300" >
-                    </a>
-                    <div class="caption prod-caption">
-                        <h4><a href="#">NYU College T-Shirt</a></h4>
-                        <p>Fanatics Branded NYU Violets Purple Basic Arch Expansion T-Shirt</p>
-                        <p>
-                            </p><div class="btn-group">
-                                <a href="#" class="btn btn-default">$ 48.96</a>
-                                <input type = "button" class="btn btn-primary" value = "Buy"/>
-                            </div>
-                        <p></p>
-                    </div>
-                </div>
-                <div class="thumbnail col-lg-12 col-md-12 col-sm-6 text-center">
-                    <a href="#" class="link-p" style="overflow: hidden; position: relative;">
-                        <img src="https://i5.walmartimages.com/asr/0b3ff342-c50e-4f8e-8017-016e8a81215b_1.1e6c832ab0fde941facf5e02c4f4e28e.jpeg?odnWidth=undefined&odnHeight=undefined&odnBg=ffffff" alt="" width="300" height="300" >
-                    </a>
-                    <div class="caption prod-caption">
-                        <h4><a href="#">HARVARD College T-Shirt</a></h4>
-                        <p>Harvard Shirt Long Sleeve T-Shirt Crewneck Gifts Law Womens Mens Apparel</p>
-                        <p>
-                            </p><div class="btn-group">
-                                <a href="#" class="btn btn-default">$ 55.96</a>
-                                <input type = "button" class="btn btn-primary" value = "Buy"/>
-                            </div>
-                        <p></p>
-                    </div>
-                </div>
-        </div>
-
-    </div>
-    <div class="clearfix visible-sm"></div>
-
-    
-</div>
-</div>
-<!--This is is a template
-    use something like
-    <div *ngfor='let product of productArray'>
-        //list out the product name and price and quantity in stock
-        //have a selector for the quantity you want and limit it to the stock
-        <button (click)='addProductCart(ProductID)'>Add product to cart<button>
-    </div>
-
-
--->
