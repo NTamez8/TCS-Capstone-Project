@@ -5,7 +5,7 @@ const {hasEmail,hasFirstName,hasLastName} = require('../validators/employeeValid
 const routes = express.Router();
 
 routes.get('/getAll',employeeController.getAll)
-
+routes.post('/signIn',employeeController.signIn);
 routes.post('/add',[adminAuth.authenticate('adminAuth'),hasFirstName,hasLastName,hasEmail],employeeController.addEmployee);
 
 routes.delete('/delete/:id',adminAuth.authenticate('adminAuth'),employeeController.deleteEmployee);
