@@ -88,7 +88,7 @@ let editPassword = async (req,res,next)=>{
             error.statusCode = 400;
             throw error;
         }
-        await emp.delete();
+        await emp.updateOne();
         res.send({"message":"edited"});
     }
     catch(err)
