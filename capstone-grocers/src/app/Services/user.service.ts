@@ -85,8 +85,10 @@ public getAllUsers():Observable<User[]>
     let token = 'bearer ' + sessionStorage.getItem('token');
     return this.http.get<{product:Product,quantity:number}[]>("http://localhost:8080/user/viewItemsfromCart",{headers:{'Authorization':token}});
   }
-  public checkoutCart(user:User){
-    return this.http.post('http://localhost:8080/user/checkoutCart/',user);
+  public checkoutCart(){
+    console.log('test');
+    let token = 'bearer ' + sessionStorage.getItem('token');
+    return this.http.get('http://localhost:8080/user/checkoutCart',{headers:{'Authorization':token}});
   }
 
   public unlockLockUser(userRef: any): any {

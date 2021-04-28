@@ -347,21 +347,23 @@ let checkoutCart = async(req,res,next)=>{
     try
     {
    
-        let user_id = req.body.user_id;
+       // let user_id = req.body.user_id;
         let userOrder = new Order();
-        let user = await User.findOne({_id:user_id});
+        //let user = await User.findOne({_id:user_id});
+        let user = await User.findOne({_id:req.user._id}).populate('currentCart.product');
         userOrder.cart = user.currentCart;
         userOrder.user_ID = user._id;
         userOrder.status="in progress";
         //let funds = await User.findById(userOrder.funds);
         //let cart = userOrder.currentCart;
         let total_amount = 0;
-        for(let i = 0; i < userOrder.cart.length; i++){
-                total_amount += cart[i].product.price * cart[i].quantity;
+        for(let i = 0; i < user.currentCart.length; i++){
+                total_amount +=  user.currentCart[i].product.price *  user.currentCart[i].quantity;
         }
         console.log(total_amount)
         if(user.funds >= total_amount){
         user.funds = user.funds - total_amount;
+        user.currentCart = []
         user.save();
         //get current date/time for userOrder.date_requested
         //then save the userOrder.

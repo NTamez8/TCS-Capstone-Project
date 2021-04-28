@@ -20,7 +20,7 @@ routes.post("/deleteItemsfromCart/:product_id",userController.deleteItemsfromCar
 routes.delete('/deleteItemsfromCart/:id',userAuth.authenticate('userAuth'),userController.deleteItemById);
 
 routes.get("/viewItemsfromCart",userAuth.authenticate('userAuth'),userController.viewItemsfromCart)
-routes.get("/checkoutCart",userController.checkoutCart)
+routes.get("/checkoutCart",userAuth.authenticate('userAuth'),userController.checkoutCart)
 
 routes.put('/updatestatusToUser',userController.updatestatusToUser)
 
