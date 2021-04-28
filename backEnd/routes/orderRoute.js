@@ -2,7 +2,7 @@ const express = require('express');
 const orderController = require('../controllers/orderController');
 const routes = express.Router();
 
-routes.get("/retriveOrderById/:oid",orderController.getOrderById)
+routes.get("/retriveOrderById/",orderController.getOrderById)
 routes.put("/updateOrderStatus",orderController.updateOrderByStatus)
 
 routes.get('/getOrdersByCust/:id',orderController.getOrdersByCust);

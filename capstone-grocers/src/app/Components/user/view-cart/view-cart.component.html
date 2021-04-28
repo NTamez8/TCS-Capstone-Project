@@ -1,18 +1,33 @@
-
-<div style="text-align:center;">
-    <button (click)="viewAllProducts()" class ="btn btn-primary">View Cart </button>
-    <table style="border:1px solid black;margin:auto;">
-        <!-- <thead>
-            <th>Product ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
-        </thead>
-        <tr *ngFor="let product of products">
-            <td>{{product._id}}</td>
-            <td>{{product.name}}</td>
-            <td>{{product.description}}</td>
-            <td>{{product.quantity}}</td>
-        </tr> -->
-    </table>
+<!-- Cart -->
+<div class="col-lg-9 col-md-9 col-sm-12">
+    <div class="col-lg-12 col-sm-12"><br/>
+        <h3 class="title">GROCERS CART</h3><br/><br/>
+    </div>
+    <div class="col-lg-12 col-sm-12 hero-feature">
+        <div class="table-responsive">
+            <table class="table table-bordered tbl-cart">
+                <thead>
+                    <tr>
+                        <td>Product Name</td>
+                        <td>Product Description</td>
+                        <td>Product Price</td>
+                        <td class="td-qty">Quantity</td>
+                        <td>Sub Total</td>
+                    </tr>
+                </thead>
+                <tr *ngFor="let cartItem of products">
+                    <td>{{cartItem.product.name}}</td>
+                    <td>{{cartItem.product.description}}</td>
+                    <td>{{cartItem.product.price}}</td>
+                    <td>{{cartItem.quantity}}</td>
+                    <td><button (click)='deleteProduct(cartItem.product._id)'>remove from cart</button></td>
+                </tr>
+                <tbody>
+                    
+            </table>
+        </div>
+      
+    </div>
 </div>
+<app-checkout></app-checkout>
+<!-- End Cart -->

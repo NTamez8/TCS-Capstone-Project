@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from 'src/app/Classes/product';
 import { User } from 'src/app/Classes/user';
 import { UserService } from 'src/app/Services/user.service';
 
@@ -8,15 +9,29 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./view-cart.component.css']
 })
 export class ViewCartComponent implements OnInit {
-  public products:Array<User> = [];
+  products: {product:Product,quantity:number}[] = [];
   constructor(private userServ:UserService) { }
 
   ngOnInit(): void {
+    this.viewAllProducts();
   }
 
   viewAllProducts(){
-    console.log("View products in Cart");
-    this.userServ.viewAllProductsinCart().subscribe(result=>this.products=result,error=>console.log(error));
+  
+    this.userServ.viewItemsfromCart().subscribe(result=>{
+     
+      this.products=result
+   },error=>console.log(error));
+  }
+
+  deleteProduct(id?:String)
+  {
+    if(id == null)
+    id = ''
+    this.userServ.deleteCartItemById(id).subscribe(data=>{
+      console.log(data);
+      this.viewAllProducts();
+    })
   }
 
 }

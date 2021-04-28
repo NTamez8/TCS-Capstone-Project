@@ -1,12 +1,9 @@
-<p>edit-profile works!</p>
 <div>
     <h2>Edit Password-Employee</h2>
     <!-- <button  (click)="updatePassword(passwordRef.value)" >
         Forgot Password</button> -->
     
     <form #passwordRef="ngForm" (ngSubmit)="updatePassword(passwordRef.value)">
-    <label>Email</label>
-    <input type ="text" name="email_address" ngModel><br/>
     <label>Password</label>
     <input type ="text" name="e_password" ngModel><br/>
     <input type ="submit" name="Forgot Password!!" [disabled] = '!passwordRef.valid'><input type="reset" value = "Clear"><br/>
@@ -15,3 +12,14 @@
 </div>
 
 
+<!-- <div>
+    <form #emp='ngForm' (ngSubmit)='submitDelete(emp.value)'>
+        <div class='form-group'>
+            <label>Employee to delete</label><select name='_id' class='form-control' ngModel>
+                <option *ngFor='let employee of employees' value="{{employee._id}}">{{employee.firstName}} {{employee.lastName}}</option>
+            </select>
+        </div>
+      
+        <input type="submit" value='delete'>
+    </form>
+</div> -->

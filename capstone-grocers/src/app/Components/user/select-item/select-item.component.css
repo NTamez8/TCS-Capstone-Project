@@ -1,0 +1,40 @@
+div{
+  text-align: center;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  
+  
+}
+
+table, th, td {
+  border: 1px solid black;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  box-sizing: border-box;    
+}
+  form{
+    display: inline-block;
+    border-radius: 20px;
+}
+
+input{
+    width: 100%;
+    padding: 8px 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;    
+  }
+
+  label{
+    text-align: right;
+    clear: both;
+    float:left;
+    margin-right:15px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+div{
+    text-align:center;
+    
+}

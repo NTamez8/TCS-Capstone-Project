@@ -2,6 +2,7 @@ const ticket = require('../models/ticketModel');
 const User = require('../models/userModel');
 let getDetailOfUser=(req,res)=>{
     // let u_username=req.params.u_username;     //passing through path param
+   // let user_ID=req.params.user._id;
     ticket.find({},(err,data)=>{
         if(!err){
             res.json(data);    //return array
@@ -9,9 +10,9 @@ let getDetailOfUser=(req,res)=>{
     })
 }
 
-let addTicketInfo = async (req,res)=>{
+let raiseTicket = async (req,res)=>{
 
-  
+  console.log(req.body);
     let user = await User.findOne({u_username:req.body.user});
 
 
@@ -32,4 +33,4 @@ let addTicketInfo = async (req,res)=>{
     })
   
 }
-module.exports = {getDetailOfUser, addTicketInfo}
+module.exports = {getDetailOfUser, raiseTicket}

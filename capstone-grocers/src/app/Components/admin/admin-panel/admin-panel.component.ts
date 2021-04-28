@@ -7,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPanelComponent implements OnInit {
 
+  currentAdmin:any;
   constructor() { }
 
   ngOnInit(): void {
+    //console.log(this.currentAdmin);
+    this.currentAdmin = sessionStorage.getItem('adminUser');
   }
 }

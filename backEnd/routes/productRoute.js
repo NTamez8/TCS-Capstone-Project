@@ -1,14 +1,14 @@
 const express = require('express');
 const productController = require('../controllers/productController');
-const adminAuth = require('../middleware/multiPassport')()
+const multiPassport = require('../middleware/multiPassport')()
 const routes = express.Router();
 
 routes.get("/getProductById/:product_id",productController.getProductById);
 routes.get("/getAllProducts",productController.getAllProducts);
 
-routes.post("/deleteProductById",productController.deleteProductById);
+routes.post("/deleteProductById",multiPassport.authenticate('adminAuth'),productController.deleteProductById);
 
-routes.post("/addProduct",productController.addProduct);
-routes.post("/updateProductQuantityById",productController.updateProductQuantityById);
+routes.post("/addProduct",multiPassport.authenticate('adminAuth'),productController.addProduct);
+routes.post("/updateProductQuantityById",multiPassport.authenticate('adminAuth'),productController.updateProductQuantityById);
 
 module.exports = routes;

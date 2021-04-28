@@ -25,15 +25,20 @@ import { UserOptionsComponent } from './Components/user/user-options/user-option
 import { SelectItemComponent } from './Components/user/select-item/select-item.component';
 import { ViewCartComponent } from './Components/user/view-cart/view-cart.component';
 import { ViewOrderStatusComponent } from './Components/user/view-order-status/view-order-status.component';
+
+import { CheckoutComponent } from './Components/user/checkout/checkout.component';
+import { DeleteItemComponent } from './Components/user/delete-item/delete-item.component';
+
 import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component'
 import { EditProfileComponent as employeeEdit } from './Components/employee/edit-profile/edit-profile.component';
-import { EditProfileComponent as userEdit } from './Components/user/edit-profile/edit-profile.component';
+import { updateProfileComponent as userEdit } from './Components/user/edit-profile/edit-profile.component';
 import { EmployeePanelComponent } from 'src/app/Components/employee/employee-panel/employee-panel.component';
 import { OrderStatusComponent } from 'src/app/Components/employee/order-status/order-status.component';
 import { SendRequestComponent } from 'src/app/Components/employee/send-request/send-request.component';
 import { UnlockUsersComponent } from 'src/app/Components/employee/unlock-users/unlock-users.component';
 import { SignInComponent as EmpSignInComponent} from 'src/app/Components/employee/sign-in/sign-in.component';
 import { ProductManagementComponent } from 'src/app/Components/admin/product-management/product-management.component';
+import { EmployeeGuard } from './Guards/employee.guard';
 const routes: Routes = [
   {path:'',component:NoLoginComponent},
   {path:'user',component:UserOptionsComponent,children:[
@@ -45,8 +50,11 @@ const routes: Routes = [
     //{path:'raiseTicket',component:}
   ]},
   {path:'userPanel',component:UserPanelComponent,canActivate:[UserGuard],canActivateChild:[UserGuard],children:[
-    {path:'select',component:SelectItemComponent},
+    {path:'selectItem',component:SelectItemComponent},
+    {path:'deleteItem',component:DeleteItemComponent},
     {path:'viewCart',component:ViewCartComponent},
+    {path:'checkout', component:CheckoutComponent},
+ 
     {path:'viewOrderStatus',component:ViewOrderStatusComponent},
     {path:'edit',component:userEdit}
 
@@ -54,7 +62,7 @@ const routes: Routes = [
   {path:"employee",children:[
     {path:"signIn",component:EmpSignInComponent}
   ]},
-  {path:"employeePanel",component:EmployeePanelComponent,children:[
+  {path:"employeePanel",component:EmployeePanelComponent,canActivate:[EmployeeGuard],canActivateChild:[EmployeeGuard],children:[
     {path:"editProfile",component:employeeEdit},
     {path:"orderStatus",component:OrderStatusComponent},
     {path:"sendRequest",component:SendRequestComponent},
@@ -72,10 +80,8 @@ const routes: Routes = [
     ]},
     {path:"viewRequests",component:ViewRequestsComponent}
   ]},
-  {path:"admin",children:[
-    {path:"signIn",component:AdminSignInComponent}
-  ]},
-  {path:'**',redirectTo:'',pathMatch:'full'}
+  {path:"admin/signIn",component:AdminSignInComponent},
+  {path:'**',redirectTo:'',pathMatch:'full'},
 ]
 
 

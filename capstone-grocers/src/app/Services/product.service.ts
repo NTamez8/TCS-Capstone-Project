@@ -13,13 +13,13 @@ export class ProductService {
   currentProducts:Array<Product>=[];
 
   getAllProducts():Observable<Product[]>{
-    let token = 'bearer ' + sessionStorage.getItem('adminToken');
-    return this.http.get<Product[]>("http://localhost:8080/product/getAllProducts",{headers:{'Authorization':token}});
+   // let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    return this.http.get<Product[]>("http://localhost:8080/product/getAllProducts");
   }
 
   getProductById(product_id:String):Observable<Product[]>{
-    let token = 'bearer ' + sessionStorage.getItem('adminToken');
-    return this.http.get<Product[]>("http://localhost:8080/product/getProductById/"+product_id,{headers:{'Authorization':token}});
+   // let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    return this.http.get<Product[]>("http://localhost:8080/product/getProductById/"+product_id);
   }
 
   addProduct(product:Product){

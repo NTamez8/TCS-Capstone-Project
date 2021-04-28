@@ -1,32 +1,46 @@
-<div class="text-center row" style="border:1px solid black;">
+<div class="row border border-dark p-1">
     <div class="col-10 m-auto">
         <form #productRef="ngForm" (ngSubmit)="getProductById(productRef)">
-            <h3>Product Viewing</h3><hr/>
-            <label>Product ID: </label><input type="text" name="product_id" id="product_id" required ngModel/><br>
-            <input type="submit" value="View Product" [disabled]="!productRef.valid" class="btn btn-primary"/>
-            <input type="reset" value="Clear" class="btn btn-secondary"/>
+            <h3 class="text-center">Product Viewing</h3><hr/>
+            <div class="form-group">
+                <label>Product ID</label>
+                <br/>
+                <input type="text" name="product_id" id="product_id" class="form-control" required ngModel/>
+            </div>
+            <div class="text-center">
+                <input type="submit" value="View Product" [disabled]="!productRef.valid" class="btn btn-primary m-1"/>
+                <input type="reset" value="Clear" class="btn btn-secondary m-1 ms-0"/>
+                <button class="btn btn-primary m-1 ms-0" (click)="getAllProducts()">View All Products</button>
+            </div>
         </form>
-        <button class="btn btn-primary" (click)="getAllProducts()">View All Products</button>
         <hr/>
-        <table style="border:1px solid black;margin:auto;">
-            <thead>
-                <th>Product ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Delete</th>
-            </thead>
-            <tr *ngFor="let product of productService.currentProducts">
-                <td>{{product._id}}</td>
-                <td>{{product.name}}</td>
-                <td>{{product.description}}</td>
-                <td>{{product.price}}</td>
-                <td>{{product.quantity}}</td>
-                <td>
-                    <button type="submit" class="btn btn-danger" value="X" (click)="deleteProduct(product)">X</button>
-                </td>
-            </tr>
-        </table>
+        <div class="col-11 m-auto text-center mw-100" style="overflow-y:auto;">
+            <table class="border border-dark table">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Order</th>
+                        <th scope="col">Product ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of productService.currentProducts;let pIndex=index;">
+                        <th scope="row">{{pIndex+1}}</th>
+                        <td>{{product._id}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.description}}</td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.quantity}}</td>
+                        <td>
+                            <button type="submit" class="btn btn-danger" value="X" (click)="deleteProduct(product)">X</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

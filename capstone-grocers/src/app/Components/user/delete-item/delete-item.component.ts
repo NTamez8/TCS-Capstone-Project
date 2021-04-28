@@ -13,8 +13,8 @@ export class DeleteItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  deleteProduct(product_id:any){
-    this.userServ.deleteProductfromCart(product_id).subscribe((result)=>{
+  deleteProduct(product_name:any){
+    this.userServ.deleteItemsfromCart(product_name).subscribe((result)=>{
       console.log(result)
     })
   }
