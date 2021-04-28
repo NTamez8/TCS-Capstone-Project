@@ -53,6 +53,51 @@ describe('Admin',()=>{
         })
     })
 
+    it('Should have one employee',done=>{
+        
+        chai.request(server).get('/employee/getAll').set('Authorization','bearer ' + adminToken).end((err,result)=>{
+            result.should.have.status(200);
+            result.body.should.have.length(1);
+            done();
+        })
+    })
+
+    it('Should not add employee without credentials',done=>{
+        let emp = {
+            firstName:"Dave",
+            lastName:"david",
+            email_address:"email@dave.com"
+        }
+        chai.request(server).post('/employee/add').send(emp).end((err,result)=>{
+            result.should.have.status(401);
+           
+            done();
+        })
+    })
+    it('Should have an employee',done=>{
+        
+        chai.request(server).get('/employee/getAll').set('Authorization','bearer ' + adminToken).end((err,result)=>{
+            result.should.have.status(200);
+            result.body.should.have.length(1);
+            done();
+        })
+    })
+
+    it('Should not delete employee without credentials',done=>{
+       
+        chai.request(server).delete('/employee/delete/'+empID).end((err,result)=>{
+            result.should.have.status(401);
+            done();
+        })
+    })
+    it('Should have an employee',done=>{
+        
+        chai.request(server).get('/employee/getAll').set('Authorization','bearer ' + adminToken).end((err,result)=>{
+            result.should.have.status(200);
+            result.body.should.have.length(1);
+            done();
+        })
+    })
  
     it('Should delete employee',done=>{
        
@@ -61,6 +106,16 @@ describe('Admin',()=>{
             done();
         })
     })
+
+    it('Should have an employee',done=>{
+        
+        chai.request(server).get('/employee/getAll').set('Authorization','bearer ' + adminToken).end((err,result)=>{
+            result.should.have.status(200);
+            result.body.should.have.length(0);
+            done();
+        })
+    })
+   
 
     it('Should add employee 2',done=>{
         let emp = {
@@ -97,7 +152,7 @@ describe('Admin',()=>{
             price:160,
             quantity:10
         };
-        chai.request(server).post('/product/addProduct').send(product).set('Authorization','bearer ' + adminToken).end((err,res)=>{
+        chai.request(server).post('/product/addProduct').send({product}).set('Authorization','bearer ' + adminToken).end((err,res)=>{
             res.should.have.status(200);
             done();
         })
@@ -142,6 +197,52 @@ describe('Admin',()=>{
         })
     })
    
+
+
+}).afterAll(()=>{});
+
+describe('User',()=>{
+    let userToken = '';
+    it('Should sign up',done=>{
+        let user = {
+            firstName:"test",
+            lastName:"person",
+            u_username:"test@person.com",
+            u_password:"1234",
+            address:'a place',
+            phone_number:'12345',
+            date_of_birth:new Date(Date.now())
+        }
+        chai.request(server).post('/user/signUp').send(user).end((err,result)=>{
+            if(err)
+            {
+                console.log(err);
+                done();
+            }
+            result.should.have.status(200);
+            userToken = result.body.token;
+            done();
+        })
+    })
+    it('Should sign in',done=>{
+        let singInInfo={
+            email:'test@person.com',
+            pass:'1234'
+        }
+        chai.request(server).post('/user/signIn').send(singInInfo).end((err,result)=>{
+            if(err)
+            {
+                console.log(err);
+                done();
+            }
+            result.should.have.status(200);
+            result.body.token.should.equal(token);
+            
+            
+            done();
+        })
+    })
+
 
 
 })
