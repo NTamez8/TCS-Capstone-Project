@@ -56,6 +56,12 @@ let updateProductQuantityById = (req,res)=>{
     });
 };
 
+let userUpdateProduct =  async (prodId,quant)=>{
+    let product = await ProductModel.findOne({_id:prodId});
+    product.quantity -= eval(quant);
+    product.save();
+}
+
 let deleteProductById = (req,res)=>{
     const product_id = req.body.product_id;
     ProductModel.deleteOne({_id:product_id},(error,data)=>{
@@ -71,4 +77,4 @@ let deleteProductById = (req,res)=>{
     });
 };
 
-module.exports = {getProductById, getAllProducts, addProduct, updateProductQuantityById, deleteProductById};
+module.exports = {getProductById, getAllProducts, addProduct, updateProductQuantityById, deleteProductById,userUpdateProduct};

@@ -1,4 +1,5 @@
 const Order = require('../models/orderModel');
+const ProductController = require('../controllers/productController')
 const User = require('../models/userModel');
 const validationHandler = require('../validators/validationHandler');
 const userConfig = require('../config/userConfig');
@@ -204,6 +205,7 @@ let addItemstoCart = async (req, res, next) => {
         {
             user.currentCart.push({product:product_ID,quantity})
         }
+        ProductController.userUpdateProduct(product_ID,quantity);
         await user.save();
         res.send({"message":"Success"})
     }
