@@ -7,13 +7,12 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./funds.component.css']
 })
 export class FundsComponent implements OnInit {
-
   constructor(public userService:UserService) { }
 
   ngOnInit(): void {
   }
   loadFunds(fundsRef:any){
-    this.userService.loadFunds(fundsRef).subscribe((res:any)=>{
+    this.userService.loadFunds(fundsRef.value).subscribe((res:any)=>{
       console.log(res);
       if(res.approved==true){
         console.log(fundsRef)

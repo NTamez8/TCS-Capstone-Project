@@ -1,10 +1,11 @@
 <div>
-    <table border="1">
-            <tr>
-                <th>order status</th>
-            </tr><!--
-            <tr *ngFor="let o of order">
-                    <td>{{o.status}}</td>
-            </tr>-->
-    </table>
+    <h2>Order Details</h2>
+
+     <form #vieworderRef="ngForm" (ngSubmit)="viewStatus(vieworderRef.value)">
+        <label>OrderId</label>
+        <input type="text" name="id" ngModel><br/>
+        <input type="submit" value="viewStatus "/>
+        
+     </form>
+    {{orderStatus}}
 </div>

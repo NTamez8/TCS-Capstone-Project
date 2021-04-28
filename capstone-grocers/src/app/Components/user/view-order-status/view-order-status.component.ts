@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {OrderService} from 'src/app/Services/order.service'
 
 
 @Component({
@@ -8,11 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewOrderStatusComponent implements OnInit {
 
-  constructor() { }
+  orderStatus: any;
+  constructor(public orderSer:OrderService) { }
 
-  ngOnInit(): void {
-    //this.orderSer.getOrderStatus().subscribe(result=>this.orderStatus=result);
-    
+   ngOnInit(): void {
   }
-
-}
+  viewStatus(vieworderRef:any){
+    console.log(vieworderRef)
+    this.orderSer.viewOrderStatus(vieworderRef).subscribe((result:any)=>{
+      this.orderStatus=result.Message;
+    })
+   }}

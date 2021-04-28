@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   Injectable
 } from '@angular/core';
@@ -11,6 +12,12 @@ import {
   Subscriber,
   Observable
 } from 'rxjs';
+=======
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Order} from '../Classes/order';
+import {Subscriber,Observable} from 'rxjs';
+>>>>>>> pruthvi
 
 @Injectable({
   providedIn: 'root'
@@ -60,6 +67,9 @@ export class OrderService {
 
 getOrderStatus(status:any):Observable<Order[]>{
   return this.http.get<Order[]>("http://localhost:8080/order/getOrderstatus/"+status)
+}
+  viewOrderStatus(status:any):Observable<Order[]>{
+  return this.http.get<Order[]>("http://localhost:8080/order/viewOrderstatus/"+status)
 }
 
 }

@@ -1,3 +1,4 @@
+
 const express = require('express');
 const userController = require('../controllers/userController');
 const {hasAddress,hasDoB,hasEmail,hasFirstName,hasLastName,hasPassword,hasPhoneNo} = require('../validators/userValidators') ;
