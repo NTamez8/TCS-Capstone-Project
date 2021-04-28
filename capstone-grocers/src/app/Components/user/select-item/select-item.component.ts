@@ -21,7 +21,9 @@ export class SelectItemComponent implements OnInit {
   
   addProductCart(productRef:any,quantityDesired:any){
    
-    this.userServ.addItemstoCart(productRef)
+    this.userServ.addItemstoCart(productRef,quantityDesired).subscribe(data=>{
+      console.log(data);
+    })
   }
 
   getCounter(i:number)

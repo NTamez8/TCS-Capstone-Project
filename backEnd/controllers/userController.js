@@ -140,15 +140,18 @@ let getMe = async(req,res,next)=>
 
 // --------------------------------Adding changes to the Cart-----------------------------------//
 let addItemstoCart = async (req, res, next) => {
+    /*
     const product_id = req.body.product_id;
     const pname = req.body.name;
     const description = req.body.description;
     const price = req.body.price;
     const quantity = req.body.quantity;
-    const user_id = req.body.user_id;
+    const desired = req.body.quantityDesired
+   // const user_id = req.body.user_id;
   
     try {
-      let userOrder = await User.findOne({_id:user_id});
+    //  let userOrder = await User.findOne({_id:user_id});
+    let userOrder = await User.findById(req.user);
       userCart = userOrder.currentCart;
   
       if (userCart) {
@@ -167,15 +170,46 @@ let addItemstoCart = async (req, res, next) => {
         return res.send(userOrder);
         // if the cart doesn't exist create a new cart for the user
       } else {
+          
         let new_Cart = await User.currentCart.create({
           quantity:Number,
           product:{type:schema.Types.ObjectId, ref:'Product'}
+         
         });
         return res.send(new_Cart);
       }
     } catch (err) {
       next(err);
       res.send("Error loading the page");
+    }*/
+    try
+    {
+        let wasFound = false;
+       // let user = User.findOne({_id:req.user});
+       let user = req.user;
+        let product_ID = req.body.product_ID
+      console.log(product_ID)
+        let quantity = req.body.quantityDesired;
+     
+        for(let x = 0; x < user.currentCart.length; x++)
+        {
+            if(user.currentCart[x].product == product_ID)
+            {
+                user.currentCart[x].quantity = quantity;
+                wasFound = true;
+                break;
+            }
+        }
+        if(!wasFound)
+        {
+            user.currentCart.push({product:product_ID,quantity})
+        }
+        await user.save();
+        res.send({"message":"Success"})
+    }
+    catch(err)
+    {
+        next(err);
     }
   };
 
@@ -193,17 +227,24 @@ let addItemstoCart = async (req, res, next) => {
     };
 
   let viewItemsfromCart = async(req,res)=> {
-        let userOrder= await User.findOne({_id:user_id});
+       // let userOrder= req.user;
+       //console.log(req.user);
+        let userOrder = await User.findOne({_id:req.user._id}).populate('currentCart.product');
+       // userOrder.currentCart.populate('Product').exec();
+        console.log(userOrder)
         let total_amount = 0;
-        for(let i = 0; i < userOrder.cart.length; i++){
-                total_amount += cart[i].product.price * cart[i].quantity;
+        
+        for(let i = 0; i < userOrder.currentCart.length; i++){
+                total_amount += userOrder.currentCart[i].product.price * userOrder.currentCart[i].quantity;
         }
         console.log(total_amount)
+        /*
         userOrder.currentCart.find({},(err,result)=> {
             if(!err){
                 res.json(result);
             }
-        })
+        })*/
+        res.send(userOrder.currentCart);
     
     }
 

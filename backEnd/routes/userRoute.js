@@ -14,9 +14,10 @@ routes.post('/signIn',userController.signIn);
 routes.get('/isValid',userAuth.authenticate('userAuth'),userController.isValid);
 
 //this will need to be changed to not use a route param
-routes.post("/addItemstoCart/:product_id",userController.addItemstoCart)
+//routes.post("/addItemstoCart/:product_id",userController.addItemstoCart)
+routes.post("/addItemstoCart",userAuth.authenticate('userAuth'),userController.addItemstoCart)
 routes.post("/deleteItemsfromCart/:product_id",userController.deleteItemsfromCart)
-routes.get("/viewItemsfromCart",userController.viewItemsfromCart)
+routes.get("/viewItemsfromCart",userAuth.authenticate('userAuth'),userController.viewItemsfromCart)
 routes.get("/checkoutCart",userController.checkoutCart)
 
 routes.put('/updatestatusToUser',userController.updatestatusToUser)
