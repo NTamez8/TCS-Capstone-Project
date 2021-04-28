@@ -42,10 +42,17 @@ export class OrderService {
   {
     return this.http.get<Order[]>('http://localhost:8080/order/getOrdersByCust/' + id);
   }
+  retriveOrderById():Observable<Order[]>{
+      return this.http.get<Order[]>("http://localhost:8080/order/retriveOrderById/")
+    }
 
-  retriveOrderById(id:any):Observable<Order[]>{
-    return this.http.get<Order[]>("http://localhost:8080/order/retriveOrderById/"+id)
-  }
+  // retriveOrderById(id:any):Observable<Order[]>{
+  //   return this.http.get<Order[]>("http://localhost:8080/order/retriveOrderById/"+id)
+  // }
+  // getDetailOfUser():Observable<Order[]>{
+  //   return this.http.get<Order[]>("http://localhost:8080/ticket/getDetailOfUser/")
+
+  // }
   updateOrderStatus(orderRef:any):any{
     return this.http.put("http://localhost:8080/order/updateOrderStatus",orderRef)
 
