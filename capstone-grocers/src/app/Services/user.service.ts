@@ -62,19 +62,18 @@ public getAllUsers():Observable<User[]>
 {
   return this.http.get<User>('http://localhost:8080/user/getMe');
 }
-  
 
   // ------------------------------------------Adding changes to cart-----------------------------------
   //this may have to be modified to accept only the user_id and the product
   
   public addItemstoCart(product: Product) {
-    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    let token = 'bearer ' + sessionStorage.getItem('userToken');
     return this.http.post<{token:string}>("http://localhost:8080/user/addItemstoCart",{product},{headers:{'Authorization':token}});
   }
 
-  public deleteItemsfromCart(product_id:String){
-    let token = 'bearer ' + sessionStorage.getItem('adminToken');
-    return this.http.post<{token:string}>("http://localhost:8080/user/deleteItemsfromCart",{product_id},{headers:{'Authorization':token}});
+  public deleteItemsfromCart(product:Product){
+    let token = 'bearer ' + sessionStorage.getItem('userToken');
+    return this.http.post<{token:string}>("http://localhost:8080/user/deleteItemsfromCart",{product},{headers:{'Authorization':token}});
   }
   public viewItemsfromCart():Observable<User[]>{
     return this.http.get<User[]>("http://localhost:8080/user/viewItemsfromCart");
