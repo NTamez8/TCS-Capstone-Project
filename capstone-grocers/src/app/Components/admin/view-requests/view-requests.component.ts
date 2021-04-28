@@ -65,18 +65,12 @@ export class ViewRequestsComponent implements OnInit {
             curComponent.getAllRequests();
           }
         },error=>console.log(error));
-      //if current product quantity is not the same as the request, 
-      //we need to update the quantity first
-      ////request.status="resolved";
-      // this.requestService.currentRequest = request;
-      // this.requestService.viewRequestURL = this.router.url.split("/")[2];
-      // this.router.navigateByUrl("/" + this.router.url.split("/")[1] + "/updateProducts");
     }else{
       alert("The request must be removed because the product ID no longer exists!\nNow will delete all requests with invalid product ID's.");
       let thisReference = this;
       this.requestService.currentRequests.forEach(
         function(request){
-          thisReference.deleteRequestForce(request)
+          thisReference.deleteRequestForce(request);
         });
     }
   };
