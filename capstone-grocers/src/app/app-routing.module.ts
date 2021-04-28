@@ -79,10 +79,8 @@ const routes: Routes = [
     ]},
     {path:"viewRequests",component:ViewRequestsComponent}
   ]},
-  {path:"admin",children:[
-    {path:"signIn",component:AdminSignInComponent}
-  ]},
-  {path:'**',redirectTo:'',pathMatch:'full'}
+  {path:"admin/signIn",component:AdminSignInComponent},
+  {path:'**',redirectTo:'',pathMatch:'full'},
 ]
 
 
