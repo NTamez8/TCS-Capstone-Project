@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class EditProfileComponent implements OnInit {
 
   constructor(public editSer:EmployeeService) { }
-  employees: Employee[] = [];
+//  employees: Employee[] = [];
   updateMsg?:string;
   ngOnInit(): void {
   }
@@ -25,10 +25,11 @@ export class EditProfileComponent implements OnInit {
 
 
   updatePassword(emppasswordRef: any) {
-    if (emppasswordRef._id != '') {
-      this.editSer.editPassword(emppasswordRef._id).subscribe(data => {
+    if (emppasswordRef.e_password != '') {
+    
+      this.editSer.editPassword(emppasswordRef).subscribe(data => {
         
-        this.editSer.getAllEmployees().subscribe(data => this.employees = data);
+       // this.editSer.getAllEmployees().subscribe(data => this.employees = data);
       });
     }
   }
