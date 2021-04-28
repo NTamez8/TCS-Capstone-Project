@@ -19,12 +19,15 @@ export class SelectItemComponent implements OnInit {
   //the current user_id can be gotten from the token by using the getMe route for a user.
   // you will need to implement the service to do this
   
-  addProductCart(productRef:any){
-    
-    console.log(productRef)
+  addProductCart(productRef:any,quantityDesired:any){
+   
     this.userServ.addItemstoCart(productRef)
   }
 
+  getCounter(i:number)
+  {
+    return new Array(i);
+  }
   
 
   

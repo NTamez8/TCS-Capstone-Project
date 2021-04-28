@@ -139,8 +139,6 @@ let getMe = async(req,res,next)=>
 
 
 // --------------------------------Adding changes to the Cart-----------------------------------//
-
-
 let addItemstoCart = async (req, res, next) => {
     const product_id = req.body.product_id;
     const pname = req.body.name;
@@ -155,7 +153,7 @@ let addItemstoCart = async (req, res, next) => {
   
       if (userCart) {
         //if the cart is existing for the user
-        let item_idx = userCart.product.findIndex(p => p.product_id == product_id);
+        let item_idx = userCart.product.findIndex(p => p.pname == pname);
         // if product is existing in the cart update the quantity
         if (item_idx > -1) {
           let product_item = userCart.product[item_idx];
@@ -184,7 +182,7 @@ let addItemstoCart = async (req, res, next) => {
   let deleteItemsfromCart = async (req, res, next) => {
     let userOrder= await User.findOne({_id:user_id});
     userOrder.currentCart.updateMany({user_id  : req.params.user_id }, 
-        { $pull: { product : {_id: req.params.product_id }}}, {multi: true}, (err, result)=> {
+        { $pull: { product : {pname: req.params.pname }}}, {multi: true}, (err, result)=> {
             if (!err){
                 res.send("Items in cart deleted successfully" + result)
             } 
@@ -196,6 +194,11 @@ let addItemstoCart = async (req, res, next) => {
 
   let viewItemsfromCart = async(req,res)=> {
         let userOrder= await User.findOne({_id:user_id});
+        let total_amount = 0;
+        for(let i = 0; i < userOrder.cart.length; i++){
+                total_amount += cart[i].product.price * cart[i].quantity;
+        }
+        console.log(total_amount)
         userOrder.currentCart.find({},(err,result)=> {
             if(!err){
                 res.json(result);
@@ -220,6 +223,7 @@ let checkoutCart = async(req,res,next)=>{
         for(let i = 0; i < userOrder.cart.length; i++){
                 total_amount += cart[i].product.price * cart[i].quantity;
         }
+        console.log(total_amount)
         if(user.funds >= total_amount){
         user.funds = user.funds - total_amount;
         user.save();
