@@ -1,3 +1,27 @@
+<hr/>
+<form #productRef="ngForm" (ngSubmit)="addProductCart(productRef.value)">
+<table border = "1">
+    <tr>
+        <th>Product ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Add to Cart</th>
+    </tr>
+    <tr *ngFor="let product of products" >
+        <td>{{product._id}}</td>
+        <td>{{product.name}}</td>
+        <td>{{product.description}}</td>
+        <td>{{product.price}}</td>
+        <td>{{product.quantity}}</td>
+        <td ><input type = "submit" value = "Add to Cart"/></td>
+        
+    </tr>
+</table>
+</form>
+<!-- --------------------------Dummy Page for shopping Cart----------------------------------------- -->
+<hr/>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container bootdey">
 <div class="row bootstrap snippets">
