@@ -23,13 +23,17 @@ export class DeleteProductsComponent implements OnInit {
 
   async deleteProduct(productRef:NgForm){
     try{
-      const formValues = productRef.value;
+      if(this.productService.productExists(productRef.value.product_id as String)){
+        const formValues = productRef.value;
       //console.log("Deleting Product");
       await this.productService.deleteProductById(formValues.product_id as string).subscribe(data=>{
         alert(data.message);
         this.getAllProducts();
       });
       this.viewProductComponent.getAllProducts();
+    }else{
+      alert("Please enter a valid Product ID!");
+    }
     }catch(tryError){
       alert(tryError);
     }
