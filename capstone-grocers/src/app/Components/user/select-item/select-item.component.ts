@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from 'src/app/Classes/product';
 import { ProductService } from 'src/app/Services/product.service';
 import { UserService } from 'src/app/Services/user.service';
 
@@ -8,20 +9,16 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./select-item.component.css']
 })
 export class SelectItemComponent implements OnInit {
-  
-
-  //create an array to hold the product you get from productServ
-
-  constructor(private userServ:UserService,private productServ:ProductService) { }
-
+  constructor(private userServ:UserService, public productSer:ProductService) { }
+  products?:Array<Product>
   ngOnInit(): void {
-    // add call to productServ.getAllProducts()
+    this.productSer.getAllProducts().subscribe((result: any)=>this.products = result);
   }
 
-  //this should be called by the button for add to cart and it should send the product_id and the current user_id
+// you will need the current user id
   //the current user_id can be gotten from the token by using the getMe route for a user.
-  //there is no service that does this so you will have to implement. the token is saved is sessionStorage under token
-  //
+  // you will need to implement the service to do this
+  
   addProductCart(productRef:any){
     console.log(productRef)
     this.userServ.addProductsToCartInfo(productRef)
