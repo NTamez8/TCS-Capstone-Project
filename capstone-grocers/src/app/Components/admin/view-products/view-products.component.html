@@ -14,25 +14,33 @@
             </div>
         </form>
         <hr/>
-        <table class="border border-dark m-auto">
-            <thead>
-                <th>Product ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Delete</th>
-            </thead>
-            <tr *ngFor="let product of productService.currentProducts">
-                <td>{{product._id}}</td>
-                <td>{{product.name}}</td>
-                <td>{{product.description}}</td>
-                <td>{{product.price}}</td>
-                <td>{{product.quantity}}</td>
-                <td>
-                    <button type="submit" class="btn btn-danger" value="X" (click)="deleteProduct(product)">X</button>
-                </td>
-            </tr>
-        </table>
+        <div class="col-11 m-auto text-center mw-100" style="overflow-y:auto;">
+            <table class="border border-dark table">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Order</th>
+                        <th scope="col">Product ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of productService.currentProducts;let pIndex=index;">
+                        <th scope="row">{{pIndex+1}}</th>
+                        <td>{{product._id}}</td>
+                        <td>{{product.name}}</td>
+                        <td>{{product.description}}</td>
+                        <td>{{product.price}}</td>
+                        <td>{{product.quantity}}</td>
+                        <td>
+                            <button type="submit" class="btn btn-danger" value="X" (click)="deleteProduct(product)">X</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

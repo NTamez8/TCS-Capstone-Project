@@ -10,7 +10,7 @@ let getRequestById = async(req,res)=>{
             res.send(`Error during request retrieval: ${error}`);
         };
     });
-}
+};
 
 let getAllRequests = async(req,res)=>{
     //console.log("Retrieving Requests");
@@ -46,7 +46,7 @@ let sendRequest=(req,res)=>{
         }
 
     
-    })
+    });
 
 }
 
