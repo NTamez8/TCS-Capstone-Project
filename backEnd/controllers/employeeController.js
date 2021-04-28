@@ -63,7 +63,7 @@ let addEmployee = async (req,res,next) =>
 
         
 
-       console.log(req.body);
+       
 
         newEmp.firstName = req.body.firstName;
         newEmp.lastName = req.body.lastName;
@@ -73,7 +73,6 @@ let addEmployee = async (req,res,next) =>
 
         newEmp.e_password = await newEmp.encryptPassword('1234');
         newEmp.first_login = true;
-     
        await newEmp.save();
         res.send({"message":"Success",newEmp});
     }
