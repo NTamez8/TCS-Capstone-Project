@@ -13,6 +13,7 @@ export class SelectItemComponent implements OnInit {
   products?:Array<Product>
   ngOnInit(): void {
     this.productSer.getAllProducts().subscribe((result: any)=>this.products = result);
+    this.userServ.getMe().subscribe((result: any)=>this.products = result);
   }
 
 // you will need the current user id
@@ -20,7 +21,6 @@ export class SelectItemComponent implements OnInit {
   // you will need to implement the service to do this
   
   addProductCart(productRef:any){
-    
     console.log(productRef)
     this.userServ.addItemstoCart(productRef)
   }

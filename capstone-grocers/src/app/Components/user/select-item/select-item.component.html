@@ -1,13 +1,14 @@
 <hr/>
+<div>
 <form #productRef="ngForm" (ngSubmit)="addProductCart(productRef.value)">
+    <h3>Select Items to Cart</h3><hr/>
 <table border = "1">
     <tr>
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
         <th class="th-qty">Quantity</th>
-        <th>Add to Cart</th>
-        
+        <th>Add to Cart</th>     
     </tr>
     
     <tr *ngFor="let product of products" >
@@ -15,11 +16,11 @@
         <td>{{product.description}}</td>
         <td>{{product.price}}</td>
         <td>{{product.quantity}}</td>
-        <td ><input type = "submit" value = "Buy" class = "btn btn-primary"/></td>
-        
+        <td ><input type = "submit" value = "Buy" class = "btn btn-primary"/></td>  
     </tr>
 </table>
 </form>
+</div>
 <!-- --------------------------Dummy Page for shopping Cart----------------------------------------- -->
 <hr/>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
