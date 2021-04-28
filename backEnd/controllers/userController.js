@@ -360,7 +360,7 @@ let checkoutCart = async(req,res,next)=>{
         for(let i = 0; i < user.currentCart.length; i++){
                 total_amount +=  user.currentCart[i].product.price *  user.currentCart[i].quantity;
         }
-        console.log(total_amount)
+       
         if(user.funds >= total_amount){
         user.funds = user.funds - total_amount;
         user.currentCart = []
