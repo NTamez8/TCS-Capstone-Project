@@ -2,18 +2,17 @@
 <form #productRef="ngForm" (ngSubmit)="addProductCart(productRef.value)">
 <table border = "1">
     <tr>
-        <th>Product ID</th>
         <th>Name</th>
         <th>Description</th>
         <th>Price</th>
-        <th>Quantity</th>
+        <th class="th-qty">Quantity</th>
         <th>Add to Cart</th>
+        
     </tr>
     <!--The _id is not needed in the table and they need an option to select how many they want
     have a selector for the quantity you want and limit it to the stock
     -->
     <tr *ngFor="let product of products" >
-        <td>{{product._id}}</td>
         <td>{{product.name}}</td>
         <td>{{product.description}}</td>
         <td>{{product.price}}</td>

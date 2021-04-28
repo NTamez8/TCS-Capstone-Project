@@ -16,7 +16,7 @@ export class ViewCartComponent implements OnInit {
 
   viewAllProducts(){
     console.log("View products in Cart");
-    this.userServ.viewAllProductsinCart().subscribe(result=>this.products=result,error=>console.log(error));
+    this.userServ.viewItemsfromCart().subscribe(result=>this.products=result,error=>console.log(error));
   }
 
 }

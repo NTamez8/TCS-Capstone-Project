@@ -14,7 +14,7 @@ export class DeleteItemComponent implements OnInit {
   }
 
   deleteProduct(product_name:any){
-    this.userServ.deleteProductfromCart(product_name).subscribe((result)=>{
+    this.userServ.deleteItemsfromCart(product_name).subscribe((result)=>{
       console.log(result)
     })
   }

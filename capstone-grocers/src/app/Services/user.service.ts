@@ -5,6 +5,7 @@ import {
   Injectable
 } from '@angular/core';
 import {
+  BehaviorSubject,
   Observable
 } from 'rxjs';
 import { Product } from '../Classes/product';
@@ -18,6 +19,7 @@ import {
 export class UserService {
 
   constructor(private http: HttpClient) {}
+  private currentUser = new BehaviorSubject<any>(null);
 
 public getAllUsers():Observable<User[]>
 {
@@ -30,13 +32,11 @@ public getAllUsers():Observable<User[]>
       token: string
     } > ('http://localhost:8080/user/signUp', user);
   }
-  public signIn(email: string, pass: string) {
-    return this.http.post < {
-      token: string
-    } > ('http://localhost:8080/user/signIn', {
+  public signIn(email: string, pass: string) {return this.http.post < {token: string} > ('http://localhost:8080/user/signIn', {
       email,
       pass
     });
+  
   }
   public validate(token: string): Promise < boolean > {
     return new Promise < boolean > ((resolve, reject) => {
@@ -58,24 +58,28 @@ public getAllUsers():Observable<User[]>
 
     })
   }
-
+  public getMe():Observable<User>
+{
+  return this.http.get<User>('http://localhost:8080/user/getMe');
+}
+  
 
   // ------------------------------------------Adding changes to cart-----------------------------------
   //this may have to be modified to accept only the user_id and the product
   
-  public addProductsToCartInfo(product: Product) {
-    this.http.post("http://localhost:8080/user/addProductsToCartInfo",
-      {product}).subscribe(result => console.log(result), error => console.log(error))
+  public addItemstoCart(product: Product) {
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    return this.http.post<{token:string}>("http://localhost:8080/user/addItemstoCart",{product},{headers:{'Authorization':token}});
   }
 
-  public deleteProductfromCart(product_id:String){
-    return this.http.delete<{token:string}>("http://localhost:8080/user/deleteProductfromCart/"+product_id);
+  public deleteItemsfromCart(product_id:String){
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    return this.http.post<{token:string}>("http://localhost:8080/user/deleteItemsfromCart",{product_id},{headers:{'Authorization':token}});
   }
-  
-  public viewAllProductsinCart():Observable<User[]>{
-    return this.http.get<User[]>("http://localhost:8080/user/viewAllProductsinCart");
+  public viewItemsfromCart():Observable<User[]>{
+    return this.http.get<User[]>("http://localhost:8080/user/viewItemsfromCart");
   }
-  public viewCheckoutCart(user:User){
+  public checkoutCart(user:User){
     return this.http.post('http://localhost:8080/user/checkoutCart/',user);
   }
 

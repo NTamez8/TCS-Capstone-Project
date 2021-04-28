@@ -20,8 +20,9 @@ export class SelectItemComponent implements OnInit {
   // you will need to implement the service to do this
   
   addProductCart(productRef:any){
+    
     console.log(productRef)
-    this.userServ.addProductsToCartInfo(productRef)
+    this.userServ.addItemstoCart(productRef)
   }
 
   

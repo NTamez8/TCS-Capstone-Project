@@ -10,7 +10,7 @@ let getDetailOfUser=(req,res)=>{
     })
 }
 
-let addTicketInfo = async (req,res)=>{
+let raiseTicket = async (req,res)=>{
 
   console.log(req.body);
     let user = await User.findOne({u_username:req.body.user});
@@ -33,4 +33,4 @@ let addTicketInfo = async (req,res)=>{
     })
   
 }
-module.exports = {getDetailOfUser, addTicketInfo}
+module.exports = {getDetailOfUser, raiseTicket}
