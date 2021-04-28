@@ -14,12 +14,12 @@
         <label>Status</label>
         <input list="browsers" name="status"  ngModel><br/>
        
-            <datalist id="browsers" ng-model>
+            <select id="browsers" ng-model>
             <option  value="shipped">Shipped</option>
             <option value="OutForDelivery">Out For OutForDelivery</option>
             <option value="delivered">Delivered</option>
           <option value="cancelled">cancelled</option>
-        </datalist>
+            </select>
      <br>
     <label>Reason for Cancelled Order</label>
         <input type="text" name="User" ngModel/> <br/>
