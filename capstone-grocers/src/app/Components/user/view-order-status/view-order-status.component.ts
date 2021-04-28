@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-view-order-status',
   templateUrl: './view-order-status.component.html',
@@ -11,6 +12,7 @@ export class ViewOrderStatusComponent implements OnInit {
 
   ngOnInit(): void {
     //this.orderSer.getOrderStatus().subscribe(result=>this.orderStatus=result);
+    
   }
 
 }

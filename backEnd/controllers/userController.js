@@ -283,10 +283,38 @@ let unlockLockUser=async(req,res)=>{
                     res.send(`Error during User lock: ${{"user":u_username,error}}`);
                 }
             });
+let updateProfile=(req,res)=>{
+    let u_username=req.body.user
+    let address=req.body.address;
+    let date_of_birth=req.body.date_of_birth;
+    let phone_number=req.body.phone_number;
+    user.updateMany({u_username:u_username},{$set:{address:address,date_of_birth:date_of_birth,phone_number:phone_number}},(err,result)=>{
+        if(!err){
+            if(result.nModified>0){
+            res.send("Profile updated succesfully"+result)
+            }
+            else{
+                res.send("profile is not updated successfully")
+            }
         }
-    }catch(tryError){
-        res.send(`Error during User unlock/lock: ${tryError}`);
-    }
+    })
+}
+let updatePassword=(req,res)=>{
+    let u_username=req.body.u_username;
+    let u_password=req.body.u_password
+    user.updateMany({u_username:u_username},{$set:{u_password:u_password}},(err,result)=>{
+        if(!err){
+            if(result.nModified>0){
+            res.send("Password updated succesfully"+result)
+            }
+            else{
+                res.send("Email is not available")
+            }
+        }
+        else{
+            res.send("Error  "+err);
+        }
+    })
 }
 
 let updateFunds =(req,res) =>{
@@ -364,7 +392,7 @@ let orderstatusToUser=(req,res)=>{
     
 }
 
-module.exports = {signIn,signUp, unlockLockUser,addItemstoCart, checkoutCart,deleteItemsfromCart, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe ,checkFunds,editPassword,updateFunds}
+module.exports = {signIn,signUp, selectItemsfromCart,unlockLockUser,addItemstoCart, checkoutCart,deleteItemsfromCart,updateProfile,updatePassword, isValid,viewItemsfromCart,updatestatusToUser,orderstatusToUser,getAll,getMe ,checkFunds,editPassword,updateFunds}
 
 
 
