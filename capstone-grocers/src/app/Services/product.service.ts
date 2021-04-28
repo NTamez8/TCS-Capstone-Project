@@ -10,23 +10,30 @@ export class ProductService {
 
   constructor(private http:HttpClient) { }
 
+  currentProducts:Array<Product>=[];
+
   getAllProducts():Observable<Product[]>{
-    return this.http.get<Product[]>("http://localhost:8080/product/getAllProducts");
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    return this.http.get<Product[]>("http://localhost:8080/product/getAllProducts",{headers:{'Authorization':token}});
   }
 
   getProductById(product_id:String):Observable<Product[]>{
-    return this.http.get<Product[]>("http://localhost:8080/product/getProductById/"+product_id);
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    return this.http.get<Product[]>("http://localhost:8080/product/getProductById/"+product_id,{headers:{'Authorization':token}});
   }
 
   addProduct(product:Product){
-    return this.http.post<{token:string}>("http://localhost:8080/product/addProduct",{product});
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    return this.http.post<{token:string}>("http://localhost:8080/product/addProduct",{product},{headers:{'Authorization':token}});
   }
 
   updateProduct(product_id:String,new_quantity:Number){
-    return this.http.post<{token:string}>("http://localhost:8080/product/updateProductQuantityById",{product_id,new_quantity});
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    return this.http.post<{token:string}>("http://localhost:8080/product/updateProductQuantityById",{product_id,new_quantity},{headers:{'Authorization':token}});
   }
 
   deleteProductById(product_id:String){
-    return this.http.post<{token:string}>("http://localhost:8080/product/deleteProductById",{product_id});
+    let token = 'bearer ' + sessionStorage.getItem('adminToken');
+    return this.http.post<{token:string}>("http://localhost:8080/product/deleteProductById",{product_id},{headers:{'Authorization':token}});
   }
 }

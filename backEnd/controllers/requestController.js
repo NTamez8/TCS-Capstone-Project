@@ -1,5 +1,17 @@
 const request = require('../models/requestModel');
 
+let getRequestById = async(req,res)=>{
+    //console.log(req.params.request_id);
+    await request.find({_id:req.params.request_id},(error,data)=>{
+        if(!error){
+            //console.log(data);
+            res.json(data);
+        }else{
+            res.send(`Error during request retrieval: ${error}`);
+        };
+    });
+};
+
 let getAllRequests = async(req,res)=>{
     //console.log("Retrieving Requests");
     await request.find({},(error,data)=>{
@@ -13,20 +25,44 @@ let getAllRequests = async(req,res)=>{
 
 let sendRequest=(req,res)=>{
     let productdetails = new request({
-        product_id:req.body.pid,
-        e_username:req.body.uname,
-        new_quantity:req.body.nquantity
+        product_id:req.body.product_id,
+        e_user:req.body.e_username,
+        new_quantity:req.body.new_quantity,
+        status:'',
+        datetime_requested:Date.now(),
+        datetime_resolved:null
         });
     productdetails.save((err,result)=>{
         if(!err){
-            res.send("request send  successfully"+result)
+            // res.send("request send  successfully"+result)
+            //  res.json({"msg":"Record Stored successfully"})
+            // commented out sending back json instead
+           // res.send({"msg":"request send  successfully"+result})
+           res.send("request send  successfully"+result)
             //res.json("msg":"Record Stored successfully")
         }else{
-            res.send("request Didn't send ,check again"+err)
+           // res.send({"msg":"request Didn't send ,check again"+err})
+           res.send("request Didn't send ,check again"+err)
         }
 
     
-    })
+    });
 
 }
-module.exports = {getAllRequests, sendRequest}
+
+let resolveRequest = async(req,res)=>{
+
+    await request.updateOne({_id:req.body.request_id},{$set:{status:"resolved",datetime_resolved:Date.now()}},(error,data)=>{
+        if(!error){
+            if(data.modifiedCount>0){
+                res.send("Request successfully resolved!");
+            }else{
+                res.send("Request was not able to be resolved");
+            }
+        }else{
+            res.send(`Error during request resolving: ${error}`);
+        }
+    });
+};
+
+module.exports = {getRequestById, getAllRequests, sendRequest, resolveRequest};

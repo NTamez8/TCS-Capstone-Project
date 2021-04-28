@@ -1,20 +1,12 @@
+
 <nav class="navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
   
         <div class='row'>
-            <div class="col-11">
+            <div class="col-9">
                 <ul class="navbar-nav justify-content-begin">
                     <li class="nav-item">
-                        <a routerLink='addProducts' class="nav-link ">Add Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a routerLink='viewProducts' class="nav-link ">View Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a routerLink='updateProducts' class="nav-link ">Update Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a routerLink='deleteProducts' class="nav-link ">Delete Products</a>
+                        <a routerLink='productManagement' class="nav-link ">Product Management</a>
                     </li>
                     <li class="nav-item">
                         <a routerLink='viewRequests' class="nav-link ">View Requests</a>
@@ -31,8 +23,11 @@
                 </ul>
             </div>
 
-            <div class="col-1"> 
+            <div class="col-3"> 
                 <ul class= 'navbar-nav justify-content-end'>
+                    <li class='nav-item' *ngIf="currentAdmin">
+                        <label class='nav-link'>Signed in as: {{currentAdmin}}</label>
+                    </li>
                     <li class='nav-item'>
                         <app-sign-out></app-sign-out>
                     </li>

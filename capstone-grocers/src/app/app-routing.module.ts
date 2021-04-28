@@ -31,12 +31,13 @@ import { DeleteItemComponent } from './Components/user/delete-item/delete-item.c
 
 import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component'
 import { EditProfileComponent as employeeEdit } from './Components/employee/edit-profile/edit-profile.component';
-import { EditProfileComponent as userEdit } from './Components/user/edit-profile/edit-profile.component';
+import { updateProfileComponent as userEdit } from './Components/user/edit-profile/edit-profile.component';
 import { EmployeePanelComponent } from 'src/app/Components/employee/employee-panel/employee-panel.component';
 import { OrderStatusComponent } from 'src/app/Components/employee/order-status/order-status.component';
 import { SendRequestComponent } from 'src/app/Components/employee/send-request/send-request.component';
 import { UnlockUsersComponent } from 'src/app/Components/employee/unlock-users/unlock-users.component';
 import { SignInComponent as EmpSignInComponent} from 'src/app/Components/employee/sign-in/sign-in.component';
+import { ProductManagementComponent } from 'src/app/Components/admin/product-management/product-management.component';
 const routes: Routes = [
   {path:'',component:NoLoginComponent},
   {path:'user',component:UserOptionsComponent,children:[
@@ -70,16 +71,16 @@ const routes: Routes = [
     {path:'addEmployee',component:AddEmployeeComponent},
     {path:'deleteEmployee',component:DeleteEmployeeComponent},
     {path:'generateReport',component:ReportComponent},
-    {path:"addProducts",component:AddProductsComponent},
-    {path:"viewProducts",component:ViewProductsComponent},
-    {path:"updateProducts",component:UpdateProductsComponent},
-    {path:"deleteProducts",component:DeleteProductsComponent},
+    {path:"productManagement",component:ProductManagementComponent,canActivate:[AdminGuard],canActivateChild:[AdminGuard],children:[
+      //{path:"addProducts",component:AddProductsComponent},
+      //{path:"viewProducts",component:ViewProductsComponent},
+      //{path:"updateProducts",component:UpdateProductsComponent},
+      //{path:"deleteProducts",component:DeleteProductsComponent}
+    ]},
     {path:"viewRequests",component:ViewRequestsComponent}
   ]},
-  {path:"admin",children:[
-    {path:"signIn",component:AdminSignInComponent}
-  ]},
-  {path:'**',redirectTo:'',pathMatch:'full'}
+  {path:"admin/signIn",component:AdminSignInComponent},
+  {path:'**',redirectTo:'',pathMatch:'full'},
 ]
 
 

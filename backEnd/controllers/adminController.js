@@ -4,6 +4,7 @@ const jwt = require('jwt-simple');
 
 let signIn = async (req,res,next)=>{
     try{
+       
         const a_username = req.body.a_username;
         const a_password = req.body.a_password;
         const admin = await AdminModel.findOne({a_username});
@@ -31,7 +32,8 @@ let signIn = async (req,res,next)=>{
 
 let getMe = async (req,res,next) =>{
     try{
-        let me = await AdminModel.findById(req.admin);
+        let me = await AdminModel.findById(req.user);
+       
         return res.send(me);
     }catch(error){
         next(error);

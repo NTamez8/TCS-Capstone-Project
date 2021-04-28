@@ -5,16 +5,21 @@ import { UserService } from 'src/app/Services/user.service';
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
-export class EditProfileComponent implements OnInit {
+export class updateProfileComponent implements OnInit {
 
-  constructor(public editSer:UserService) { }
+  constructor(public updateSer:UserService) { }
   updateMsg?:string;
   ngOnInit(): void {
   }
-
+  updateProfile(updateProfileRef:any){
+    console.log(updateProfileRef)
+    this.updateSer.updateProfile(updateProfileRef).subscribe((result:string)=>{
+      this.updateMsg=result;
+    })
+  }
   updatePassword(passwordRef:any){
     console.log(passwordRef)
-    this.editSer.editPassword(passwordRef).subscribe((result:string)=>{
+    this.updateSer.updatePassword(passwordRef).subscribe((result:string)=>{
       this.updateMsg=result;
     })
 
