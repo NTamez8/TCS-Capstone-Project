@@ -31,7 +31,7 @@ let addEmployee = async (req,res,next) =>
         newEmp.e_password = '1234';
         newEmp.first_login = true;
        await newEmp.save();
-        res.send({"message":"Success"});
+        res.send({"message":"Success",newEmp});
     }
     catch(err){
         next(err);

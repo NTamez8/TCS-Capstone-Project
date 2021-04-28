@@ -15,6 +15,7 @@ import { SelectItemComponent } from './Components/user/select-item/select-item.c
 import { ViewCartComponent } from './Components/user/view-cart/view-cart.component';
 import { ViewOrderStatusComponent } from './Components/user/view-order-status/view-order-status.component';
 import { ProfileComponent } from './Components/user/profile/profile.component';
+import { updateProfileComponent } from './Components/user/edit-profile/edit-profile.component';
 import { CheckoutComponent } from './Components/user/checkout/checkout.component';
 
 
@@ -58,12 +59,13 @@ import { ReportComponent } from './Components/admin/report/report.component';
 import { ReportTableComponent } from './Components/admin/report-table/report-table.component';
 import { NoLoginComponent } from './Components/no-login/no-login.component';
 import { UserOptionsComponent } from './Components/user/user-options/user-options.component';
-import {EditProfileComponent as userEdit} from './Components/user/edit-profile/edit-profile.component';
+import {updateProfileComponent as userEdit} from './Components/user/edit-profile/edit-profile.component';
 import { RaiseTicketComponent } from './Components/user/raise-ticket/raise-ticket.component';
 import { FundsComponent } from './Components/user/funds/funds.component';
 import { DeleteItemComponent } from './Components/user/delete-item/delete-item.component';
 import { FormsModule } from '@angular/forms';
 import { EmployeePanelComponent } from './Components/employee/employee-panel/employee-panel.component';
+import { ProductManagementComponent } from './Components/admin/product-management/product-management.component';
 @NgModule({
   declarations: [
     //==COMPONENTS==\\
@@ -119,6 +121,7 @@ import { EmployeePanelComponent } from './Components/employee/employee-panel/emp
 
     AdminSignOutComponent,
     RaiseTicketComponent,
+    updateProfileComponent,
     // EmployeeComponent,
     OrderStatusComponent,
     SendRequestComponent,
@@ -130,7 +133,8 @@ import { EmployeePanelComponent } from './Components/employee/employee-panel/emp
     FundsComponent,
         
     DeleteItemComponent,
-              EmployeePanelComponent
+    EmployeePanelComponent,
+    ProductManagementComponent
   
   ],
   imports: [
@@ -140,7 +144,7 @@ import { EmployeePanelComponent } from './Components/employee/employee-panel/emp
     HttpClientModule,
 
   ],
-  providers: [],
+  providers: [ViewProductsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

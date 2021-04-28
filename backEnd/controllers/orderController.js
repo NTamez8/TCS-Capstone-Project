@@ -13,7 +13,7 @@ let updateOrderByStatus= async (req,res,next)=>{
     {
         console.log('here');
         // get the orders id and the status to change to
-        let _id=req.body._id;
+        let _id=req.body.id;
         let status=req.body.status;
 
         // get the order that is to be changed

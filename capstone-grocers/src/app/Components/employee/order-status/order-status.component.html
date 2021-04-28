@@ -9,7 +9,7 @@
     <form #orderRef="ngForm" (ngSubmit)="updateStatus(orderRef.value)">
         <label>OrderId</label>
 
-        <input type="text" name=" id" ngModel><br/>
+        <input type="text" name="id" ngModel><br/>
 
         <label>Status</label>
         <input list="browsers" name="status"  ngModel><br/>
@@ -20,18 +20,9 @@
             <option value="delivered">Delivered</option>
           <option value="cancelled">cancelled</option>
         </datalist>
-        <!-- </select> -->
-
-                <!-- <form #cancleRef="ngForm" value="cancelled">
-           <label>refund</label>
-          <input type="text" name="refund" ngModel><br/>
-         <label>Reason</label>
-       <input type="text" name="reason" ngModel><br/>
-                </form> -->
-            
-
-          <br>
-
+     <br>
+    <label>Reason for Cancelled Order</label>
+        <input type="text" name="User" ngModel/> <br/>
 
         <input type="submit" value="upadate status"/>
         

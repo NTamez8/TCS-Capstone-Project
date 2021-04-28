@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/Classes/user';
 import { UserService } from 'src/app/Services/user.service';
 
@@ -9,7 +10,7 @@ import { UserService } from 'src/app/Services/user.service';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor(private userServ:UserService) { }
+  constructor(private userServ:UserService,private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -25,8 +26,9 @@ export class SignUpComponent implements OnInit {
     let addr = userInfo.addr;
     let user = new User(fName,lName,email,password,addr,phone,dob);
     this.userServ.signUp(user).subscribe(data=>{ 
-      console.log(data.token);
+      
       sessionStorage.setItem('token',data.token);
+      this.router.navigateByUrl('/userPanel');
     });
   }
 }

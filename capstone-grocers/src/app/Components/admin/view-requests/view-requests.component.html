@@ -1,24 +1,59 @@
-<div class="text-center row">
-    <div class="col-7 m-auto">
-        <h3>Request Viewing</h3><hr/>
-        <button (click)="getAllRequests()" class="btn btn-primary">View Requests</button>
-        <table style="border:1px solid black;margin:auto;">
-            <thead>
-                <th>Employee</th>
-                <th>Product ID</th>
-                <th>Quantity Requested</th>
-                <th>Time Requested</th>
-                <th>Time Resolved</th>
-                <th>Status</th>
-            </thead>
-            <tr *ngFor="let request of requests">
-                <td>{{request.e_username}}</td>
-                <td>{{request.product_id}}</td>
-                <td>{{request.new_quantity}}</td>
-                <td>{{request.datetime_requested}}</td>
-                <td>{{request.datetime_resolved}}</td>
-                <td>{{request.status}}</td>
-            </tr>
-        </table>
+<div class="row mt-2">
+    <div class="col-7 m-auto border border-dark">
+        <form #requestRef="ngForm" (ngSubmit)="getRequestById(requestRef)">
+            <h3 class="text-center">Request Viewing</h3><hr/>
+            <div class="form-group">
+                <label>Request ID</label>
+                <br/>
+                <input type="text" name="request_id" id="request_id" class="form-control" required ngModel/>
+            </div>
+            <div class="text-center">
+                <input type="submit" value="View Request" [disabled]="!requestRef.valid" class="btn btn-primary mt-1"/>
+                <input type="reset" value="Clear" class="btn btn-secondary mt-1 ms-1"/>
+            </div>
+        </form>
+        <div class="text-center">
+            <button class="btn btn-primary mt-1 ms-1" (click)="getAllRequests()">View All Requests</button>
         </div>
+
+        <hr/>
+    </div>
+    <div class="col-11 m-auto text-center mw-100" style="overflow-y:auto;">
+        <br/>
+        <table class="border border-dark table">
+            <thead>
+                <tr>
+                    <th scope="col">Request Order</th>
+                    <th scope="col">Request ID</th>
+                    <th scope="col">Employee</th>
+                    <th scope="col">Product ID</th>
+                    <th scope="col">Quantity Requested</th>
+                    <th scope="col">Time Requested</th>
+                    <th scope="col">Time Resolved</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Resolve Request</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let request of requests;let cindex = index;">
+                    <th scope="row">{{cindex+1}}</th>
+                    <td>{{request._id}}</td>
+                    <td>{{request.e_username}}</td>
+                    <td>{{request.product_id}}</td>
+                    <td>{{request.new_quantity}}</td>
+                    <td>{{request.datetime_requested}}</td>
+                    <td>{{request.datetime_resolved}}</td>
+                    <td>{{request.status}}</td>
+                    <td *ngIf="request.status != 'resolved'">
+                        <button type="submit" class="btn btn-secondary" value="Resolve" (click)="resolveRequest(request)">Resolve</button>
+                    </td>
+                    <!--We also need the following cell because the table bordering is part of a cell.
+                    Hence if a cell does not load because it is a resolved request, we need
+                    an empty dumby-cell.-->
+                    <td *ngIf="request.status == 'resolved'"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>

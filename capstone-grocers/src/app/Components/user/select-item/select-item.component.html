@@ -9,6 +9,9 @@
         <th>Quantity</th>
         <th>Add to Cart</th>
     </tr>
+    <!--The _id is not needed in the table and they need an option to select how many they want
+    have a selector for the quantity you want and limit it to the stock
+    -->
     <tr *ngFor="let product of products" >
         <td>{{product._id}}</td>
         <td>{{product.name}}</td>
@@ -114,3 +117,13 @@
     
 </div>
 </div>
+<!--This is is a template
+    use something like
+    <div *ngfor='let product of productArray'>
+        //list out the product name and price and quantity in stock
+        //have a selector for the quantity you want and limit it to the stock
+        <button (click)='addProductCart(ProductID)'>Add product to cart<button>
+    </div>
+
+
+-->
