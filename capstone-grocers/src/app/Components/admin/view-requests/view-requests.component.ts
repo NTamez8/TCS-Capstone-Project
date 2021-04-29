@@ -97,7 +97,7 @@ export class ViewRequestsComponent implements OnInit {
       if(productService.productExists(request.product_id)){
         //if it is resolved, delete it
         if(request.status=="resolved"){
-          requestService.deleteRequestById(request._id as string).subscribe(data=>console.log(data.token));
+          requestService.deleteRequestById(request._id as string).subscribe(data=>console.log(data));
           curComponent.getAllRequests();
         //else notify the user that they can't delete unresolved requests
         }else{

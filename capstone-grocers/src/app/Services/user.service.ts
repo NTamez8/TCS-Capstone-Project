@@ -60,7 +60,8 @@ public getAllUsers():Observable<User[]>
   }
   public getMe():Observable<User>
 {
-  return this.http.get<User>('http://localhost:8080/user/getMe');
+  let token = 'bearer ' + sessionStorage.getItem('token');
+  return this.http.get<User>('http://localhost:8080/user/getMe',{headers:{'Authorization':token}});
 }
 
   // ------------------------------------------Adding changes to cart-----------------------------------
@@ -105,8 +106,9 @@ public getAllUsers():Observable<User[]>
     return this.http.put("http://localhost:8080/user/updatePassword",passwordRef,{responseType:'text'})
   }
   public loadFunds(fundsRef: any){
-    console.log(fundsRef);
-    return this.http.put("http://localhost:8080/user/loadFunds",fundsRef,{responseType:"text"})
+    let token = 'bearer ' + sessionStorage.getItem('token');
+   
+    return this.http.put("http://localhost:8080/user/updateFunds",{fundsRef},{headers:{'Authorization':token},responseType:"text"})
   }
   checkFunds(id:string, cost:number){
 

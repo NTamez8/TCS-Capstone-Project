@@ -252,11 +252,12 @@ let checkoutCart = async(req,res,next)=>{
         user.save();
         //get current date/time for userOrder.date_requested
         //then save the userOrder.
-        userOrder.date_requested = Date.now();
+        userOrder.datetime_requested = Date.now();
+       
         userOrder.save()
         res.send({"msg":"Cart checkout successful"});
         }else{
-            res.send("Insufficient funds to checkout");
+            res.send({"msg":"Insufficient funds to checkout"});
         }
     }
     catch(err)
@@ -366,7 +367,17 @@ let updatePassword=(req,res)=>{
     })
 }
 
-let updateFunds =(req,res) =>{
+let updateFunds = async (req,res,next) =>{
+
+   // console.log(req);
+   //console.log(req.body)
+    let currUser = req.user;
+    //console.log(currUser);
+    currUser.funds += eval(req.body.fundsRef);
+    await currUser.save()
+    res.send('success');
+
+    /*
     let account =req.body.account;
     let amount =req.body.amount;
     user.find({u_username: id , accountN:account},(err1,result)=>{
@@ -393,7 +404,7 @@ let updateFunds =(req,res) =>{
                 res.send("Amount not sufficient for transfer");
             }
         }
-    })
+    })*/
 }
 let checkFunds =(req,res) =>{
     let id =   req.body.id;

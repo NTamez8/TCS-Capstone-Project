@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from 'src/app/Classes/user';
 import { UserService } from 'src/app/Services/user.service';
 
 @Component({
@@ -7,16 +9,23 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./funds.component.css']
 })
 export class FundsComponent implements OnInit {
-  constructor(public userService:UserService) { }
+
+  me:User = new User('','','','','',0,'')
+  
+
+  constructor(public userService:UserService,private router:Router) { }
 
   ngOnInit(): void {
+    this.userService.getMe().subscribe(user=>{
+      console.log(user);
+      this.me = user;
+    })
   }
   loadFunds(fundsRef:any){
-    this.userService.loadFunds(fundsRef.value).subscribe((res:any)=>{
-      console.log(res);
-      if(res.approved==true){
-        console.log(fundsRef)
-      }
+ 
+    this.userService.loadFunds(fundsRef).subscribe((res:any)=>{
+      
+      this.router.navigateByUrl('/userPanel')
     })
   }
   checkFunds(id:string ,cost:number){

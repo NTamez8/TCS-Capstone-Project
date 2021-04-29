@@ -1,4 +1,4 @@
-<div>
+<div><!--
     <h2>Order Details</h2>
 
      <form #vieworderRef="ngForm" (ngSubmit)="viewStatus(vieworderRef.value)">
@@ -7,5 +7,33 @@
         <input type="submit" value="viewStatus "/>
         
      </form>
-    {{orderStatus}}
+    {{orderStatus}}-->
+    <table class='table'>
+        <thead>
+            <tr>
+                <td>
+                    Time
+                </td>
+                <td>
+                    status
+                </td>
+                <td>
+                    fullfilled
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = 'let order of orders'>
+                <td>
+                    {{order.datetime_requested}}
+                </td>
+                <td>
+                    {{order.status}}
+                </td>
+                <td>
+                    {{order.datetime_fulfilled}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
