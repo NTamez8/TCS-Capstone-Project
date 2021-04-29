@@ -14,6 +14,7 @@ export class ViewRequestsComponent implements OnInit {
 
   constructor(public requestService:RequestService, public productService:ProductService, private router:Router) { }
 
+  //to determine if we are viewing a single request or all of them
   public single:any;
   //when the component initializes, grab all of the requests
   ngOnInit(): void {
@@ -112,9 +113,11 @@ export class ViewRequestsComponent implements OnInit {
     });
   };
 
+  //delete requests with nonexistent products
   deleteRequestsWithNonExistentProducts(curComponent:ViewRequestsComponent){
     this.requestService.currentRequests.forEach(
       function(request){
+        //if the product does not exist, delete the request
         if(!curComponent.productService.productExists(request.product_id)){
           curComponent.deleteRequestForce(request);
       }});
