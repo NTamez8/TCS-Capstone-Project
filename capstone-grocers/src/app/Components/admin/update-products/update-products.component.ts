@@ -12,21 +12,17 @@ import { ViewProductsComponent } from 'src/app/Components/admin/view-products/vi
 })
 export class UpdateProductsComponent implements OnInit {
 
+  // client-side errors for popup messages
   public invalidProduct:Boolean = false;
   public quantityError: Boolean = false;
+  
   public product_id:any;
   public new_quantity:any;
-  public fromViewRequest:any;
 
   constructor(public viewProductComponent:ViewProductsComponent,private productService:ProductService, private requestService:RequestService, private router:Router) { }
 
   ngOnInit(): void {
-    // this was originally for dynamically updating the product quantity from a request
-    // if(this.requestService.currentRequest[0]){
-    //   this.product_id = this.requestService.currentRequest[0].product_id;
-    //   this.new_quantity = this.requestService.currentRequest[0].new_quantity;
-    //   this.fromViewRequest = true;
-    // }
+
   }
 
   // form validation
@@ -41,40 +37,23 @@ export class UpdateProductsComponent implements OnInit {
         this.invalidProduct = true;
       }
       this.quantityError = true;
-      //alert("Quantity must be >= 0!");
     }
   }
 
+  // update Product quantity
   async updateProduct(){
     try{
       // if the product ID exists, update the product quantity
       if(this.productService.productExists(this.product_id as String)){
         this.invalidProduct = false;
         await this.productService.updateProduct(this.product_id,this.new_quantity).subscribe((data)=>{
-          //alert(data.message);
           this.viewProductComponent.getAllProducts();
         });
-        // if we came from the request component, compare the product_id's to check and see if we will
-        // be autoresolving the request or not
-        // if(this.fromViewRequest){
-        //   if(this.product_id == this.requestService.currentRequest[0].product_id && this.new_quantity == this.requestService.currentRequest[0].new_quantity){
-        //     this.backToViewingRequests();
-        //   }
-        // }
       }else{
         this.invalidProduct = true;
-        //alert("Please enter a valid Product ID!");
       }
     }catch(tryError){
       console.log(tryError);
     }
   }
-
-  // this would update the newly resolved request after the product quantity was auto-updated
-  // async backToViewingRequests(){
-  //   const request_id = this.requestService.currentRequest[0]._id;
-  //   await this.requestService.resolveRequest(request_id as string).subscribe(
-  //     result=>console.log(result.token),error=>console.log(error));
-  //   this.router.navigateByUrl("adminPanel/viewRequests");
-  // }
 }

@@ -14,135 +14,127 @@ export class ViewRequestsComponent implements OnInit {
 
   constructor(public requestService:RequestService, public productService:ProductService, private router:Router) { }
 
+  // error message popup variables
   public resolveError:Boolean = false;
   public deleteAllPopup:Boolean = false;
   public removeError:Boolean = false;
   public invalidRequest:Boolean = false;
 
-  //to determine if we are viewing a single request or all of them
+  // to determine if we are viewing a single Request or all of them
   public single:any;
-  //when the component initializes, grab all of the requests
+  // when the component initializes, grab all of the Requests
   ngOnInit(): void {
     this.getAllRequests();
   }
 
-  //get the index of a reqeust
+  // get the index of a Request
   getRequestIndex(request:productRequest){
     return this.requestService.currentRequests.findIndex((request)=>this.requestService.currentRequest[0]._id == request._id);
   }
 
-  //retrieve request by ID
+  // retrieve Request by ID
   async getRequestById(requestRef:NgForm){
-    //update Requests before checking for valid ID
+    // update Requests before checking for valid ID
     await this.getAllRequests();
     let request_order = requestRef.value.request_order;
     let request_id = this.requestService.currentRequests[request_order-1]?._id;
-    //check for valid Request ID
+    // check for valid Request ID
     if(this.requestService.requestExists(request_id as String)){
       this.invalidRequest = false;
       await this.requestService.getRequestById(request_id).subscribe(result=>this.requestService.currentRequest=result,error=>console.log(error));
       this.single = true;
-      //console.log(this.requestService)
     }else{
       this.invalidRequest = true;
-      //alert("Request does not exist. Please use a valid request ID!");
     }
   };
 
-  //retrieve all requests
+  // retrieve all Requests
   async getAllRequests(){
     this.invalidRequest = false;
     this.resolveError = false;
     this.removeError = false;
-    //probably returning an observable for .subscribe
     this.single = false;
     await this.requestService.getAllRequests().subscribe(result=>this.requestService.currentRequests=result,error=>console.log(error));
   };
 
-  //resolve a request if it exists, if the product ID is valid
-  //and if the current product quantity matches the requested
+  // resolve a Request if it exists, if the Product ID is valid
+  // and if the current Product quantity matches the requested
   async resolveRequest(request:productRequest){
     // current-scoped variables
     let productService = this.productService;
     let requestService = this.requestService;
     let curComponent = this;
-    //changing scope
+    // changing scope
     await productService.getAllProducts().subscribe(function(result){
       productService.currentProducts=result;
-      //if the product of the request exists, check quantity
+      // if the Product of the Request exists, check quantity
       if(productService.productExists(request.product_id)){
         curComponent.invalidRequest = false;
         curComponent.deleteAllPopup = false;
-        //console.log("Resolving request!");
-        //need to compare current product quanitity
+        // need to compare current Product quanitity
         productService.getProductById(request.product_id as string).subscribe(
           function (result){
             productService.currentProducts=result;
-            //if product quantity doesn't match notify the client
+            // if Product quantity doesn't match notify the client
             if(productService.currentProducts[0].quantity != request.new_quantity){
               curComponent.resolveError = true;
-              //alert(`Please change product quantity! Current quantity: ${productService.currentProducts[0].quantity}`);
-              //console.log(productService.currentProducts);
-            //otherwise we can automatically resolve the request
+            // otherwise we can automatically resolve the Request
             }else{
               curComponent.resolveError = false;
               requestService.resolveRequest(request._id as string).subscribe(result=>console.log(result.token),error=>console.log(error));
               curComponent.getAllRequests();
             }
           },error=>console.log(error));
-      //if the product does not exist, notify the user 
-      //and delete all requests with nonexistent products
+      // if the Product does not exist, notify the user 
+      // and delete all Requests with nonexistent Products
       }else{
         curComponent.deleteAllPopup = true;
-        //alert("The request must be removed because the product ID no longer exists!\nNow will delete all requests with invalid product ID's.");
         curComponent.deleteRequestsWithNonExistentProducts(curComponent);
       }
     });
   };
 
-  //Remove only resolved requests
+  // remove only resolved Requests
   async deleteRequest(request:productRequest){
-    //current-scoped variables
+    // current-scoped variables
     let curComponent = this;
     let productService = this.productService;
     let requestService = this.requestService;
-    //changing scope
+    // changing scope
     await productService.getAllProducts().subscribe(function(result){
       productService.currentProducts=result;
-      //if the product of the requests exists, check to see if the request is resolved
+      //if the Product of the Request exists, check to see if the Request is resolved
       if(productService.productExists(request.product_id)){
         curComponent.deleteAllPopup = false;
-        //if it is resolved, delete it
+        // if it is resolved, delete it
         if(request.status=="resolved"){
           curComponent.resolveError = false;
           requestService.deleteRequestById(request._id as string).subscribe();
           curComponent.getAllRequests();
-        //else notify the user that they can't delete unresolved requests
+        // else notify the admin that they can't delete unresolved Requests
         }else{
           curComponent.removeError = true;
-          //alert("You cannot remove a request until it is resolved!");
         }
-      //if the product does not exist, notify the user 
-      //and delete all requests with nonexistent products
+      // if the Product does not exist, notify the admin 
+      // and delete all Requests with nonexistent Products
       }else{
         curComponent.deleteAllPopup = true;
-        //alert("The request must be removed because the product ID no longer exists!\nNow will delete all requests with invalid product ID's.");
         curComponent.deleteRequestsWithNonExistentProducts(curComponent);
       };
     });
   };
 
-  //delete requests with nonexistent products
+  // delete Requests with nonexistent Products
   deleteRequestsWithNonExistentProducts(curComponent:ViewRequestsComponent){
     this.requestService.currentRequests.forEach(
       function(request){
-        //if the product does not exist, delete the request
+        //if the Product does not exist, delete the Request
         if(!curComponent.productService.productExists(request.product_id)){
           curComponent.deleteRequestForce(request);
       }});
   }
 
-  //Force-delte requests (ex: ones that have an invalid product_id)
+  //Force-delte Requests (ex: ones that have an invalid product_id)
   async deleteRequestForce(request:productRequest){
     await this.requestService.deleteRequestById(request._id as string).subscribe();
     this.getAllRequests();
