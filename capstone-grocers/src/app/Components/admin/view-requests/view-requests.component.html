@@ -16,6 +16,18 @@
         <div class="text-center">
             <button class="btn btn-primary mt-1 ms-1" (click)="getAllRequests()">View All Requests</button>
         </div>
+        <div class="text-center">
+            <label *ngIf="resolveError">Please change the Product quantity before resolving!</label><br/>
+        </div>
+        <div class="text-center">
+            <label *ngIf="removeError">Please resolve a Request before deletion!</label><br/>
+        </div>
+        <div class="text-center">
+            <label *ngIf="invalidRequest">Please enter a valid Request!</label><br/>
+        </div>
+        <div class="text-center">
+            <label *ngIf="deleteAllPopup">All Requests with invalid Product IDs will now be deleted!</label><br/>
+        </div>
         <hr/>
     </div>
     <!-- Request table container -->
