@@ -22,16 +22,19 @@ export class AddProductsComponent implements OnInit {
   // form validation
   productFormValidation(productRef:NgForm){
     const p_values = productRef.value;
+    // if the price and quantity are valid, add the Product
     if(p_values.p_price >= 0 && p_values.p_quantity >= 0){
       this.quantityError = false;
       this.priceError = false;
       this.addProduct(productRef);
     }else{
+      // if the price is not valid, display error message
       if(p_values.p_price < 0){
         this.priceError = true;
       }else{
         this.priceError = false;
       }
+      // if the quantity is not valid, display error message
       if(p_values.p_quantity < 0){
         this.quantityError = true;
       }else{
@@ -40,14 +43,14 @@ export class AddProductsComponent implements OnInit {
     }
   };
 
-  // add a product
+  // add a Product
   async addProduct(productRef:NgForm){
     // get form values
     const p_values = productRef.value;
-    // make a new product
+    // make a new Product
     const product = new Product(p_values.p_name,p_values.p_description,p_values.p_price,p_values.p_quantity);
 
-    // add the product and refresh the products
+    // add the Product and refresh the Products
     await this.productService.addProduct(product).subscribe(data=>{ 
       this.viewProductComponent.getAllProducts();
     });
