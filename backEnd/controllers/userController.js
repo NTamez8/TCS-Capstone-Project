@@ -268,8 +268,7 @@ let viewItemsfromCart = async(req,res)=> {
                 res.json(result);
             }
         })*/
-        await userOrder.save();
-        res.send({"message":"success"});
+        res.send(userOrder.currentCart);
     }
     catch(err)
     {
