@@ -17,24 +17,23 @@ export class DeleteProductsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // if we try doing this from the viewProductComponent, it will not properly update the products
+  // if we try doing this from the viewProductComponent, it will not properly update the Products
   async getAllProducts(){
     this.viewProductComponent.single = false;
     await this.productService.getAllProducts().subscribe(result=>this.productService.currentProducts=result,error=>console.log(error));
   }
 
-  // if the product exists, delete it
+  // if the Product exists, delete it
   async deleteProduct(productRef:NgForm){
     try{
-      // grab product deletion form values
+      // grab Product deletion form values
       const formValues = productRef.value;
       if(this.productService.productExists(formValues.product_id as String)){
         this.invalidProduct = false;
       await this.productService.deleteProductById(formValues.product_id as string).subscribe(data=>{
-        //alert(data.message);
         this.getAllProducts();
       });
-      // refresh products
+      // refresh Products
       this.viewProductComponent.getAllProducts();
     }else{
       this.invalidProduct = true;
