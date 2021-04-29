@@ -28,6 +28,8 @@ routes.put('/updatestatusToUser',userController.updatestatusToUser)
 routes.get("/checkFunds",userController.checkFunds)
 routes.put("/updateProfile",userController.updateProfile)
 routes.put("/updatePassword",userController.updatePassword)
-routes.put("/updateFunds",userController.updateFunds)
+routes.put("/updateFunds",userAuth.authenticate('userAuth'),userController.updateFunds)
 routes.put("/unlockLockUser",userController.unlockLockUser)
+
+
 module.exports = routes;
