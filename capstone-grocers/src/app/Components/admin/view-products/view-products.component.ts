@@ -12,27 +12,30 @@ export class ViewProductsComponent implements OnInit {
 
   constructor(public productService:ProductService) { }
 
+  // viewing single/multiple Products
   public single:any;
+  // error popup message variables
   public invalidProduct:Boolean = false;
 
+  // get all Products during initialization
   ngOnInit(): void {
     this.getAllProducts();
   }
 
-  // get product index
+  // get Product index
   getProductIndex(product:Product){
-    // get index from product service
+    // get index from Product Service
     return this.productService.currentProducts.findIndex((product)=>this.productService.currentProduct[0]._id == product._id);
   }
 
-  // get all products
+  // get all Products
   async getAllProducts(){
-    // viewing all products
+    // viewing all Products
     this.single = false;
     await this.productService.getAllProducts().subscribe(result=>this.productService.currentProducts=result,error=>console.log(error));
   }
 
-  // get product by id
+  // get Product by id
   async getProductById(productRef:NgForm){
     // update Products before checking for valid ID
     let product_order = productRef.value.product_order;
@@ -42,19 +45,17 @@ export class ViewProductsComponent implements OnInit {
     if(this.productService.productExists(product_id as String)){
       this.invalidProduct = false;
       await this.productService.getProductById(product_id as String).subscribe(result=>this.productService.currentProduct=result,error=>console.log(error));
-      // now viewing a single product
+      // viewing a single Product
       this.single = true;
     }else{
       this.invalidProduct = true;
-      //alert("Product does not exist!");
     }
   };
 
-  // delete product
+  // delete Product
   async deleteProduct(product:Product){
-    // delete the product from the product service then refresh products
+    // delete the Product from the Product Service then refresh Products
     await this.productService.deleteProductById(product._id as string).subscribe(data=>{
-      //alert(data.message);
       this.getAllProducts();
     });
   };
