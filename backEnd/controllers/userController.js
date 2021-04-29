@@ -268,8 +268,10 @@ let viewItemsfromCart = async(req,res)=> {
                 res.json(result);
             }
         })*/
+        
         await userOrder.save();
         res.send({"message":"success"});
+        //res.send(userOrder.currentCart);
     }
     catch(err)
     {
@@ -277,7 +279,6 @@ let viewItemsfromCart = async(req,res)=> {
     }
    
 }
-
 // let viewItemsfromCart = async(req,res)=> {
 //        // let userOrder= req.user;
 //        //console.log(req.user);
@@ -293,7 +294,7 @@ let viewItemsfromCart = async(req,res)=> {
       
 //         res.send(userOrder.currentCart);
     
-// }
+//     }
 
 let checkoutCart = async(req,res,next)=>{
     try
