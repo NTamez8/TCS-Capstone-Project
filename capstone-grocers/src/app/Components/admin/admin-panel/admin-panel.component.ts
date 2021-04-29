@@ -10,7 +10,7 @@ export class AdminPanelComponent implements OnInit {
   currentAdmin:any;
   constructor() { }
 
-  // grab the admin current logged-in
+  // grab the Admin currently signed in
   ngOnInit(): void {
     this.currentAdmin = sessionStorage.getItem('adminUser');
   }
