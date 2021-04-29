@@ -4,6 +4,9 @@
         <form #a_signInRef="ngForm" (ngSubmit)="a_signIn(a_signInRef)">
             <h3 class="text-center">Admin Login</h3><hr/>
             <div class="form-group">
+                <div class="text-center form-group">
+                    <label *ngIf="invalidCredentials">Please enter valid credentials!</label>
+                </div>
                 <label >Username</label>
                 <br/>
                 <input type="text" name="a_username" id="a_username" required ngModel class="form-control"/>

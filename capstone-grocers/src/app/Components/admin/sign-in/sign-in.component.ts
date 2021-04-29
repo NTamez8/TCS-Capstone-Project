@@ -11,6 +11,8 @@ import { AdminService } from 'src/app/Services/admin.service';
 })
 export class SignInComponent implements OnInit {
 
+  public invalidCredentials:Boolean = false;
+
   constructor(private adminService:AdminService,private router:Router) { }
 
   ngOnInit(): void {
@@ -22,13 +24,15 @@ export class SignInComponent implements OnInit {
     this.adminService.signIn(a_credentials.a_username,a_credentials.a_password).subscribe(data=>{
       // if there is a message, then sign-in was successful
       if(data.message){
+        this.invalidCredentials = false;
+        sessionStorage.setItem('adminToken',data.token);
+        sessionStorage.setItem('adminUser',a_credentials.a_username);
+        this.router.navigateByUrl('adminPanel');
         // alert(data.message);
       }else{
-        alert("Invalid credentials");
+        this.invalidCredentials = true;
+        //alert("Invalid credentials");
       }
-      sessionStorage.setItem('adminToken',data.token);
-      sessionStorage.setItem('adminUser',a_credentials.a_username);
-      this.router.navigateByUrl('adminPanel');
     });
   }
 
