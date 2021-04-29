@@ -45,12 +45,8 @@ let raiseTicket = async (req,res)=>{
     })
   
 }
-<<<<<<< HEAD
-module.exports = {getDetailOfUser, raiseTicket,getLockedUsers}
-=======
 
 let deleteTicket = async (id)=>{
     await ticket.deleteOne({_id:id})
 }
 module.exports = {getDetailOfUser, raiseTicket,getLockedUsers,deleteTicket}
->>>>>>> testBranch
