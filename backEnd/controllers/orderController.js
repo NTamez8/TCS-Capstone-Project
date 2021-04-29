@@ -23,7 +23,7 @@ let getOrderById=(req,res)=>{
 let updateOrderByStatus= async (req,res,next)=>{
     try
     {
-        console.log('here');
+       
         // get the orders id and the status to change to
         let _id=req.body.id;
         let status=req.body.status;
@@ -54,7 +54,7 @@ let updateOrderByStatus= async (req,res,next)=>{
                 // sum the products
                 refund += cart[x].product.price * cart[x].quantity;
             }
-            console.log(refund);
+           
     
             // get the owner of the order
             let currUser = await User.findById(currOrder.user_ID);
@@ -274,10 +274,11 @@ let getOrdersByCust = async (req, res, next) => {
     }
 }
 let getUserOrder = async (req,res,next)=>{
+  
     try
     {
         let user = req.user;
-        console.log(user);
+        
         let orders = await order.find({user_ID:user._id})
         res.send(orders);
     }

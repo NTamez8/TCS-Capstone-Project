@@ -251,24 +251,26 @@ let deleteItemById = async (req,res,next)=>{
 }
 let viewItemsfromCart = async(req,res)=> {
    
+   
        // let userOrder= req.user;
        //console.log(req.user);
        try{
 
         let userOrder = await User.findOne({_id:req.user._id}).populate('currentCart.product');
+      
         // userOrder.currentCart.populate('Product').exec();
-        let totalAmount = 0;
+       /* let totalAmount = 0;
         for(let i = 0; i < userOrder.currentCart.length; i++){
                 total_amount += userOrder.currentCart[i].product.price * userOrder.currentCart[i].quantity;
-        }
-      
+        }*/
+     
         /*
         userOrder.currentCart.find({},(err,result)=> {
             if(!err){
                 res.json(result);
             }
         })*/
-        
+       
         res.send(userOrder.currentCart);
     }
     catch(err)
@@ -322,7 +324,7 @@ let updatestatusToUser=async(req,res)=>{
     let locked=req.body.locked;
     User.updateOne({u_username:u_username},{"$set":{locked:locked}},(err,result)=> {
         if(!err){
-            console.log(result.funds);
+         
             if(result.funds > cost){
                 let newFunds ={};
                 newFunds.fund = cost - result.funds;
@@ -423,10 +425,10 @@ let updateFunds = async (req,res,next) =>{
    //console.log(req.body)
     let currUser = req.user;
     //console.log(currUser);
-    console.log(req.body,'here');
+ 
     currUser.funds += eval(req.body.fundsRef);
     await currUser.save()
-    console.log(currUser);
+
     res.send('success');
 
     /*
@@ -463,7 +465,7 @@ let checkFunds =(req,res) =>{
     let cost = req.body.cost;
     user.find({u_username:id},(err,result)=>{
         if(!err){
-            console.log(result.funds);
+           
             if(result.funds > cost){
                 let newFunds ={};
                 newFunds.fund = cost - result.funds;

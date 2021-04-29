@@ -26,7 +26,7 @@ describe('Test',(adminDone)=>{
               
                 result.should.have.status(200);
                 adminToken = result.body.token;
-                console.log();
+            
                 done();
             })
         })
@@ -253,6 +253,8 @@ describe('Test',(adminDone)=>{
     describe('User',()=>{
         let userToken = '';
         let totalCost = 0;
+        let OriginalQuantity = 0;
+        let product_ID;
         it('Should sign up',done=>{
             let user = {
                 firstName:"test",
@@ -293,10 +295,11 @@ describe('Test',(adminDone)=>{
                 done();
             })
         })
-        it('Should add to cart', (done)=>{
+        it('Should first item to cart', (done)=>{
             productModel.find({},(err,products)=>{
                
-                let product_ID = products[0]._id;
+             product_ID = products[0]._id;
+                OriginalQuantity = products[0].quantity;
                 let quantityDesired = 5;
                 totalCost += products[0].price * quantityDesired
                  chai.request(server).post('/user/addItemstoCart').send({product_ID,quantityDesired}).set('Authorization','bearer ' + userToken).end((err,result)=>{
@@ -305,10 +308,14 @@ describe('Test',(adminDone)=>{
                          console.log(err);
                          
                      }
-                    
-                     result.should.have.status(200);
+                    productModel.findOne({_id:product_ID},(err,product)=>{
+                        let currentQuantiry = product.quantity;
+                        currentQuantiry.should.be.eq(eval(OriginalQuantity - quantityDesired))
+                        result.should.have.status(200);
                      
                      done();
+                    })
+                     
                  })
             });
          
@@ -363,7 +370,7 @@ describe('Test',(adminDone)=>{
                 done();
             })
         })
-        it('Should remove from cart', (done)=>{
+        it('Should remove first item from cart', (done)=>{
             productModel.find({},(err,products)=>{
                 let id = products[0]._id;
                 chai.request(server).delete('/user/deleteItemsfromCart/'+id).set('Authorization','bearer ' + userToken).end((err,result)=>{
@@ -372,10 +379,14 @@ describe('Test',(adminDone)=>{
                         console.log(err);
                       
                     }
-                   
+                   productModel.findOne({_id:product_ID},(err,product)=>{
+                    product.quantity.should.be.eq(OriginalQuantity);
+
+                    done();
+                   })
                    // response.should.have.status(200);
                   
-                    done();
+                    
                 })
             });
            
@@ -412,7 +423,7 @@ describe('Test',(adminDone)=>{
             })
         })
         it('Should add funds so it can buy the cart',done=>{
-            console.log(totalCost);
+          
             chai.request(server).put('/user/updateFunds').send({fundsRef:totalCost}).set('Authorization','bearer ' + userToken).end((err,result)=>{
                 if(err)
                 {
@@ -440,18 +451,27 @@ describe('Test',(adminDone)=>{
             })
         })
              
-        it('Should have an order',done=>{
-            chai.request(server).get('order/getUserOrder').send().set('Authorization','bearer ' + userToken).end((err,result)=>{
-                if(err)
-                {
-                    console.log(err);
+        it('Should have an order',done=>{ 
+            productModel.find({},(err,products)=>{
+
+                chai.request(server).get('/order/getUserOrder').set('Authorization','bearer ' + userToken).end((err,result)=>{
+                    if(err)
+                    {
+                        console.log(err);
+                      
+                    }
+                   
+                  result.should.have.status(200);
                   
-                }
-               
-               console.log(result);
-                
-                done();
-            })
+                  let first = result.body[0].cart[0].product;
+                  let second = products[1]._id.toString();
+                  first.should.be.eq(second);
+                    
+                    done();
+                })
+
+        })
+           
         })
        
      
