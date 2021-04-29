@@ -19,23 +19,24 @@ export class UpdateProductsComponent implements OnInit {
   constructor(public viewProductComponent:ViewProductsComponent,private productService:ProductService, private requestService:RequestService, private router:Router) { }
 
   ngOnInit(): void {
-    if(this.requestService.currentRequest[0]){
-      this.product_id = this.requestService.currentRequest[0].product_id;
-      this.new_quantity = this.requestService.currentRequest[0].new_quantity;
-      this.fromViewRequest = true;
-    }
-    //console.log(this.product_id);
+    // this was originally for dynamically updating the product quantity from a request
+    // if(this.requestService.currentRequest[0]){
+    //   this.product_id = this.requestService.currentRequest[0].product_id;
+    //   this.new_quantity = this.requestService.currentRequest[0].new_quantity;
+    //   this.fromViewRequest = true;
+    // }
   }
 
   async updateProduct(){
     try{
+      // if the product ID exists, update the product quantity
       if(this.productService.productExists(this.product_id as String)){
-        //const formValues = productRef.value;
-        //console.log("Updating Product");
         await this.productService.updateProduct(this.product_id,this.new_quantity).subscribe((data)=>{
           alert(data.message);
           this.viewProductComponent.getAllProducts();
         });
+        // if we came from the request component, compare the product_id's to check and see if we will
+        // be autoresolving the request or not
         // if(this.fromViewRequest){
         //   if(this.product_id == this.requestService.currentRequest[0].product_id && this.new_quantity == this.requestService.currentRequest[0].new_quantity){
         //     this.backToViewingRequests();
@@ -49,6 +50,7 @@ export class UpdateProductsComponent implements OnInit {
     }
   }
 
+  // this would update the newly resolved request after the product quantity was auto-updated
   // async backToViewingRequests(){
   //   const request_id = this.requestService.currentRequest[0]._id;
   //   await this.requestService.resolveRequest(request_id as string).subscribe(
