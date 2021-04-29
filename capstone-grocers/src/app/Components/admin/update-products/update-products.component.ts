@@ -15,7 +15,7 @@ export class UpdateProductsComponent implements OnInit {
   // client-side errors for popup messages
   public invalidProduct:Boolean = false;
   public quantityError: Boolean = false;
-  
+
   public product_id:any;
   public new_quantity:any;
 
@@ -43,7 +43,7 @@ export class UpdateProductsComponent implements OnInit {
   // update Product quantity
   async updateProduct(){
     try{
-      // if the product ID exists, update the product quantity
+      // if the product ID exists, update the Product quantity
       if(this.productService.productExists(this.product_id as String)){
         this.invalidProduct = false;
         await this.productService.updateProduct(this.product_id,this.new_quantity).subscribe((data)=>{
