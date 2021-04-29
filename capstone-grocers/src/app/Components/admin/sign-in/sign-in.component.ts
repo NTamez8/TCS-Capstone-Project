@@ -11,6 +11,7 @@ import { AdminService } from 'src/app/Services/admin.service';
 })
 export class SignInComponent implements OnInit {
 
+  // error popup message variable
   public invalidCredentials:Boolean = false;
 
   constructor(private adminService:AdminService,private router:Router) { }
@@ -28,10 +29,8 @@ export class SignInComponent implements OnInit {
         sessionStorage.setItem('adminToken',data.token);
         sessionStorage.setItem('adminUser',a_credentials.a_username);
         this.router.navigateByUrl('adminPanel');
-        // alert(data.message);
       }else{
         this.invalidCredentials = true;
-        //alert("Invalid credentials");
       }
     });
   }
