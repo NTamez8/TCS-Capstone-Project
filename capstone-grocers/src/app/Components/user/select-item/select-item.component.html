@@ -18,7 +18,7 @@
         <td><select #SelectedQuant>
             <option *ngFor='let _ of getCounter(product.quantity); let i = index' value='{{i}}'>{{i}}</option>
         </select></td>
-        <td ><button (click)='addProductCart(product,SelectedQuant.value)'>Buy</button></td>
+        <td ><button (click)='addProductCart(product,SelectedQuant.value)' class ="btn btn-primary">Buy</button></td>
         
     </tr>
 </table>
