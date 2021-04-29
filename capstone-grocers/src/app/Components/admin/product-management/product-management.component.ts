@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductManagementComponent implements OnInit {
 
-  // default product selector to the product view component
+  // default Product selector to the Product View Component
   public productSelector:string = "1";
 
   constructor() { }
@@ -15,7 +15,7 @@ export class ProductManagementComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // set the product selection
+  // set the Product selection
   changedValue(selector: any) {
     this.productSelector = selector;
   }
