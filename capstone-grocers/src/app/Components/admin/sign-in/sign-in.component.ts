@@ -16,11 +16,13 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // try to sign-in
   a_signIn(a_loginRef:NgForm){
     const a_credentials = a_loginRef.value;
     this.adminService.signIn(a_credentials.a_username,a_credentials.a_password).subscribe(data=>{
+      // if there is a message, then sign-in was successful
       if(data.message){
-        //alert(data.message);
+        // alert(data.message);
       }else{
         alert("Invalid credentials");
       }
