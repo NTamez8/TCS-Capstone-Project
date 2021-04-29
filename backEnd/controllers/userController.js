@@ -250,7 +250,7 @@ let deleteItemById = async (req,res,next)=>{
    
 }
 let viewItemsfromCart = async(req,res)=> {
-    try{
+   
        // let userOrder= req.user;
        //console.log(req.user);
        try{
@@ -264,24 +264,8 @@ let viewItemsfromCart = async(req,res)=> {
                  total_amount += userOrder.currentCart[i].product.price * userOrder.currentCart[i].quantity;
          }
        
-         /*
-         userOrder.currentCart.find({},(err,result)=> {
-             if(!err){
-                 res.json(result);
-             }
-         })*/
-             
-         
-         await userOrder.save();
-         res.send({"message":"success"});
-      
-        /*
-        userOrder.currentCart.find({},(err,result)=> {
-            if(!err){
-                res.json(result);
-            }
-        })*/
-  
+       
+        res.send(userOrder.currentCart);
     }
     catch(err)
     {
