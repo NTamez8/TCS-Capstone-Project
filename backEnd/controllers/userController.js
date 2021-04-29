@@ -144,7 +144,7 @@ let getMe = async(req,res,next)=>
 
 // --------------------------------Adding changes to the Cart-----------------------------------//
 let addItemstoCart = async (req, res, next) => {
-   
+  
     try
     {
         let wasFound = false;
@@ -176,6 +176,44 @@ let addItemstoCart = async (req, res, next) => {
         next(err);
     }
   };
+// let addItemstoCart = async (req, res, next) => {
+//     const product_id = req.body.product_id;
+//     const pname = req.body.name;
+//     const description = req.body.description;
+//     const price = req.body.price;
+//     const quantity = req.body.quantity;
+//     const user_id = req.body.user_id;
+  
+    // try {
+    //   let userOrder = await User.findOne({_id:user_id});
+    //   userCart = userOrder.currentCart;
+  
+    //   if (userCart) {
+    //     //if the cart is existing for the user
+    //     let item_idx = userCart.product.findIndex(p => p.pname == pname);
+    //     // if product is existing in the cart update the quantity
+    //     if (item_idx > -1) {
+    //       let product_item = userCart.product[item_idx];
+    //       product_item.quantity = quantity;
+    //       userCart.product[item_idx] = product_item;
+    //     // if product is not in the cart, add the new item
+    //     } else {
+    //         userCart.product.push({_id, pname, description, price, quantity });// when adding to the cart like this is takes in a cartItem not a whole product
+    //     }
+    //     userOrder.save();
+    //     return res.send(userOrder);
+    //     // if the cart doesn't exist create a new cart for the user
+    //   } else {
+    //     let new_Cart = await User.currentCart.create({
+    //       quantity:Number,
+    //       product:{type:schema.Types.ObjectId, ref:'Product'}
+    //     });
+    //     return res.send(new_Cart);
+    //   }
+    // } catch (err) {
+    //   next(err);
+    //   res.send("Error loading the page");
+    // }
 
 let deleteItemsfromCart = async (req, res, next) => {
     let userOrder= await User.findOne({_id:user_id});
@@ -200,6 +238,35 @@ let deleteItemById = async (req,res,next)=>{
             {
                 ProductController.userAddBackProduct(userOrder.currentCart[x].product,userOrder.currentCart[x].quantity)
                 userOrder.currentCart.splice(x,x+1);
+            }
+        }
+        await userOrder.save();
+        res.send({"message":"success"});
+    }
+    catch(err)
+    {
+        next(err);
+    }
+   
+}
+let viewItemsfromCart = async(req,res)=> {
+       // let userOrder= req.user;
+       //console.log(req.user);
+        let userOrder = await User.findOne({_id:req.user._id}).populate('currentCart.product');
+       // userOrder.currentCart.populate('Product').exec();
+       
+        let total_amount = 0;
+        
+        for(let i = 0; i < userOrder.currentCart.length; i++){
+                total_amount += userOrder.currentCart[i].product.price * userOrder.currentCart[i].quantity;
+        }
+      
+        /*
+        userOrder.currentCart.find({},(err,result)=> {
+            if(!err){
+                res.json(result);
+            }
+        })*/
             }
         }
         await userOrder.save();
