@@ -8,10 +8,12 @@ export class AdminService {
 
   constructor(private http:HttpClient) { }
 
+  // sign in
   signIn(a_username:String,a_password:String){
     return this.http.post<{message:string,token:string}>('http://localhost:8080/admin/signIn',{a_username,a_password});
   };
 
+  // validate Admin session
   validate(token:string):Promise<boolean>{
     return new Promise<boolean>((resolve, reject) => {
 
