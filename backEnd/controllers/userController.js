@@ -269,9 +269,7 @@ let viewItemsfromCart = async(req,res)=> {
             }
         })*/
         
-        await userOrder.save();
-        res.send({"message":"success"});
-        //res.send(userOrder.currentCart);
+        res.send(userOrder.currentCart);
     }
     catch(err)
     {
