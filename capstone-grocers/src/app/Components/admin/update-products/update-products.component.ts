@@ -27,6 +27,7 @@ export class UpdateProductsComponent implements OnInit {
     // }
   }
 
+  // form validation
   productFormValidation(){
     if(this.new_quantity >= 0){
       this.updateProduct();
