@@ -1,5 +1,6 @@
 <div class="border border-dark p-1">
-    <form #productRef="ngForm" (ngSubmit)="addProduct(productRef)">
+    <!-- product addition form -->
+    <form #productRef="ngForm" (ngSubmit)="productFormValidation(productRef)">
         <h3 class="text-center">Product Addition</h3><hr/>
         <div class="form-group">
             <label>Product Name</label>
@@ -14,12 +15,12 @@
         <div class="form-group">
             <label>Price</label>
             <br/>
-            <input type="number" name="p_price" id="p_price" required ngModel class="form-control"/>
+            <input type="number" name="p_price" id="p_price" required ngModel min="0" class="form-control"/>
         </div>
         <div class="form-group">
             <label>Initial Quantity</label>
             <br/>
-            <input type="number" name="p_quantity" id="p_quantity" required ngModel class="form-control"/>
+            <input type="number" name="p_quantity" id="p_quantity" required ngModel min="0" class="form-control"/>
         </div>
         <div class="text-center">
             <input type="submit" value="Add" [disabled]="!productRef.valid" class="btn btn-primary m-1"/>

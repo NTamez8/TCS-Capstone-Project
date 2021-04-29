@@ -6,7 +6,7 @@ let schema = mongoose.Schema;
 let request = new schema({
     //e_username:String,              //employee who requested the change
    // product_id:Number,              //_id in "productModel.js"
-   e_user:{type:schema.Types.ObjectId, ref:'Employee'},
+   employee_id:{type:schema.Types.ObjectId, ref:'Employee'},
    product_id:{type:schema.Types.ObjectId, ref:'Product'},
     new_quantity:Number,
     datetime_requested:Date,

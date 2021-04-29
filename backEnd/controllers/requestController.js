@@ -24,6 +24,7 @@ let getAllRequests = async(req,res)=>{
 };
 
 let sendRequest=(req,res)=>{
+    console.log(req.body)
     let productdetails = new request({
         product_id:req.body.product_id,
         e_user:req.body.e_username,
@@ -52,17 +53,40 @@ let sendRequest=(req,res)=>{
 
 let resolveRequest = async(req,res)=>{
 
-    await request.updateOne({_id:req.body.request_id},{$set:{status:"resolved",datetime_resolved:Date.now()}},(error,data)=>{
-        if(!error){
-            if(data.modifiedCount>0){
-                res.send("Request successfully resolved!");
+    try{
+        await request.updateOne({_id:req.body.request_id},{$set:{status:"resolved",datetime_resolved:Date.now()}},(error,data)=>{
+            if(!error){
+                if(data.modifiedCount>0){
+                    res.send("Request successfully resolved!");
+                }else{
+                    res.send("Request was not able to be resolved");
+                }
             }else{
-                res.send("Request was not able to be resolved");
+                res.send(`Error during request resolving: ${error}`);
             }
-        }else{
-            res.send(`Error during request resolving: ${error}`);
-        }
-    });
+        });
+    }catch(tryError){
+        res.send(`Erorr during request resolving: ${tryError}`);
+    }
 };
 
-module.exports = {getRequestById, getAllRequests, sendRequest, resolveRequest};
+let deleteRequestById = (req,res)=>{
+    try{
+        const request_id = req.body.request_id;
+        request.deleteOne({_id:request_id},(error,data)=>{
+            if(!error){
+                if(data.deletedCount > 0){
+                    res.send("Request was successfully deleted.");
+                }else{
+                    res.send("Request was not deleted.");
+                }
+            }else{
+                res.send(`Error during request deletion: ${error}`);
+            }
+        });
+    }catch(tryError){
+        res.send(`Error during request deletion: ${tryError}`);
+    }
+};
+
+module.exports = {getRequestById, getAllRequests, sendRequest, resolveRequest, deleteRequestById};

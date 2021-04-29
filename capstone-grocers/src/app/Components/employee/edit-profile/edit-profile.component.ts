@@ -15,15 +15,15 @@ export class EditProfileComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // updatePassword(passwordRef:any){
-  //   console.log(passwordRef)
-  //   this.editSer.editPassword(passwordRef).subscribe((result:string)=>{
-  //     this.updateMsg=result;
-  //   })
+   updatePassword(passwordRef:any){
+     console.log(passwordRef)
+    this.editSer.editPassword(passwordRef).subscribe((result:string)=>{
+       this.updateMsg=result;
+     })
 
-  // }
+   }
 
-
+/*
   updatePassword(emppasswordRef: any) {
     if (emppasswordRef.e_password != '') {
     
@@ -32,5 +32,5 @@ export class EditProfileComponent implements OnInit {
        // this.editSer.getAllEmployees().subscribe(data => this.employees = data);
       });
     }
-  }
+  }*/
 }

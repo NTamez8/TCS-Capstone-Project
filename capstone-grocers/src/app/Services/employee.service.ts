@@ -52,12 +52,8 @@ export class EmployeeService {
 
 
   // }
-  // editPassword(passwordRef:any):any{
-  //   return this.http.put("http://localhost:8080/employee/editPassword",passwordRef,{responseType:'text'})
-  // }
-   public editPassword(passwordRef:any){
+  editPassword(passwordRef:any):any{
     let token = 'bearer ' + sessionStorage.getItem('token');
-    console.log(passwordRef);
-      return this.http.put("http://localhost:8080/employee/editPassword",passwordRef,{headers:{"Authorization":token}})
-    }
+    return this.http.put("http://localhost:8080/employee/editPassword",passwordRef,{headers:{"Authorization":token} ,responseType:'text'} )
+  }
 }

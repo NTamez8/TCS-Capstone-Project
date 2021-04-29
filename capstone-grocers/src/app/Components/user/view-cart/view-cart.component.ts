@@ -24,4 +24,14 @@ export class ViewCartComponent implements OnInit {
    },error=>console.log(error));
   }
 
+  deleteProduct(id?:String)
+  {
+    if(id == null)
+    id = ''
+    this.userServ.deleteCartItemById(id).subscribe(data=>{
+      console.log(data);
+      this.viewAllProducts();
+    })
+  }
+
 }

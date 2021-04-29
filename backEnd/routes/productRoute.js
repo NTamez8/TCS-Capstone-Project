@@ -3,6 +3,7 @@ const productController = require('../controllers/productController');
 const multiPassport = require('../middleware/multiPassport')()
 const routes = express.Router();
 
+//GET
 routes.get("/getProductById/:product_id",productController.getProductById);
 routes.get("/getAllProducts",productController.getAllProducts);
 

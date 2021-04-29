@@ -15,7 +15,7 @@ export class SendRequestComponent implements OnInit {
   }
   addProductQuntity(productRef:any){
     console.log(productRef);
-    this.productSer.sendRequest(productRef)
+    this.productSer.sendRequest(productRef).subscribe(data=>{console.log(data)})
     
       }
   
