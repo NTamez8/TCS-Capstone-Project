@@ -11,6 +11,9 @@ import { ProductService } from 'src/app/Services/product.service';
 })
 export class AddProductsComponent implements OnInit {
 
+  priceError:Boolean = false;
+  quantityError:Boolean = false;
+
   constructor(public viewProductComponent:ViewProductsComponent, private productService:ProductService) { }
 
   ngOnInit(): void {
@@ -20,11 +23,22 @@ export class AddProductsComponent implements OnInit {
   productFormValidation(productRef:NgForm){
     const p_values = productRef.value;
     if(p_values.p_price >= 0 && p_values.p_quantity >= 0){
+      this.quantityError = false;
+      this.priceError = false;
       this.addProduct(productRef);
     }else{
-      alert("Quantity and Price must be >= 0!");
+      if(p_values.p_price < 0){
+        this.priceError = true;
+      }else{
+        this.priceError = false;
+      }
+      if(p_values.p_quantity < 0){
+        this.quantityError = true;
+      }else{
+        this.quantityError = false;
+      }
     }
-  }
+  };
 
   // add a product
   async addProduct(productRef:NgForm){
