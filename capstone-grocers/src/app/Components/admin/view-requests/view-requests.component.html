@@ -72,7 +72,7 @@
             </tbody>
             <!-- Table for single request -->
             <tbody *ngIf="single;">
-                <tr *ngFor="let request of requestService.currentRequest;index as i;">
+                <tr *ngFor="let request of requestService.currentRequest">
                     <th scope="row">{{getRequestIndex(request)+1}}</th>
                     <td>{{request.employee_id}}</td>
                     <td>{{request.product_id}}</td>
