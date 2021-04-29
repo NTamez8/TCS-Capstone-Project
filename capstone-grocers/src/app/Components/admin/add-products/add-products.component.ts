@@ -16,6 +16,15 @@ export class AddProductsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  productFormValidation(productRef:NgForm){
+    const p_values = productRef.value;
+    if(p_values.p_price >= 0 && p_values.p_quantity >= 0){
+      this.addProduct(productRef);
+    }else{
+      alert("Quantity and Price must be >= 0!");
+    }
+  }
+
   // add a product
   async addProduct(productRef:NgForm){
     // get form values

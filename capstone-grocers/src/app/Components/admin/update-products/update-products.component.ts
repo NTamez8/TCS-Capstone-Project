@@ -27,6 +27,14 @@ export class UpdateProductsComponent implements OnInit {
     // }
   }
 
+  productFormValidation(){
+    if(this.new_quantity >= 0){
+      this.updateProduct();
+    }else{
+      alert("Quantity must be >= 0!");
+    }
+  }
+
   async updateProduct(){
     try{
       // if the product ID exists, update the product quantity
