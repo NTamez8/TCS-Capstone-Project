@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { EmployeeService } from 'src/app/Services/employee.service';
+
+
 
 @Component({
   selector: 'app-sign-in',
@@ -9,21 +12,19 @@ import { EmployeeService } from 'src/app/Services/employee.service';
 })
 export class SignInComponent implements OnInit {
 
-  constructor(private router:Router,private empServ:EmployeeService) { }
+  constructor(private employeeService:EmployeeService,private router:Router) { }
 
   ngOnInit(): void {
   }
 
-  login(empRef:any)
-  {
-    
-    this.empServ.signIn(empRef.userName,empRef.password).subscribe(data=>{
-      
+  e_signIn(e_loginRef:NgForm){
+    const e_credentials = e_loginRef.value;
+    console.log(e_credentials);
+    this.employeeService.signIn(e_credentials.userName,e_credentials.password).subscribe(data=>{
       sessionStorage.setItem('token',data.token);
-        this.router.navigateByUrl("employeePanel");
-    })
-    //this is a quick fix until frontend Employee authentication works \/\/\/
-  
+     // sessionStorage.setItem('employeeUser',e_credentials.email_address);
+      this.router.navigateByUrl('employeePanel');
+    });
   }
 
 }

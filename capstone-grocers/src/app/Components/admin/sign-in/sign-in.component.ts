@@ -19,6 +19,11 @@ export class SignInComponent implements OnInit {
   a_signIn(a_loginRef:NgForm){
     const a_credentials = a_loginRef.value;
     this.adminService.signIn(a_credentials.a_username,a_credentials.a_password).subscribe(data=>{
+      if(data.message){
+        //alert(data.message);
+      }else{
+        alert("Invalid credentials");
+      }
       sessionStorage.setItem('adminToken',data.token);
       sessionStorage.setItem('adminUser',a_credentials.a_username);
       this.router.navigateByUrl('adminPanel');

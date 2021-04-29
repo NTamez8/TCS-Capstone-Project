@@ -24,16 +24,15 @@ let signIn = async (req,res,next)=>{
         };
       
         const token = jwt.encode({id:admin._id},adminConfig.secret);
-        res.send({token});
+        res.send({message:"Successfully logged in!",token});
     }catch(error){
-        next(error);
+        res.send({messge:error.message});
     };
 };
 
 let getMe = async (req,res,next) =>{
     try{
         let me = await AdminModel.findById(req.user);
-       
         return res.send(me);
     }catch(error){
         next(error);

@@ -1,36 +1,25 @@
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>Funds</title>
-</head>
-<body>
-    
-</body>
-</html>-->
 
 <h2>Account Funds</h2>
-
-    <div class="fundTableArea">
-        <table class="table fundTable">
-            <thead>
-                <th>Account Number</th>
-                <th>Amount</th>
-            </thead>
-            <tbody>
-                <tr></tr>
-            </tbody>
-        </table>
+ <div class="fundTableArea">
+<table class="table fundTable">
+ <thead>
+    <th>Account Number</th>
+    <th>Amount</th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{me.accountN}}</td>
+        <td>{{me.funds}}</td>
+    </tr>
+    </tbody>
+    </table>
     </div>
 <div class="addFundsArea">
     <h3>Add Funds</h3>
-    <div class="input-group mb-3 amntInput">
+    <div class="input-group mb-2 amntInput">
         <span class="input-group-text">$</span>
         <input #fundsAmnt type="text" class="form-control" aria-label="Amount">
-        <span class="input-group-text">.00$</span>
+        <span class="input-group-text">.0$</span>
     </div>
     <input type="button" class="btn btn-success" value="Load Funds" (click)="loadFunds(fundsAmnt.value)">
 </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Order } from 'src/app/Classes/order';
+import {OrderService} from 'src/app/Services/order.service'
 
 
 @Component({
@@ -8,11 +10,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewOrderStatusComponent implements OnInit {
 
-  constructor() { }
+  orderStatus: any;
+  orders:Order[]=[]
+  constructor(public orderSer:OrderService) { }
 
-  ngOnInit(): void {
-    //this.orderSer.getOrderStatus().subscribe(result=>this.orderStatus=result);
-    
+   ngOnInit(): void {
+     this.orderSer.getUserOrders().subscribe(data=>{
+       this.orders = data;
+       console.log(data);
+     })
   }
-
+  viewStatus(vieworderRef:any){
+    console.log(vieworderRef)
+    this.orderSer.viewOrderStatus(vieworderRef).subscribe((result:any)=>{
+      this.orderStatus=result.Message;
+    })
+   }
+   
 }

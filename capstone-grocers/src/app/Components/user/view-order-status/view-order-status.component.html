@@ -1,10 +1,39 @@
-<div>
-    <table border="1">
+<div><!--
+    <h2>Order Details</h2>
+
+     <form #vieworderRef="ngForm" (ngSubmit)="viewStatus(vieworderRef.value)">
+        <label>OrderId</label>
+        <input type="text" name="id" ngModel><br/>
+        <input type="submit" value="viewStatus "/>
+        
+     </form>
+    {{orderStatus}}-->
+    <table class='table'>
+        <thead>
             <tr>
-                <th>order status</th>
-            </tr><!--
-            <tr *ngFor="let o of order">
-                    <td>{{o.status}}</td>
-            </tr>-->
+                <td>
+                    Time
+                </td>
+                <td>
+                    status
+                </td>
+                <td>
+                    fullfilled
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = 'let order of orders'>
+                <td>
+                    {{order.datetime_requested}}
+                </td>
+                <td>
+                    {{order.status}}
+                </td>
+                <td>
+                    {{order.datetime_fulfilled}}
+                </td>
+            </tr>
+        </tbody>
     </table>
 </div>

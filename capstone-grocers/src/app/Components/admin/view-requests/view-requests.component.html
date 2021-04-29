@@ -3,9 +3,9 @@
         <form #requestRef="ngForm" (ngSubmit)="getRequestById(requestRef)">
             <h3 class="text-center">Request Viewing</h3><hr/>
             <div class="form-group">
-                <label>Request ID</label>
+                <label>Request</label>
                 <br/>
-                <input type="text" name="request_id" id="request_id" class="form-control" required ngModel/>
+                <input type="number" name="request_order" id="request_order" class="form-control" required ngModel/>
             </div>
             <div class="text-center">
                 <input type="submit" value="View Request" [disabled]="!requestRef.valid" class="btn btn-primary mt-1"/>
@@ -18,13 +18,12 @@
 
         <hr/>
     </div>
-    <div class="col-11 m-auto text-center mw-100" style="overflow-y:auto;">
+    <div class="col-14 m-auto text-center mw-100" style="overflow-y:auto;">
         <br/>
         <table class="border border-dark table">
             <thead>
                 <tr>
-                    <th scope="col">Request Order</th>
-                    <th scope="col">Request ID</th>
+                    <th scope="col">Request</th>
                     <th scope="col">Employee</th>
                     <th scope="col">Product ID</th>
                     <th scope="col">Quantity Requested</th>
@@ -32,13 +31,13 @@
                     <th scope="col">Time Resolved</th>
                     <th scope="col">Status</th>
                     <th scope="col">Resolve Request</th>
+                    <th scope="col">Remove Request</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr *ngFor="let request of requests;let cindex = index;">
-                    <th scope="row">{{cindex+1}}</th>
-                    <td>{{request._id}}</td>
-                    <td>{{request.e_username}}</td>
+            <tbody *ngIf="!single;">
+                <tr *ngFor="let request of requestService.currentRequests;index as i;">
+                    <th scope="row">{{i+1}}</th>
+                    <td>{{request.employee_id}}</td>
                     <td>{{request.product_id}}</td>
                     <td>{{request.new_quantity}}</td>
                     <td>{{request.datetime_requested}}</td>
@@ -51,9 +50,73 @@
                     Hence if a cell does not load because it is a resolved request, we need
                     an empty dumby-cell.-->
                     <td *ngIf="request.status == 'resolved'"></td>
+                    <td *ngIf="request.status == 'resolved'">
+                        <button type="submit" class="btn btn-danger" value="X" (click)="deleteRequest(request)">X</button>
+                    </td>
+                    <td *ngIf="request.status != 'resolved'"></td>              
+                </tr>
+            </tbody>
+            <tbody *ngIf="single;">
+                <tr *ngFor="let request of requestService.currentRequest;index as i;">
+                    <th scope="row">{{getRequestIndex(request)+1}}</th>
+                    <td>{{request.employee_id}}</td>
+                    <td>{{request.product_id}}</td>
+                    <td>{{request.new_quantity}}</td>
+                    <td>{{request.datetime_requested}}</td>
+                    <td>{{request.datetime_resolved}}</td>
+                    <td>{{request.status}}</td>
+                    <td *ngIf="request.status != 'resolved'">
+                        <button type="submit" class="btn btn-secondary" value="Resolve" (click)="resolveRequest(request)">Resolve</button>
+                    </td>
+                    <!--We also need the following cell because the table bordering is part of a cell.
+                    Hence if a cell does not load because it is a resolved request, we need
+                    an empty dumby-cell.-->
+                    <td *ngIf="request.status == 'resolved'"></td>
+                    <td *ngIf="request.status == 'resolved'">
+                        <button type="submit" class="btn btn-danger" value="X" (click)="deleteRequest(request)">X</button>
+                    </td>
+                    <td *ngIf="request.status != 'resolved'"></td>              
                 </tr>
             </tbody>
         </table>
     </div>
+
+    <!-- <div class="col-14 m-auto text-center mw-100" style="overflow-y:auto;" *ngIf="single == true;">
+        <br/>
+        <table class="border border-dark table">
+            <thead>
+                <tr>
+                    <th scope="col">Request Order</th>
+                    <th scope="col">Employee</th>
+                    <th scope="col">Product ID</th>
+                    <th scope="col">Quantity Requested</th>
+                    <th scope="col">Time Requested</th>
+                    <th scope="col">Time Resolved</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Resolve Request</th>
+                    <th scope="col">Remove Request</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">{{re}}</th>
+                    <td>{{requestService.currentRequest.employee_id}}</td>
+                    <td>{{requestService.currentRequest.product_id}}</td>
+                    <td>{{requestService.currentRequest.new_quantity}}</td>
+                    <td>{{requestService.currentRequest.datetime_requested}}</td>
+                    <td>{{requestService.currentRequest.datetime_resolved}}</td>
+                    <td>{{requestService.currentRequest.status}}</td>
+                    <td *ngIf="requestService.currentRequest.status != 'resolved'">
+                        <button type="submit" class="btn btn-secondary" value="Resolve" (click)="resolveRequest(requestService.currentRequest)">Resolve</button>
+                    </td>
+                    <td *ngIf="request.status == 'resolved'"></td>
+                    <td *ngIf="request.status == 'resolved'">
+                        <button type="submit" class="btn btn-danger" value="X" (click)="deleteRequest(requestService.currentRequest)">X</button>
+                    </td>
+                    <td *ngIf="request.status != 'resolved'"></td>              
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
 
 </div>
