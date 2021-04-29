@@ -8,10 +8,16 @@
                 <br/>
                 <input type="text" name="product_id" id="product_id" required [(ngModel)]="product_id" class="form-control"/>
             </div>
+            <div class="text-center">
+                <label *ngIf="invalidProduct">Please enter a valid Product ID!</label>
+            </div>
             <div class="form-group">
                 <label>New Quantity</label>
                 <br/>
                 <input type="number" name="new_quantity" id="new_quantity" required min="0" [(ngModel)]="new_quantity" class="form-control"/>
+            </div>
+            <div class="text-center">
+                <label *ngIf="quantityError">Please enter a valid quantity! (p >= 0)</label>
             </div>
             <div class="text-center">
                 <input type="submit" value="Update" [disabled]="!productRef.valid" class="btn btn-primary m-1"/>

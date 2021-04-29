@@ -10,6 +10,8 @@ import { ProductService } from 'src/app/Services/product.service';
 })
 export class DeleteProductsComponent implements OnInit {
 
+  public invalidProduct = false;
+
   constructor(public viewProductComponent:ViewProductsComponent,private productService:ProductService) { }
 
   ngOnInit(): void {
@@ -27,17 +29,18 @@ export class DeleteProductsComponent implements OnInit {
       // grab product deletion form values
       const formValues = productRef.value;
       if(this.productService.productExists(formValues.product_id as String)){
+        this.invalidProduct = false;
       await this.productService.deleteProductById(formValues.product_id as string).subscribe(data=>{
-        alert(data.message);
+        //alert(data.message);
         this.getAllProducts();
       });
       // refresh products
       this.viewProductComponent.getAllProducts();
     }else{
-      alert("Please enter a valid Product ID!");
+      this.invalidProduct = true;
     }
     }catch(tryError){
-      alert(tryError);
+      console.log(tryError);
     }
   }
 }

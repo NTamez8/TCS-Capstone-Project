@@ -13,6 +13,7 @@ export class ViewProductsComponent implements OnInit {
   constructor(public productService:ProductService) { }
 
   public single:any;
+  public invalidProduct:Boolean = false;
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -39,11 +40,13 @@ export class ViewProductsComponent implements OnInit {
     let product_id = this.productService.currentProducts[product_order-1]?._id;
     // check for valid Product ID
     if(this.productService.productExists(product_id as String)){
+      this.invalidProduct = false;
       await this.productService.getProductById(product_id as String).subscribe(result=>this.productService.currentProduct=result,error=>console.log(error));
       // now viewing a single product
       this.single = true;
     }else{
-      alert("Product does not exist!");
+      this.invalidProduct = true;
+      //alert("Product does not exist!");
     }
   };
 
@@ -51,7 +54,7 @@ export class ViewProductsComponent implements OnInit {
   async deleteProduct(product:Product){
     // delete the product from the product service then refresh products
     await this.productService.deleteProductById(product._id as string).subscribe(data=>{
-      alert(data.message);
+      //alert(data.message);
       this.getAllProducts();
     });
   };

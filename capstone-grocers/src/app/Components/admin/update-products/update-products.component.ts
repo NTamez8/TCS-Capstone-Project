@@ -12,6 +12,8 @@ import { ViewProductsComponent } from 'src/app/Components/admin/view-products/vi
 })
 export class UpdateProductsComponent implements OnInit {
 
+  public invalidProduct:Boolean = false;
+  public quantityError: Boolean = false;
   public product_id:any;
   public new_quantity:any;
   public fromViewRequest:any;
@@ -30,9 +32,16 @@ export class UpdateProductsComponent implements OnInit {
   // form validation
   productFormValidation(){
     if(this.new_quantity >= 0){
+      this.quantityError = false;
       this.updateProduct();
     }else{
-      alert("Quantity must be >= 0!");
+      if(this.productService.productExists(this.product_id as String)){
+        this.invalidProduct = false;
+      }else{
+        this.invalidProduct = true;
+      }
+      this.quantityError = true;
+      //alert("Quantity must be >= 0!");
     }
   }
 
@@ -40,8 +49,9 @@ export class UpdateProductsComponent implements OnInit {
     try{
       // if the product ID exists, update the product quantity
       if(this.productService.productExists(this.product_id as String)){
+        this.invalidProduct = false;
         await this.productService.updateProduct(this.product_id,this.new_quantity).subscribe((data)=>{
-          alert(data.message);
+          //alert(data.message);
           this.viewProductComponent.getAllProducts();
         });
         // if we came from the request component, compare the product_id's to check and see if we will
@@ -52,10 +62,11 @@ export class UpdateProductsComponent implements OnInit {
         //   }
         // }
       }else{
-        alert("Please enter a valid Product ID!");
+        this.invalidProduct = true;
+        //alert("Please enter a valid Product ID!");
       }
     }catch(tryError){
-      alert(tryError);
+      console.log(tryError);
     }
   }
 
