@@ -1,4 +1,5 @@
 <div class="row border border-dark p-1">
+    <!-- Product viewing form -->
     <div class="col-10 m-auto">
         <form #productViewRef="ngForm" (ngSubmit)="getProductById(productViewRef)">
             <h3 class="text-center">Product Viewing</h3><hr/>
@@ -14,6 +15,7 @@
             </div>
         </form>
         <hr/>
+        <!-- Product table container -->
         <div class="col-11 m-auto text-center mw-100" style="overflow-y:auto;">
             <table class="border border-dark table">
                 <thead>
@@ -27,6 +29,7 @@
                         <th scope="col">Delete</th>
                     </tr>
                 </thead>
+                <!-- Table body for all products -->
                 <tbody *ngIf="!single">
                     <tr *ngFor="let product of productService.currentProducts;let pIndex=index;">
                         <th scope="row">{{pIndex+1}}</th>
@@ -40,6 +43,7 @@
                         </td>
                     </tr>
                 </tbody>
+                <!-- Table body for a single product -->
                 <tbody *ngIf="single;">
                     <tr *ngFor="let product of productService.currentProduct;index as i;">
                         <th scope="row">{{getProductIndex(product)+1}}</th>
