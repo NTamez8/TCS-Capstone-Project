@@ -277,6 +277,7 @@ let getUserOrder = async (req,res,next)=>{
     try
     {
         let user = req.user;
+        console.log(user);
         let orders = await order.find({user_ID:user._id})
         res.send(orders);
     }

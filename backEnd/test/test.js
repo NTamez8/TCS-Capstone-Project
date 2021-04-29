@@ -5,7 +5,8 @@ const userModel = require('../models/userModel');
 let chai = require('chai');
 let http = require('chai-http');
 let server = require('../index');
-const { response } = require('../index');
+
+const orderModel = require('../models/orderModel');
 let should = chai.should();
 chai.use(http);
 
@@ -266,7 +267,7 @@ describe('Test',(adminDone)=>{
                 if(err)
                 {
                     console.log(err);
-                    done();
+                   
                 }
                 result.should.have.status(200);
                 userToken = result.body.token;
@@ -283,7 +284,7 @@ describe('Test',(adminDone)=>{
                 if(err)
                 {
                     console.log(err);
-                    done();
+                   
                 }
                 result.should.have.status(200);
                 result.body.token.should.equal(userToken);
@@ -302,7 +303,7 @@ describe('Test',(adminDone)=>{
                      if(err)
                      {
                          console.log(err);
-                         done();
+                         
                      }
                     
                      result.should.have.status(200);
@@ -321,7 +322,7 @@ describe('Test',(adminDone)=>{
                      if(err)
                      {
                          console.log(err);
-                         done();
+                       
                      }
                     
                      result.should.have.status(200);
@@ -339,7 +340,7 @@ describe('Test',(adminDone)=>{
                      if(err)
                      {
                          console.log(err);
-                         done();
+                       
                      }
                     
                      result.should.have.status(200);
@@ -353,7 +354,7 @@ describe('Test',(adminDone)=>{
                 if(err)
                 {
                     console.log(err);
-                    done();
+                   
                 }
                
                 result.should.have.status(200);
@@ -369,7 +370,7 @@ describe('Test',(adminDone)=>{
                     if(err)
                     {
                         console.log(err);
-                        done();
+                      
                     }
                    
                    // response.should.have.status(200);
@@ -385,7 +386,7 @@ describe('Test',(adminDone)=>{
                 if(err)
                 {
                     console.log(err);
-                    done();
+                  
                 }
                
                 result.should.have.status(200);
@@ -400,7 +401,7 @@ describe('Test',(adminDone)=>{
                 if(err)
                 {
                     console.log(err);
-                    done();
+                   
                 }
                
                 result.should.have.status(200);
@@ -411,12 +412,12 @@ describe('Test',(adminDone)=>{
             })
         })
         it('Should add funds so it can buy the cart',done=>{
-            
-            chai.request(server).put('user/updateFunds').send({fundsRef:totalCost}).set('Authorization','bearer ' + userToken).end((err,result)=>{
+            console.log(totalCost);
+            chai.request(server).put('/user/updateFunds').send({fundsRef:totalCost}).set('Authorization','bearer ' + userToken).end((err,result)=>{
                 if(err)
                 {
                     console.log(err);
-                    done();
+                   
                 }
                
                 
@@ -429,10 +430,10 @@ describe('Test',(adminDone)=>{
                 if(err)
                 {
                     console.log(err);
-                    done();
+                   
                 }
                
-                result.should.have.status(200);
+                result.body.msg.should.be.eq('Cart checkout successful')
                
                 
                 done();
@@ -444,10 +445,10 @@ describe('Test',(adminDone)=>{
                 if(err)
                 {
                     console.log(err);
-                    done();
+                  
                 }
                
-                result.should.have.status(200);
+               console.log(result);
                 
                 done();
             })
@@ -466,7 +467,7 @@ describe('Test',(adminDone)=>{
     employeeModel.deleteMany({},()=>{})
     productModel.deleteMany({},()=>{})
     userModel.deleteMany({},()=>{})
-
+    orderModel.deleteMany({},()=>{})
 
 
 })

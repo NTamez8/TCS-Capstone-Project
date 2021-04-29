@@ -435,8 +435,10 @@ let updateFunds = async (req,res,next) =>{
    //console.log(req.body)
     let currUser = req.user;
     //console.log(currUser);
+    console.log(req.body,'here');
     currUser.funds += eval(req.body.fundsRef);
     await currUser.save()
+    console.log(currUser);
     res.send('success');
 
     /*
