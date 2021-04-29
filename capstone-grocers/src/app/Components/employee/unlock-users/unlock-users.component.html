@@ -1,6 +1,26 @@
+<h3>Unlocking User </h3>
+    <table class='table'>
+        <tr>
+            
+            <th>Ticket Raised Time</th>
+             
+            <th> reason </th>
+            <th>User </th>
+            <th>Resolve</th>
+           
+        </tr>
+<tr *ngFor="let dd of details">
+   
+    <td>{{dd.datetime_raised}}</td> 
+     
+    <td>{{dd.reason}}</td>
+    <td>{{dd.user_ID.firstName }} {{dd.user_ID.lastName}}</td>
+    <td><button (click)='unlock(dd.user_ID._id,dd._id)'>unlock user</button></td>
+    
+</tr>
+    </table>
 
-
-
+<!--
 <div>
 <h3>Unlocking User </h3>
     <table border="1">
@@ -8,39 +28,49 @@
             
             <th>Ticket Raised Time</th>
              
-            <th> Ticket Id </th>
+            <th> reason </th>
+            <th>Status </th>
+            
            
         </tr>
 <tr *ngFor="let dd of details">
    
     <td>{{dd.datetime_raised}}</td> 
      
-    <td>{{dd._id}}</td>
+    <td>{{dd.reason}}</td>
+    <td>{{dd.status}}</td>
+    
     
 </tr>
     </table>
 
 
     <hr/>
-    <form #userRef="ngForm" (ngSubmit)="unlockUser(userRef.value)">
-        <label>Username</label>
-        <input type="text" name="u_username"  ngModel><br/>
-        <label>Profile Status </label>
-        <input list="browsers" name="locked"  ngModel><br/>
-        
-            <datalist id="browsers" ng-model>
-            <option  value="true">True</option>
-            <option value="false">False</option>
-            </datalist>
-        
-            
-
-          <br>
 
 
-        <input type="submit" value="upadate status"/>
-        
-     </form>
-    {{userMsg}}
-</div>
+    <div class='row'>
+        <div class='col-4 offset-4'>
+            <form #userRef = 'ngForm' (ngSubmit) = 'unlockUser(userRef.value)'>
+               
+                <div class='form-group'>
+                    <label >User Name: </label><input type="text" name='u_username' required ngModel class="form-control">
+                </div>
+                <div class='form-group'>
+                    <label >Profile Status</label>
+                    <input list="browsers" name='locked' required ngModel class="form-control">
+                    <datalist id="browsers" ng-model>
+                        <option  value="true">True</option>
+                        <option value="false">False</option>
+                        </datalist>
+                </div>
+                <input type="submit" value='upadate status' />
+              [disabled] = "!userRef.valid"> 
+            </form>
+        </div>
+       
+    </div>
+
+</div>-->
+
+
 

@@ -1,7 +1,7 @@
 <div>
-    <form #cartRef="ngForm" (ngSubmit)="checkoutToCart(cartRef)">
+    <form (ngSubmit)="checkoutToCart()">
         <h3>Checkout Cart</h3><hr/>
-        <input type="button" value="Checkout" class = "btn btn-secondary"/> 
+        <input type="submit" value="Checkout" class = "btn btn-secondary"/> 
     </form>
     {{msg}}
 </div>

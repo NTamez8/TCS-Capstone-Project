@@ -17,6 +17,7 @@ import {
 })
 export class OrderService {
 
+   root = 'http://localhost:8080';
 
   constructor(public http: HttpClient) {}
   
@@ -24,35 +25,50 @@ export class OrderService {
 
   getOrdersByDay(date:String):Observable<Order[]>
   {
-    return this.http.post<Order[]>('http://localhost:8080/order/getOrderByDay',{"day":date});
+    return this.http.post<Order[]>(this.root+'/order/getOrderByDay',{"day":date});
   }
   getOrdersByWeek(week:String):Observable<Order[]>
   {
-    return this.http.post<Order[]>('http://localhost:8080/order/getOrderByWeek',{"dateStart":week});
+    return this.http.post<Order[]>(this.root+'/order/getOrderByWeek',{"dateStart":week});
   }
   getOrdersByMonth(month:String):Observable<Order[]>
   {
-    return this.http.post<Order[]>('http://localhost:8080/order/getOrderByMonth',{"monthStart":month});
+    return this.http.post<Order[]>(this.root+'/order/getOrderByMonth',{"monthStart":month});
   }
   getOrdersByProd(id:String):Observable<Order[]>
   {
-    return this.http.get<Order[]>('http://localhost:8080/order/getOrderByProdId/' + id );
+    return this.http.get<Order[]>(this.root+'/order/getOrderByProdId/' + id );
   }
   getOrdersByCust(id:String):Observable<Order[]>
   {
-    return this.http.get<Order[]>('http://localhost:8080/order/getOrdersByCust/' + id);
+    return this.http.get<Order[]>(this.root+'/order/getOrdersByCust/' + id);
   }
+  retriveOrderById():Observable<Order[]>{
+      return this.http.get<Order[]>(this.root+"/order/retriveOrderById/")
+    }
 
-  retriveOrderById(id:any):Observable<Order[]>{
-    return this.http.get<Order[]>("http://localhost:8080/order/retriveOrderById/"+id)
-  }
+  // retriveOrderById(id:any):Observable<Order[]>{
+  //   return this.http.get<Order[]>(this.root+"/order/retriveOrderById/"+id)
+  // }
+  // getDetailOfUser():Observable<Order[]>{
+  //   return this.http.get<Order[]>(this.root+"/ticket/getDetailOfUser/")
+
+  // }
   updateOrderStatus(orderRef:any):any{
-    return this.http.put("http://localhost:8080/order/updateOrderStatus",orderRef)
+    return this.http.put(this.root+"/order/updateOrderStatus",orderRef)
 
 }
 
 getOrderStatus(status:any):Observable<Order[]>{
-  return this.http.get<Order[]>("http://localhost:8080/order/getOrderstatus/"+status)
+  return this.http.get<Order[]>(this.root+"/order/getOrderstatus/"+status)
+}
+  viewOrderStatus(status:any):Observable<Order[]>{
+  return this.http.get<Order[]>(this.root+"/order/viewOrderstatus/"+status)
+}
+getUserOrders()
+{
+  let token = 'bearer ' + sessionStorage.getItem('token');
+  return this.http.get<Order[]>(this.root+'/order/getUserOrder',{headers:{"Authorization":token}})
 }
 
 }

@@ -1,13 +1,25 @@
 const order = require('../models/orderModel');
 const User = require('../models/userModel');
+// let getOrderById=(req,res)=>{
+//     // let oid=req.params.oid;     //passing through path param
+//     order.find({_id:oid},(err,data)=>{
+//         if(!err){
+//             res.json(data);    //return array
+//         }
+//     })
+// }
+
 let getOrderById=(req,res)=>{
-    let oid=req.params.oid;     //passing through path param
-    order.find({_id:oid},(err,data)=>{
+    // let u_username=req.params.u_username;     //passing through path param
+   // let user_ID=req.params.user._id;
+   order.find({},(err,data)=>{
         if(!err){
             res.json(data);    //return array
         }
     })
 }
+
+
 let updateOrderByStatus= async (req,res,next)=>{
     try
     {
@@ -262,8 +274,21 @@ let getOrdersByCust = async (req, res, next) => {
     }
 }
 
+let getUserOrder = async (req,res,next)=>{
+    try
+    {
+        let user = req.user;
+        let orders = await order.find({user_ID:user._id})
+        res.send(orders);
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
 
 module.exports = {
+    getUserOrder,
     getOrderById,
     updateOrderByStatus,
     getOrdersByDay,

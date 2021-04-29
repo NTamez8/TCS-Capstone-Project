@@ -38,6 +38,8 @@ import { SendRequestComponent } from 'src/app/Components/employee/send-request/s
 import { UnlockUsersComponent } from 'src/app/Components/employee/unlock-users/unlock-users.component';
 import { SignInComponent as EmpSignInComponent} from 'src/app/Components/employee/sign-in/sign-in.component';
 import { ProductManagementComponent } from 'src/app/Components/admin/product-management/product-management.component';
+import { EmployeeGuard } from './Guards/employee.guard';
+import { FundsComponent } from './Components/user/funds/funds.component';
 const routes: Routes = [
   {path:'',component:NoLoginComponent},
   {path:'user',component:UserOptionsComponent,children:[
@@ -50,9 +52,10 @@ const routes: Routes = [
   ]},
   {path:'userPanel',component:UserPanelComponent,canActivate:[UserGuard],canActivateChild:[UserGuard],children:[
     {path:'selectItem',component:SelectItemComponent},
-    {path:'deleteItem',component:DeleteItemComponent},
+  //  {path:'deleteItem',component:DeleteItemComponent},
     {path:'viewCart',component:ViewCartComponent},
-    {path:'checkout', component:CheckoutComponent},
+  //  {path:'checkout', component:CheckoutComponent},
+    {path:'funds',component:FundsComponent},
  
     {path:'viewOrderStatus',component:ViewOrderStatusComponent},
     {path:'edit',component:userEdit}
@@ -61,7 +64,7 @@ const routes: Routes = [
   {path:"employee",children:[
     {path:"signIn",component:EmpSignInComponent}
   ]},
-  {path:"employeePanel",component:EmployeePanelComponent,children:[
+  {path:"employeePanel",component:EmployeePanelComponent,canActivate:[EmployeeGuard],canActivateChild:[EmployeeGuard],children:[
     {path:"editProfile",component:employeeEdit},
     {path:"orderStatus",component:OrderStatusComponent},
     {path:"sendRequest",component:SendRequestComponent},

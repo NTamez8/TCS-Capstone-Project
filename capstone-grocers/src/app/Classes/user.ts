@@ -10,6 +10,7 @@ export class User {
         public address:String,
         public phone_number:Number,
         public date_of_birth:String,
+        public accountN?:String,
         public cart?:[cartItem],
         public locked?:Boolean,
         public funds?:Number, 

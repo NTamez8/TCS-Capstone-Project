@@ -13,18 +13,23 @@ export class SelectItemComponent implements OnInit {
   products?:Array<Product>
   ngOnInit(): void {
     this.productSer.getAllProducts().subscribe((result: any)=>this.products = result);
-    this.userServ.getMe().subscribe((result: any)=>this.products = result);
   }
 
 // you will need the current user id
   //the current user_id can be gotten from the token by using the getMe route for a user.
   // you will need to implement the service to do this
   
-  addProductCart(productRef:any){
-    console.log(productRef)
-    this.userServ.addItemstoCart(productRef)
+  addProductCart(productRef:any,quantityDesired:any){
+   
+    this.userServ.addItemstoCart(productRef,quantityDesired).subscribe(data=>{
+      console.log(data);
+    })
   }
 
+  getCounter(i:number)
+  {
+    return new Array(i);
+  }
   
 
   

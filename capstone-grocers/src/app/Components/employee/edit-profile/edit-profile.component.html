@@ -1,17 +1,33 @@
-<p>edit-profile works!</p>
+
+<!-- <div>
+    <h2>Edit Password-Employee</h2>
+    
+    
+    <form #passwordRef="ngForm" (ngSubmit)="updatePassword(passwordRef.value)">
+    <label>Id</label>
+    <input type ="text" name="_id" value="employees._id" ngModel><br/>
+    <label>Password</label>
+    <input type ="text" name="e_password"  value ="employees.Password"ngModel><br/>
+    <input type ="submit" name="Forgot Password!!" class="btn btn-primary m-1"[disabled] = '!passwordRef.valid'>
+    <input type="reset" value = "Clear" class="btn btn-secondary m-1 ms-0"><br/>
+    </form>
+    
+    {{updateMsg}}
+</div>
+
+ -->
+
+
 <div>
     <h2>Edit Password-Employee</h2>
     <!-- <button  (click)="updatePassword(passwordRef.value)" >
         Forgot Password</button> -->
     
     <form #passwordRef="ngForm" (ngSubmit)="updatePassword(passwordRef.value)">
-    <label>Email</label>
-    <input type ="text" name="email_address" ngModel><br/>
     <label>Password</label>
     <input type ="text" name="e_password" ngModel><br/>
     <input type ="submit" name="Forgot Password!!" [disabled] = '!passwordRef.valid'><input type="reset" value = "Clear"><br/>
     </form>
     {{updateMsg}}
 </div>
-
 

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from 'src/app/Classes/product';
+import { Product, ProductMessage } from 'src/app/Classes/product';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +9,22 @@ import { Product } from 'src/app/Classes/product';
 export class ProductService {
 
   constructor(private http:HttpClient) { }
-
+  currentProduct:Array<Product>=[];
   currentProducts:Array<Product>=[];
+
+  productExists(product_id:String):Boolean{
+    if(product_id){
+      let productExists = false;
+      this.currentProducts.forEach(function(product){
+        if(product._id == product_id){
+          productExists =  true;
+        }
+      });
+      return productExists;
+    }else{
+      return false;
+    }
+  };
 
   getAllProducts():Observable<Product[]>{
    // let token = 'bearer ' + sessionStorage.getItem('adminToken');
@@ -25,15 +39,15 @@ export class ProductService {
   addProduct(product:Product){
     let token = 'bearer ' + sessionStorage.getItem('adminToken');
     return this.http.post<{token:string}>("http://localhost:8080/product/addProduct",{product},{headers:{'Authorization':token}});
-  }
+  };
 
-  updateProduct(product_id:String,new_quantity:Number){
+  updateProduct(product_id:String,new_quantity:Number):Observable<ProductMessage>{
     let token = 'bearer ' + sessionStorage.getItem('adminToken');
-    return this.http.post<{token:string}>("http://localhost:8080/product/updateProductQuantityById",{product_id,new_quantity},{headers:{'Authorization':token}});
-  }
+    return this.http.post<ProductMessage>("http://localhost:8080/product/updateProductQuantityById",{product_id,new_quantity},{headers:{'Authorization':token}});
+  };
 
   deleteProductById(product_id:String){
     let token = 'bearer ' + sessionStorage.getItem('adminToken');
-    return this.http.post<{token:string}>("http://localhost:8080/product/deleteProductById",{product_id},{headers:{'Authorization':token}});
-  }
+    return this.http.post<ProductMessage>("http://localhost:8080/product/deleteProductById",{product_id},{headers:{'Authorization':token}});
+  };
 }

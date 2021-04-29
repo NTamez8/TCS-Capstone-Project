@@ -8,7 +8,6 @@
             <table class="table table-bordered tbl-cart">
                 <thead>
                     <tr>
-                        <td>Product ID</td>
                         <td>Product Name</td>
                         <td>Product Description</td>
                         <td>Product Price</td>
@@ -16,12 +15,12 @@
                         <td>Sub Total</td>
                     </tr>
                 </thead>
-                <tr *ngFor="let product of products">
-                    <td>{{product._id}}</td>
-                    <td>{{product.name}}</td>
-                    <td>{{product.description}}</td>
-                    <td>{{product.price}}</td>
-                    <td>{{product.quantity}}</td>
+                <tr *ngFor="let cartItem of products">
+                    <td>{{cartItem.product.name}}</td>
+                    <td>{{cartItem.product.description}}</td>
+                    <td>{{cartItem.product.price}}</td>
+                    <td>{{cartItem.quantity}}</td>
+                    <td><button (click)='deleteProduct(cartItem.product._id)'>remove from cart</button></td>
                 </tr>
                 <tbody>
                     
