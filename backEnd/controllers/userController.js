@@ -250,6 +250,7 @@ let deleteItemById = async (req,res,next)=>{
    
 }
 let viewItemsfromCart = async(req,res)=> {
+    try{
        // let userOrder= req.user;
        //console.log(req.user);
         let userOrder = await User.findOne({_id:req.user._id}).populate('currentCart.product');
@@ -267,8 +268,6 @@ let viewItemsfromCart = async(req,res)=> {
                 res.json(result);
             }
         })*/
-            }
-        }
         await userOrder.save();
         res.send({"message":"success"});
     }
@@ -278,22 +277,23 @@ let viewItemsfromCart = async(req,res)=> {
     }
    
 }
-let viewItemsfromCart = async(req,res)=> {
-       // let userOrder= req.user;
-       //console.log(req.user);
-        let userOrder = await User.findOne({_id:req.user._id}).populate('currentCart.product');
-       // userOrder.currentCart.populate('Product').exec();
+
+// let viewItemsfromCart = async(req,res)=> {
+//        // let userOrder= req.user;
+//        //console.log(req.user);
+//         let userOrder = await User.findOne({_id:req.user._id}).populate('currentCart.product');
+//        // userOrder.currentCart.populate('Product').exec();
        
-        let total_amount = 0;
+//         let total_amount = 0;
         
-        for(let i = 0; i < userOrder.currentCart.length; i++){
-                total_amount += userOrder.currentCart[i].product.price * userOrder.currentCart[i].quantity;
-        }
+//         for(let i = 0; i < userOrder.currentCart.length; i++){
+//                 total_amount += userOrder.currentCart[i].product.price * userOrder.currentCart[i].quantity;
+//         }
       
       
-        res.send(userOrder.currentCart);
+//         res.send(userOrder.currentCart);
     
-    }
+// }
 
 let checkoutCart = async(req,res,next)=>{
     try
