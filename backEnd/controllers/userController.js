@@ -252,25 +252,28 @@ let deleteItemById = async (req,res,next)=>{
 let viewItemsfromCart = async(req,res)=> {
        // let userOrder= req.user;
        //console.log(req.user);
+       try{
+
         let userOrder = await User.findOne({_id:req.user._id}).populate('currentCart.product');
-       // userOrder.currentCart.populate('Product').exec();
-       
-        let total_amount = 0;
+        // userOrder.currentCart.populate('Product').exec();
         
-        for(let i = 0; i < userOrder.currentCart.length; i++){
-                total_amount += userOrder.currentCart[i].product.price * userOrder.currentCart[i].quantity;
-        }
+         let total_amount = 0;
+         
+         for(let i = 0; i < userOrder.currentCart.length; i++){
+                 total_amount += userOrder.currentCart[i].product.price * userOrder.currentCart[i].quantity;
+         }
+       
+         /*
+         userOrder.currentCart.find({},(err,result)=> {
+             if(!err){
+                 res.json(result);
+             }
+         })*/
+             
+         
+         await userOrder.save();
+         res.send({"message":"success"});
       
-        /*
-        userOrder.currentCart.find({},(err,result)=> {
-            if(!err){
-                res.json(result);
-            }
-        })*/
-            }
-        }
-        await userOrder.save();
-        res.send({"message":"success"});
     }
     catch(err)
     {

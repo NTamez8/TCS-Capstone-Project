@@ -316,6 +316,7 @@ describe('Test',(adminDone)=>{
             productModel.find({},(err,products)=>{
                 let product_ID = products[1]._id;
                 let quantityDesired = 5;
+                totalCost += products[1].price * quantityDesired
                  chai.request(server).post('/user/addItemstoCart').send({product_ID,quantityDesired}).set('Authorization','bearer ' + userToken).end((err,result)=>{
                      if(err)
                      {
@@ -333,6 +334,7 @@ describe('Test',(adminDone)=>{
             productModel.find({},(err,products)=>{
                 let product_ID = products[2]._id;
                 let quantityDesired = 5;
+                totalCost += products[2].price * quantityDesired
                  chai.request(server).post('/user/addItemstoCart').send({product_ID,quantityDesired}).set('Authorization','bearer ' + userToken).end((err,result)=>{
                      if(err)
                      {
@@ -409,7 +411,8 @@ describe('Test',(adminDone)=>{
             })
         })
         it('Should add funds so it can buy the cart',done=>{
-            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+            
+            chai.request(server).put('user/updateFunds').send({fundsRef:totalCost}).set('Authorization','bearer ' + userToken).end((err,result)=>{
                 if(err)
                 {
                     console.log(err);
@@ -421,46 +424,36 @@ describe('Test',(adminDone)=>{
                 done();
             })
         })
-             /*
+        it('Should be able checkout out the cart',done=>{
+            chai.request(server).get('/user/checkoutCart').set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                    done();
+                }
+               
+                result.should.have.status(200);
+               
+                
+                done();
+            })
+        })
+             
         it('Should have an order',done=>{
-            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+            chai.request(server).get('order/getUserOrder').send().set('Authorization','bearer ' + userToken).end((err,result)=>{
                 if(err)
                 {
                     console.log(err);
                     done();
                 }
                
-                
+                result.should.have.status(200);
                 
                 done();
             })
         })
-        it('Should edit profile',done=>{
-            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
-                if(err)
-                {
-                    console.log(err);
-                    done();
-                }
-               
-                
-                
-                done();
-            })
-        })
-        it('Should add funds',done=>{
-            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
-                if(err)
-                {
-                    console.log(err);
-                    done();
-                }
-               
-                
-                
-                done();
-            })
-        })*/
+       
+     
    
     
     
