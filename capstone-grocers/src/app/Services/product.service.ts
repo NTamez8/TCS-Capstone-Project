@@ -9,7 +9,7 @@ import { Product, ProductMessage } from 'src/app/Classes/product';
 export class ProductService {
 
   constructor(private http:HttpClient) { }
-  // we need both to be Arrays because of how Observables are returned from the HttpClient
+  // both need to be Arrays because of how Observables are returned from the HttpClient
   currentProduct:Array<Product>=[];
   currentProducts:Array<Product>=[];
 
@@ -26,6 +26,21 @@ export class ProductService {
     }else{
       return false;
     }
+  };
+
+  // return Product name based on ID
+  fetchProductName(product_id:String):String{
+    if(this.productExists(product_id)){
+      let name:String = "";
+      this.currentProducts.forEach(function (product){
+        if(product_id == product._id){
+          name = product.name;
+        }
+      });
+      return name;
+    }else{
+      return "Product ID Invalid";
+    };
   };
 
   // get all Products
