@@ -1,0 +1,43 @@
+URL: https://github.com/NTamez8/TCS-Capstone-Project.git for the non production build
+
+Duties 
+Add employee
+employeeController.js: This has the functions to handle adding an employee to the db
+employee.service.ts: This is the service that calls employeeController
+add-employee.component.html: This holds the look of the add employee component
+add-employee.component.ts: This is the component that uses the service to add the employee
+
+Delete employee
+employeeController.js: This is the controller for the employee and deletes the employee
+employee.service.ts: This is the service for the employee
+delete-employee.component.html: This holds the look for the delete employee component
+delete-employee.component.ts: this is the component that uses the service
+
+Generate report
+employeeController.js:same as previous
+employee.service.ts: same as previous
+report.component.html: This handles the look for the whole reporting page
+report.component.ts: this controls the getting of the reports
+report-table.component.html: This handles the look for individual types of reports
+report-table.component.ts: this controls how the reports look
+
+Admin logout
+sign-out.component.ts: This is the control for logging out
+sign-out.component.html: This logs the person out
+
+User Panel
+user-panel.component.html: This is the main panel for a user
+
+User Sign in
+sign-in.component.html: This is the user sign in look
+sign-in.component.ts: this is the logic for signing in
+
+User Sign up
+sign-up.component.html: This is the user sign up
+sign-up.component.ts:This takes and uses the info from the html component
+
+Other components
+multiPassport.js: This is used for authenticating users and allows for mulitple types
+user.guard.ts: This stops anyone from accessing areas unless they have a valid user token
+
+Other duties: Assisted with other teammates code and helped solve issues in integration of code. Also helped each teammate with their logic.
