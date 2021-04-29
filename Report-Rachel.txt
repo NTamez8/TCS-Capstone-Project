@@ -1,0 +1,66 @@
+Rachel Rajan
+TCS Employee ID: 1973347
+The github link to TCS Capstone project is https://github.com/NTamez8/TCS-Capstone-Project.git
+
+As per the requirements, I was assigned 5 tasks, some of the features of user like:
+1. Raise ticket
+2. Select Item
+3. Delete Item
+4. View Item
+5. Checkout
+
+1. Raise Ticket : Once the user attemps 3 unsucessful login attempts, the account gets locked,
+and can raise a ticket to unlock account.
+In the backend, ticketController.js, ticketModel.js and ticketRoute.js files were created.
+    a. In the ticketController.js file, where the users information, reason and status were taken and stored.
+    b. Model schema was created in tickeModel.js
+    c. Routing was done in ticketRoute.js
+In the frontend, a raise-ticket component was implemented under the user component to call the raiseTicket feature.
+
+2. Select Item : After user signs in (with authentication), for current user it redirects to the user dashboard, where it can see the products added
+by the admin panel, and subsequently add to the cart.
+In the backend,  userController.js, userModel.js and userRoute.js files were created.
+    a. userController.js, the parameters product and quantity were taken from the product table, check if 
+    cart was found, if cart was found, update the qunatity else push the product in the cart and save it.
+    b. userModel.js, user model schema was created.
+    c. Routing was done in userRoute.js
+In the frontend, a select-item component was implemented under the user component, table was created to display the products,
+and to call the addItemstoCart functionality using the Buy button.
+
+3. Delete Item : After adding items to the cart, can delete items from the cart accordingly.
+In the backend,  userController.js, userModel.js and userRoute.js files were utilized to create the delete item
+feature.
+    a. userController.js, the parameters user and product id were taken, iterate through the cart and 
+    splice the product in the cart and save it.
+    b. userModel.js, user model schema was created.
+    c. Routing was done in userRoute.js
+In the frontend, inside the select-item component under the user component, a delete item feature was added in the table
+and to call the deleteItemById functionality using the delete button.
+
+4. View Cart: After adding items to the cart, view the cart to proceed to checkout.
+In the backend, userController.js, userModel.js and userRoute.js files were utilized to create the view cart
+feature.
+    a. userController.js, find the current user and populate the cart, iterate through the cart and 
+    compute the total amount by taking product of product price and quantity and save it.
+    b. userModel.js, user model schema was created.
+    c. Routing was done in userRoute.js
+In the frontend, inside the view-cart component under the user component, a view cart feature and added the table
+to display the cart and to call the viewItemsfromCart functionality.
+
+5. Checkout: After viewing the cart, and confirming, the user checkout, and the total amount is deducted from
+the available funds, else shows insufficient funds to place an order while checkout.
+In the backend, userController.js, userModel.js and userRoute.js files were utilized to create the checkout cart
+feature.
+    a. userController.js, find current cart, create new order, iterate through the cart and compute the total amount by taking 
+    product of product price and quantity and deduct it from the available funds, save the date requested, and status.
+    Once checkout (placed an order), the current cart becomes empty.
+    b. userModel.js, user model schema was created.
+    c. Routing was done in userRoute.js
+In the frontend, inside the view-cart component under the user component, a checkout cart feature was added
+to call the checkoutCart functionality.
+
+
+
+
+
+
