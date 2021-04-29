@@ -13,9 +13,8 @@ let getDetailOfUser=(req,res)=>{
 let getLockedUsers = async (req,res,next)=>{
     try
     {
-        let tickets = await ticket.find({status:'unviewed'}).populate('user_ID');
-        console.log(tickets);
-        res.send(tickets);
+        let tickets = ticket.find({status:'unviewed'}).populate('user_ID');
+        res.send(tickets.user_ID);
     }
     catch(err)
     {
@@ -46,8 +45,12 @@ let raiseTicket = async (req,res)=>{
     })
   
 }
+<<<<<<< HEAD
+module.exports = {getDetailOfUser, raiseTicket,getLockedUsers}
+=======
 
 let deleteTicket = async (id)=>{
     await ticket.deleteOne({_id:id})
 }
 module.exports = {getDetailOfUser, raiseTicket,getLockedUsers,deleteTicket}
+>>>>>>> testBranch

@@ -24,7 +24,6 @@ let getAllRequests = async(req,res)=>{
 };
 
 let sendRequest=(req,res)=>{
-    console.log(req.body)
     let productdetails = new request({
         product_id:req.body.product_id,
         e_user:req.body.e_username,

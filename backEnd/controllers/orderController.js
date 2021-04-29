@@ -273,7 +273,6 @@ let getOrdersByCust = async (req, res, next) => {
         next(err)
     }
 }
-
 let getUserOrder = async (req,res,next)=>{
     try
     {
@@ -288,6 +287,7 @@ let getUserOrder = async (req,res,next)=>{
 }
 
 module.exports = {
+
     getUserOrder,
     getOrderById,
     updateOrderByStatus,
