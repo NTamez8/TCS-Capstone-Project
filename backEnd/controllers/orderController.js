@@ -273,9 +273,22 @@ let getOrdersByCust = async (req, res, next) => {
         next(err)
     }
 }
-
+let getUserOrder = async (req,res,next)=>{
+    try
+    {
+        let user = req.user;
+        let orders = await order.find({user_ID:user._id})
+        res.send(orders);
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
 
 module.exports = {
+
+    getUserOrder,
     getOrderById,
     updateOrderByStatus,
     getOrdersByDay,

@@ -1,6 +1,26 @@
+<h3>Unlocking User </h3>
+    <table class='table'>
+        <tr>
+            
+            <th>Ticket Raised Time</th>
+             
+            <th> reason </th>
+            <th>User </th>
+            <th>Resolve</th>
+           
+        </tr>
+<tr *ngFor="let dd of details">
+   
+    <td>{{dd.datetime_raised}}</td> 
+     
+    <td>{{dd.reason}}</td>
+    <td>{{dd.user_ID.firstName }} {{dd.user_ID.lastName}}</td>
+    <td><button (click)='unlock(dd.user_ID._id,dd._id)'>unlock user</button></td>
+    
+</tr>
+    </table>
 
-
-
+<!--
 <div>
 <h3>Unlocking User </h3>
     <table border="1">
@@ -26,26 +46,6 @@
 
 
     <hr/>
-    <!-- <form #userRef="ngForm" (ngSubmit)="unlockUser(userRef.value)">
-        <label>Username</label>
-        <input type="text" name="u_username"  ngModel><br/>
-        <label>Profile Status </label>
-     
-        
-            <select id="browsers" ngModel name='locked'>
-            <option  value="true">True</option>
-            <option value="false">False</option>
-            </select>
-        
-            
-
-          <br>
-
-
-        <input type="submit" value="upadate status" class="btn btn-primary m-1"/>
-        
-     </form>
-    {{userMsg}} -->
 
 
     <div class='row'>
@@ -64,13 +64,13 @@
                         </datalist>
                 </div>
                 <input type="submit" value='upadate status' />
-                <!-- [disabled] = "!userRef.valid"> -->
+              [disabled] = "!userRef.valid"> 
             </form>
         </div>
        
     </div>
 
-</div>
+</div>-->
 
 
 

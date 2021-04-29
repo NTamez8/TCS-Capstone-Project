@@ -1,5 +1,6 @@
 const express = require('express');
 const orderController = require('../controllers/orderController');
+const userAuth = require('../middleware/multiPassport')()
 const routes = express.Router();
 
 routes.get("/retriveOrderById/",orderController.getOrderById)
@@ -15,6 +16,6 @@ routes.post('/getOrderByDay',orderController.getOrdersByDay);
 // routes.get("/storeOrderStatus",orderController.storeOrderByStatus)
 //routes.get("/updateProductStatus",orderController.updateOrderByStatus)
 routes.get("/getorderstatus",orderController.getorderstatusToUser)
-
+routes.get('/getUserOrder',userAuth.authenticate('userAuth'),orderController.getUserOrder)
 
 module.exports = routes;

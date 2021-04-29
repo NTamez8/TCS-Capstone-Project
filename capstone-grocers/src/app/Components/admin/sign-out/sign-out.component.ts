@@ -13,8 +13,8 @@ export class SignOutComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  logout()
-  {
+  // delete the adminToken and go back to the homepage
+  logout(){
     sessionStorage.clear();
     this.router.navigateByUrl('');
   }

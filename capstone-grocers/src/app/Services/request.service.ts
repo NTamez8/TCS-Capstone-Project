@@ -55,6 +55,6 @@ export class RequestService {
 
   deleteRequestById(request_id:String){
     let token = 'bearer ' + sessionStorage.getItem('adminToken');
-    return this.http.post<{token:string}>("http://localhost:8080/request/deleteRequestById",{request_id},{headers:{'Authorization':token}});
+    return this.http.post("http://localhost:8080/request/deleteRequestById",{request_id},{headers:{"Authorization":token} ,responseType:'text'});
   }
 }

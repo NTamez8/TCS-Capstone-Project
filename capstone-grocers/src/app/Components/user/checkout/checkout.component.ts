@@ -18,7 +18,8 @@ export class CheckoutComponent implements OnInit {
   checkoutToCart(){
   
     this.userServ.checkoutCart().subscribe((result:any)=>{
-      this.msg=result.Message;
+      this.msg=result.msg;
+      if(this.msg != 'Insufficient funds to checkout')
       this.router.navigateByUrl('/userPanel');
     })
   }

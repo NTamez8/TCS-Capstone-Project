@@ -41,6 +41,7 @@ module.exports = ()=>{
     const userStrategy = new Stratagy(userParams, async (payload, done) => {
         
         const user = await User.findById(payload.id);
+       
         if (!user) {
             return done(new Error("User not found"), null);
         } else
