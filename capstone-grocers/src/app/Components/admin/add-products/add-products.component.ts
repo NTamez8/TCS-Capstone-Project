@@ -16,13 +16,16 @@ export class AddProductsComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // add a product
   async addProduct(productRef:NgForm){
+    // get form values
     const p_values = productRef.value;
+    // make a new product
     const product = new Product(p_values.p_name,p_values.p_description,p_values.p_price,p_values.p_quantity);
-    console.log("Adding Product!");
+
+    // add the product and refresh the products
     await this.productService.addProduct(product).subscribe(data=>{ 
       this.viewProductComponent.getAllProducts();
-      //sessionStorage.setItem('token',data.token);
     });
   }
 
