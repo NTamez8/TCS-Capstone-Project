@@ -24,14 +24,16 @@ let getAllRequests = async(req,res)=>{
 };
 
 let sendRequest=(req,res)=>{
+    let userID = req.user._id;
     let productdetails = new request({
         product_id:req.body.product_id,
-        e_user:req.body.e_username,
+        employee_id:userID,
         new_quantity:req.body.new_quantity,
         status:'',
         datetime_requested:Date.now(),
         datetime_resolved:null
         });
+    console.log(productdetails);
     productdetails.save((err,result)=>{
         if(!err){
             // res.send("request send  successfully"+result)

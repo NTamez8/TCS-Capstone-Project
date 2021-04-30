@@ -19,21 +19,22 @@
 
 <div class='row'>
     <div class='col-4 offset-4'>
+        <h1>Update Product Request</h1>
         <form #productRef = 'ngForm' (ngSubmit) = 'addProductQuntity(productRef.value)'>
-            <div>
-                <!-- {{msg}} -->
-            </div>
+           
             <div class='form-group'>
-                <label >Employee Name: </label><input type="text" name='e_user' required ngModel class="form-control">
+                <label>Product</label>
+                <select name = 'product_id' ngModel class='form-control'>
+                    <option *ngFor='let product of products' value='{{product._id}}' >{{product.name}}</option>
+                </select>
             </div>
-            <div class='form-group'>
-                <label >Product Id</label><input type="text" name='product_id' required ngModel class="form-control">
-            </div>
-
-            <div class='form-group'>
-                <label >New Quntity</label><input type="text" name='new_quantity' required ngModel class="form-control">
-            </div>
-            <input type="submit" value='store' />
+          
+                <div class='form-group'>
+                    <label >New Quntity</label><input type="text" name='new_quantity' required ngModel class="form-control">
+                </div>
+                <input type="submit" value='store' />
+        
+        
             <!-- [disabled] = "!userRef.valid"> -->
         </form>
     </div>

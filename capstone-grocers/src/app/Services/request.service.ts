@@ -50,7 +50,8 @@ export class RequestService {
   // send a Request
   sendRequest(productRef:any){
     // changed response type
-    return this.http.post("http://localhost:8080/request/sendRequest",productRef,{responseType:"text"});
+    let token = 'bearer ' + sessionStorage.getItem('token');
+    return this.http.post("http://localhost:8080/request/sendRequest",productRef,{headers:{'Authorization':token},responseType:"text"});
   }
 
   // resolve a Request

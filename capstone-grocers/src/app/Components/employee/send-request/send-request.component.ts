@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from 'src/app/Classes/product';
+import { ProductService } from 'src/app/Services/product.service';
 import { RequestService } from 'src/app/Services/request.service';
 
 @Component({
@@ -9,17 +11,20 @@ import { RequestService } from 'src/app/Services/request.service';
 export class SendRequestComponent implements OnInit {
 
 
-
-  constructor(public productSer:RequestService) { }
+  products:Product[] = [];
+ 
+  constructor(public productSer:RequestService,private prodServ:ProductService) { 
+    prodServ.getAllProducts().subscribe(data=>{this.products = data})
+  }
   ngOnInit(): void {
   }
   addProductQuntity(productRef:any){
-    console.log(productRef);
+   
     this.productSer.sendRequest(productRef).subscribe(data=>{console.log(data)})
     
       }
   
-
+     
   
 
 }
