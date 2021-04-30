@@ -10,7 +10,7 @@ import { RequestService } from 'src/app/Services/request.service';
 })
 export class SendRequestComponent implements OnInit {
 
-
+ msg:string = '';
   products:Product[] = [];
  
   constructor(public productSer:RequestService,private prodServ:ProductService) { 
@@ -20,7 +20,12 @@ export class SendRequestComponent implements OnInit {
   }
   addProductQuntity(productRef:any){
    
-    this.productSer.sendRequest(productRef).subscribe(data=>{})
+    this.productSer.sendRequest(productRef).subscribe(data=>{
+      this.msg = 'request sent';
+      setTimeout(() => {
+        this.msg = '';
+      }, 1000);
+    })
     
       }
   
