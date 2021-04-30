@@ -1,0 +1,23 @@
+Pruthviraj Mandala
+TCS Employee ID: 1972562
+The github link to TCS Capstone project is https://github.com/NTamez8/TCS-Capstone-Project.git
+
+As per the requirements, I was assigned 6 tasks, some of the features of user & Employee like:
+1. Order Status
+2. Edit Profile 
+3. Funds
+4. Logout
+5. Employee panel
+6.signin
+
+1. Order Status : orderstatus is based on the orders order and the status will be changed from employee end and it is been retrieved in the frontend on user panel along with time and date
+
+2. Edit Profile : In this after signup if user wants to edit his profile he or she can chane Password of the user and basic details like address,date of birth and phonenumber. and it will be updated in database by replacing old values. 
+
+3. Funds : By Default inital funds are added and if user wants to but products the amount is being deducted from the account for the ordered products and if the user cacels the order the amount is added back in to the account.
+
+4.Logout : this component is used for user to come out of user panel.
+
+5.Employee panel : Employee panel is like navigation bar for unlocking users and updating orderstatus.
+
+6.Sign in : it is for employee sign in and which is encrypted for login if emplyee is successfully logged in it naviages to employee panel.
