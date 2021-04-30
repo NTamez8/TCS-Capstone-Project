@@ -1,5 +1,7 @@
+import { User } from 'src/app/Classes/user';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/Services/user.service';
+
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',

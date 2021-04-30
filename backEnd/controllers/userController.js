@@ -438,9 +438,9 @@ let unlockLockUser=async(req,res,next)=>{
 let updateProfile=(req,res)=>{
     let u_username=req.body.user
     let address=req.body.address;
-    let date_of_birth=req.body.date_of_birth;
     let phone_number=req.body.phone_number;
-    user.updateMany({u_username:u_username},{$set:{address:address,date_of_birth:date_of_birth,phone_number:phone_number}},(err,result)=>{
+    let date_of_birth=req.body.date_of_birth;
+    user.updateMany({u_username:u_username},{$set:{address:address,phone_number:phone_number,date_of_birth:date_of_birth}},(err,result)=>{
         if(!err){
             if(result.nModified>0){
             res.send("Profile updated succesfully"+result)

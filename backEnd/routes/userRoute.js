@@ -30,4 +30,5 @@ routes.put("/updateProfile",userController.updateProfile)
 routes.put("/updatePassword",userController.updatePassword)
 routes.put("/updateFunds",userController.updateFunds)
 routes.put("/unlockLockUser",userController.unlockLockUser)
+
 module.exports = routes;
