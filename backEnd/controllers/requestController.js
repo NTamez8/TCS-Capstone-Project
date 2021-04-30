@@ -33,7 +33,7 @@ let sendRequest=(req,res)=>{
         datetime_requested:Date.now(),
         datetime_resolved:null
         });
-    console.log(productdetails);
+   
     productdetails.save((err,result)=>{
         if(!err){
             // res.send("request send  successfully"+result)

@@ -20,7 +20,7 @@ export class SendRequestComponent implements OnInit {
   }
   addProductQuntity(productRef:any){
    
-    this.productSer.sendRequest(productRef).subscribe(data=>{console.log(data)})
+    this.productSer.sendRequest(productRef).subscribe(data=>{})
     
       }
   
