@@ -5,6 +5,8 @@ const userModel = require('../models/userModel');
 let chai = require('chai');
 let http = require('chai-http');
 let server = require('../index');
+
+const orderModel = require('../models/orderModel');
 let should = chai.should();
 chai.use(http);
 
@@ -24,7 +26,7 @@ describe('Test',(adminDone)=>{
               
                 result.should.have.status(200);
                 adminToken = result.body.token;
-                console.log();
+            
                 done();
             })
         })
@@ -153,6 +155,7 @@ describe('Test',(adminDone)=>{
             };
             chai.request(server).post('/product/addProduct').send({product}).set('Authorization','bearer ' + adminToken).end((err,res)=>{
                 res.should.have.status(200);
+             prodID = res.body._id;
                 done();
             })
         })
@@ -191,12 +194,18 @@ describe('Test',(adminDone)=>{
                 product_id: prodID
             }
             chai.request(server).post('/product/deleteProductById').send(deleteObject).set('Authorization','bearer ' + adminToken).end((err,res)=>{
+                if(err)
+                {
+                    console.log(err)
+                    done();
+                }
+                
                 res.should.have.status(200);
                 done();
             })
         })
 
-        adminDone();
+       
        
     
     
@@ -241,8 +250,11 @@ describe('Test',(adminDone)=>{
 
     });
     
-    describe('User',(userDone)=>{
+    describe('User',()=>{
         let userToken = '';
+        let totalCost = 0;
+        let OriginalQuantity = 0;
+        let product_ID;
         it('Should sign up',done=>{
             let user = {
                 firstName:"test",
@@ -257,7 +269,7 @@ describe('Test',(adminDone)=>{
                 if(err)
                 {
                     console.log(err);
-                    done();
+                   
                 }
                 result.should.have.status(200);
                 userToken = result.body.token;
@@ -274,7 +286,7 @@ describe('Test',(adminDone)=>{
                 if(err)
                 {
                     console.log(err);
-                    done();
+                   
                 }
                 result.should.have.status(200);
                 result.body.token.should.equal(userToken);
@@ -283,52 +295,140 @@ describe('Test',(adminDone)=>{
                 done();
             })
         })
-        it('Should add to cart',done=>{
-            
-            chai.request(server).post('/user/addItemstoCart').send().set('Authorization','bearer ' + userToken).end((err,result)=>{
-                if(err)
-                {
-                    console.log(err);
-                    done();
-                }
+        it('Should first item to cart', (done)=>{
+            productModel.find({},(err,products)=>{
                
-                
-                
-                done();
-            })
+             product_ID = products[0]._id;
+                OriginalQuantity = products[0].quantity;
+                let quantityDesired = 5;
+                totalCost += products[0].price * quantityDesired
+                 chai.request(server).post('/user/addItemstoCart').send({product_ID,quantityDesired}).set('Authorization','bearer ' + userToken).end((err,result)=>{
+                     if(err)
+                     {
+                         console.log(err);
+                         
+                     }
+                    productModel.findOne({_id:product_ID},(err,product)=>{
+                        let currentQuantiry = product.quantity;
+                        currentQuantiry.should.be.eq(eval(OriginalQuantity - quantityDesired))
+                        result.should.have.status(200);
+                     
+                     done();
+                    })
+                     
+                 })
+            });
+         
         })
-        it('Should add to cart',done=>{
-            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
-                if(err)
-                {
-                    console.log(err);
-                    done();
-                }
-               
-                
-                
-                done();
-            })
+        it('Should add to cart', (done)=>{
+            productModel.find({},(err,products)=>{
+                let product_ID = products[1]._id;
+                let quantityDesired = 5;
+                totalCost += products[1].price * quantityDesired
+                 chai.request(server).post('/user/addItemstoCart').send({product_ID,quantityDesired}).set('Authorization','bearer ' + userToken).end((err,result)=>{
+                     if(err)
+                     {
+                         console.log(err);
+                       
+                     }
+                    
+                     result.should.have.status(200);
+                     
+                     done();
+                 })
+            });
         })
-        it('Should add to cart',done=>{
-            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
-                if(err)
-                {
-                    console.log(err);
-                    done();
-                }
-               
-                
-                
-                done();
-            })
+        it('Should add to cart', (done)=>{
+            productModel.find({},(err,products)=>{
+                let product_ID = products[2]._id;
+                let quantityDesired = 5;
+                totalCost += products[2].price * quantityDesired
+                 chai.request(server).post('/user/addItemstoCart').send({product_ID,quantityDesired}).set('Authorization','bearer ' + userToken).end((err,result)=>{
+                     if(err)
+                     {
+                         console.log(err);
+                       
+                     }
+                    
+                     result.should.have.status(200);
+                     
+                     done();
+                 })
+            });
         })
         it('Should have three cart product in cart',done=>{
-            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+            chai.request(server).get('/user/viewItemsFromCart').set('Authorization','bearer ' + userToken).end((err,result)=>{
                 if(err)
                 {
                     console.log(err);
+                   
+                }
+               
+                result.should.have.status(200);
+                result.body.should.have.length(3);
+            
+                done();
+            })
+        })
+        it('Should remove first item from cart', (done)=>{
+            productModel.find({},(err,products)=>{
+                let id = products[0]._id;
+                chai.request(server).delete('/user/deleteItemsfromCart/'+id).set('Authorization','bearer ' + userToken).end((err,result)=>{
+                    if(err)
+                    {
+                        console.log(err);
+                      
+                    }
+                   productModel.findOne({_id:product_ID},(err,product)=>{
+                    product.quantity.should.be.eq(OriginalQuantity);
+
                     done();
+                   })
+                   // response.should.have.status(200);
+                  
+                    
+                })
+            });
+           
+        })
+        
+        it('Should have two item in cart',done=>{
+            chai.request(server).get('/user/viewItemsFromCart').set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                  
+                }
+               
+                result.should.have.status(200);
+                result.body.should.have.length(2);
+            
+                done();
+            })
+        })
+   
+        it('Should be unable to checkout out the cart',done=>{
+            chai.request(server).get('/user/checkoutCart').set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                   
+                }
+               
+                result.should.have.status(200);
+                result.body.msg.should.be.eq('Insufficient funds to checkout')
+                
+                
+                done();
+            })
+        })
+        it('Should add funds so it can buy the cart',done=>{
+          
+            chai.request(server).put('/user/updateFunds').send({fundsRef:totalCost}).set('Authorization','bearer ' + userToken).end((err,result)=>{
+                if(err)
+                {
+                    console.log(err);
+                   
                 }
                
                 
@@ -336,85 +436,46 @@ describe('Test',(adminDone)=>{
                 done();
             })
         })
-        it('Should remove from cart',done=>{
-            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
+        it('Should be able checkout out the cart',done=>{
+            chai.request(server).get('/user/checkoutCart').set('Authorization','bearer ' + userToken).end((err,result)=>{
                 if(err)
                 {
                     console.log(err);
-                    done();
+                   
                 }
                
-                
+                result.body.msg.should.be.eq('Cart checkout successful')
+               
                 
                 done();
             })
         })
-        it('Should have one item in cart',done=>{
-            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
-                if(err)
-                {
-                    console.log(err);
+             
+        it('Should have an order',done=>{ 
+            productModel.find({},(err,products)=>{
+
+                chai.request(server).get('/order/getUserOrder').set('Authorization','bearer ' + userToken).end((err,result)=>{
+                    if(err)
+                    {
+                        console.log(err);
+                      
+                    }
+                   
+                  result.should.have.status(200);
+                  
+                  let first = result.body[0].cart[0].product;
+                  let second = products[1]._id.toString();
+                  first.should.be.eq(second);
+                    
                     done();
-                }
-               
-                
-                
-                done();
-            })
+                })
+
         })
-        it('Should checkout out the cart',done=>{
-            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
-                if(err)
-                {
-                    console.log(err);
-                    done();
-                }
-               
-                
-                
-                done();
-            })
+           
         })
-        it('Should have an order',done=>{
-            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
-                if(err)
-                {
-                    console.log(err);
-                    done();
-                }
-               
-                
-                
-                done();
-            })
-        })
-        it('Should edit profile',done=>{
-            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
-                if(err)
-                {
-                    console.log(err);
-                    done();
-                }
-               
-                
-                
-                done();
-            })
-        })
-        it('Should add funds',done=>{
-            chai.request(server).post().send().set('Authorization','bearer ' + userToken).end((err,result)=>{
-                if(err)
-                {
-                    console.log(err);
-                    done();
-                }
-               
-                
-                
-                done();
-            })
-        })
-    userDone();
+       
+     
+   
     
     
     })
@@ -426,7 +487,7 @@ describe('Test',(adminDone)=>{
     employeeModel.deleteMany({},()=>{})
     productModel.deleteMany({},()=>{})
     userModel.deleteMany({},()=>{})
-
+    orderModel.deleteMany({},()=>{})
 
 
 })
