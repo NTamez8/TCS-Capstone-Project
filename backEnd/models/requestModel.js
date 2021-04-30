@@ -8,6 +8,7 @@ let request = new schema({
    // product_id:Number,              //_id in "productModel.js"
    employee_id:{type:schema.Types.ObjectId, ref:'Employee'},
    product_id:{type:schema.Types.ObjectId, ref:'Product'},
+   product_name:{type:schema.Types.String, ref:'Product'},
     new_quantity:Number,
     datetime_requested:Date,
     datetime_resolved:Date,

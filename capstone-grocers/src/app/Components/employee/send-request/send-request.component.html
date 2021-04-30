@@ -25,8 +25,8 @@
            
             <div class='form-group'>
                 <label>Product</label>
-                <select name = 'product_id' ngModel class='form-control'>
-                    <option *ngFor='let product of products' value='{{product._id}}' >{{product.name}}</option>
+                <select name = 'product' ngModel class='form-control'>
+                    <option *ngFor='let product of products' name="product" value='{{product._id}},{{product.name}}' >{{product.name}}</option>
                 </select>
             </div>
           
