@@ -38,7 +38,7 @@
                 <tr>
                     <th scope="col">Request</th>
                     <th scope="col">Employee</th>
-                    <th scope="col">Product ID</th>
+                    <th scope="col">Product Name</th>
                     <th scope="col">Quantity Requested</th>
                     <th scope="col">Time Requested</th>
                     <th scope="col">Time Resolved</th>
@@ -52,7 +52,7 @@
                 <tr *ngFor="let request of requestService.currentRequests;index as i;">
                     <th scope="row">{{i+1}}</th>
                     <td>{{request.employee_id}}</td>
-                    <td>{{request.product_id}}</td>
+                    <td>{{request.product_name}}</td>
                     <td>{{request.new_quantity}}</td>
                     <td>{{request.datetime_requested}}</td>
                     <td>{{request.datetime_resolved}}</td>
@@ -75,7 +75,7 @@
                 <tr *ngFor="let request of requestService.currentRequest">
                     <th scope="row">{{getRequestIndex(request)+1}}</th>
                     <td>{{request.employee_id}}</td>
-                    <td>{{request.product_id}}</td>
+                    <td>{{request.product_name}}</td>
                     <td>{{request.new_quantity}}</td>
                     <td>{{request.datetime_requested}}</td>
                     <td>{{request.datetime_resolved}}</td>

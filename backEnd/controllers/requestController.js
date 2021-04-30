@@ -1,4 +1,5 @@
 const request = require('../models/requestModel');
+const productController = require("./productController");
 
 let getRequestById = async(req,res)=>{
     //console.log(req.params.request_id);
@@ -23,10 +24,12 @@ let getAllRequests = async(req,res)=>{
     });
 };
 
-let sendRequest=(req,res)=>{
+let sendRequest = async(req,res)=>{
     let userID = req.user._id;
+    let product = req.body.product.split(",");
     let productdetails = new request({
-        product_id:req.body.product_id,
+        product_id:product[0],
+        product_name:product[1],
         employee_id:userID,
         new_quantity:req.body.new_quantity,
         status:'',
